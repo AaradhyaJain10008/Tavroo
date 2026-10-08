@@ -30,7 +30,7 @@
     </div>
 
     <main class="catalog-grid" id="catalog-grid">
-        <article class="catalog-card" data-category="casual">
+        <article class="catalog-card" data-category="casual" data-name="Chocolate Pinstripe Shirt" data-price="₹1,499" data-image="assets/products/chocolate-pinstripe-shirt.png" data-alt="Model wearing a chocolate brown pinstripe shirt" data-material="Lightweight cotton blend" data-fit="Tailored fit" data-sizes="XS, S, M, L, XL">
             <span class="catalog-card-tag">Casual shirt</span>
             <div class="catalog-card-img"><img src="assets/products/chocolate-pinstripe-shirt.png" alt="Model wearing a chocolate brown pinstripe shirt"></div>
             <div>
@@ -39,11 +39,11 @@
             </div>
             <div class="catalog-card-footer">
                 <strong>₹1,499</strong>
-                <a href="showcase.html" class="btn-secondary">View in Showcase</a>
+                <button type="button" class="btn-secondary catalog-details-btn">View details</button>
             </div>
         </article>
 
-        <article class="catalog-card" data-category="casual">
+        <article class="catalog-card" data-category="casual" data-name="Blush Stripe Relaxed Shirt" data-price="₹1,199" data-image="assets/products/blush-stripe-shirt.png" data-alt="Model wearing a blush pink striped relaxed shirt" data-material="Breathable viscose blend" data-fit="Relaxed fit" data-sizes="XS, S, M, L, XL">
             <span class="catalog-card-tag">Casual shirt</span>
             <div class="catalog-card-img"><img src="assets/products/blush-stripe-shirt.png" alt="Model wearing a blush pink striped relaxed shirt"></div>
             <div>
@@ -52,11 +52,11 @@
             </div>
             <div class="catalog-card-footer">
                 <strong>₹1,199</strong>
-                <a href="showcase.html" class="btn-secondary">View in Showcase</a>
+                <button type="button" class="btn-secondary catalog-details-btn">View details</button>
             </div>
         </article>
 
-        <article class="catalog-card" data-category="denim">
+        <article class="catalog-card" data-category="denim" data-name="Indigo Utility Denim Shirt" data-price="₹1,799" data-image="assets/products/indigo-denim-shirt.png" data-alt="Model wearing an indigo denim short sleeve shirt" data-material="100% cotton denim" data-fit="Relaxed utility fit" data-sizes="S, M, L, XL, XXL">
             <span class="catalog-card-tag">Denim shirt</span>
             <div class="catalog-card-img"><img src="assets/products/indigo-denim-shirt.png" alt="Model wearing an indigo denim short sleeve shirt"></div>
             <div>
@@ -65,11 +65,11 @@
             </div>
             <div class="catalog-card-footer">
                 <strong>₹1,799</strong>
-                <a href="showcase.html" class="btn-secondary">View in Showcase</a>
+                <button type="button" class="btn-secondary catalog-details-btn">View details</button>
             </div>
         </article>
 
-        <article class="catalog-card" data-category="casual">
+        <article class="catalog-card" data-category="casual" data-name="Olive Colourblock Shirt" data-price="₹1,599" data-image="assets/products/olive-colourblock-shirt.png" data-alt="Model wearing an olive and ivory colourblock shirt" data-material="Soft cotton-linen blend" data-fit="Easy relaxed fit" data-sizes="XS, S, M, L, XL">
             <span class="catalog-card-tag">Casual shirt</span>
             <div class="catalog-card-img"><img src="assets/products/olive-colourblock-shirt.png" alt="Model wearing an olive and ivory colourblock shirt"></div>
             <div>
@@ -78,10 +78,28 @@
             </div>
             <div class="catalog-card-footer">
                 <strong>₹1,599</strong>
-                <a href="showcase.html" class="btn-secondary">View in Showcase</a>
+                <button type="button" class="btn-secondary catalog-details-btn">View details</button>
             </div>
         </article>
     </main>
+
+    <dialog class="product-dialog" id="product-dialog" aria-labelledby="product-dialog-name">
+        <button type="button" class="product-dialog-close" aria-label="Close product details">×</button>
+        <div class="product-dialog-grid">
+            <div class="product-dialog-image"><img id="product-dialog-image" src="" alt=""></div>
+            <div class="product-dialog-content">
+                <p class="product-dialog-kicker">Tavroo shirt edit</p>
+                <h2 id="product-dialog-name"></h2>
+                <p class="product-dialog-price" id="product-dialog-price"></p>
+                <dl class="product-dialog-specs">
+                    <div><dt>Material</dt><dd id="product-dialog-material"></dd></div>
+                    <div><dt>Fit</dt><dd id="product-dialog-fit"></dd></div>
+                    <div><dt>Sizes</dt><dd id="product-dialog-sizes"></dd></div>
+                </dl>
+                <p class="product-dialog-note">Product availability will be confirmed before checkout.</p>
+            </div>
+        </div>
+    </dialog>
 
     <footer>
         <p>&copy; 2026 <strong>Tavroo</strong> Studio. All rights reserved. | Wear Your Point of View</p>
@@ -91,6 +109,15 @@
         document.addEventListener('DOMContentLoaded', () => {
             const filterBtns = document.querySelectorAll('.filter-btn');
             const cards = document.querySelectorAll('.catalog-card');
+            const detailButtons = document.querySelectorAll('.catalog-details-btn');
+            const productDialog = document.querySelector('#product-dialog');
+            const closeDialogButton = document.querySelector('.product-dialog-close');
+            const dialogImage = document.querySelector('#product-dialog-image');
+            const dialogName = document.querySelector('#product-dialog-name');
+            const dialogPrice = document.querySelector('#product-dialog-price');
+            const dialogMaterial = document.querySelector('#product-dialog-material');
+            const dialogFit = document.querySelector('#product-dialog-fit');
+            const dialogSizes = document.querySelector('#product-dialog-sizes');
 
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -106,6 +133,25 @@
                         }
                     });
                 });
+            });
+
+            detailButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const product = button.closest('.catalog-card').dataset;
+                    dialogImage.src = product.image;
+                    dialogImage.alt = product.alt;
+                    dialogName.textContent = product.name;
+                    dialogPrice.textContent = product.price;
+                    dialogMaterial.textContent = product.material;
+                    dialogFit.textContent = product.fit;
+                    dialogSizes.textContent = product.sizes;
+                    productDialog.showModal();
+                });
+            });
+
+            closeDialogButton.addEventListener('click', () => productDialog.close());
+            productDialog.addEventListener('click', event => {
+                if (event.target === productDialog) productDialog.close();
             });
         });
     </script>
