@@ -238,7 +238,7 @@ body::-webkit-scrollbar-thumb,
     box-shadow: 0 0 45px var(--glow-pink), 0 0 70px var(--glow-cyan);
 }
 
-.btn-secondary {
+.btn-secondary { outline: none;  outline: none;  outline: none; 
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -879,7 +879,7 @@ input:checked + .slider:before {
     padding: 0 2rem;
 }
 
-.filter-btn {
+.filter-btn { outline: none;  outline: none;  outline: none; 
     padding: 0.8rem 1.8rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.15);
