@@ -1061,3 +1061,7 @@ input:checked + .slider:before { transform: translateX(24px); }
         grid-template-columns: 1fr;
     }
 }
+
+.logo img { height: 40px; width: auto; display: block; }
+.logo img { height: 40px; width: auto; display: block; }
+.logo img { height: 40px; width: auto; display: block; }
