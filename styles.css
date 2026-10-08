@@ -131,6 +131,8 @@ body::-webkit-scrollbar-thumb,
     gap: 0.75rem;
     text-decoration: none;
     color: #ffffff;
+    flex: 1 1 0;
+    min-width: 0;
 }
 
 .tavro-logo-svg {
@@ -163,21 +165,26 @@ body::-webkit-scrollbar-thumb,
 
 .persistent-brand {
     font-family: var(--font-heading);
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     font-weight: 600;
     letter-spacing: 5px;
     text-transform: uppercase;
     color: var(--text-muted);
-    margin-left: 3.5rem;
-    padding-left: 2rem;
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    text-align: center;
+    margin: 0;
+    padding: 0 1.5rem;
     white-space: nowrap;
+    flex: 1 1 0;
+    opacity: 0.85;
 }
 
 .links {
     display: flex;
-    gap: 2.4rem;
+    gap: 2.2rem;
     align-items: center;
+    justify-content: flex-end;
+    flex: 1 1 0;
+    white-space: nowrap;
 }
 
 .links a {
