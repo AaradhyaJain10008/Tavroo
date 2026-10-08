@@ -11,7 +11,7 @@
       gtag('config', 'G-D3SFVX78SR');
     </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>3D Runway Atelier - TAVROO Contemporary Fashion</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="styles.css">
@@ -40,10 +40,17 @@
             <a href="about.html">About & Contact</a>
         </div>
     </nav>
+
+    <!-- Mobile View Switcher Segmented Control (Active on Phone / Tablet) -->
+    <div class="mobile-view-tabs" id="mobile-view-tabs">
+        <button class="mobile-tab-btn active" data-target="center-panel">⚡ 3D Runway</button>
+        <button class="mobile-tab-btn" data-target="left-panel">👤 Avatar Controls</button>
+        <button class="mobile-tab-btn" data-target="apparel-panel">🧥 Garments</button>
+    </div>
     
     <main class="showcase-grid">
         <!-- Left Column (Base Customisation Panel) -->
-        <aside class="panel left-panel glass-panel">
+        <aside class="panel left-panel glass-panel" id="left-panel">
             <h2>Avatar Silhouette</h2>
             <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Sculpt your realistic 3D model figure in real-time.</p>
             
@@ -68,7 +75,7 @@
             </div>
 
             <div class="control-group">
-                <label>3D Hair Style <span class="badge-readout" id="hair-badge">3D Editorial Side-Part</span></label>
+                <label>3D Hair Style <span class="badge-readout" id="hair-badge">3D Editorial Glamour Waves</span></label>
                 <select id="hair-style">
                     <option value="side-part" selected>3D Editorial Glamour Waves</option>
                     <option value="short-crop">3D Modern Textured Quiff / Crop</option>
@@ -82,7 +89,7 @@
                 <label>Hair Color</label>
                 <div style="display: flex; gap: 10px; align-items: center;">
                     <input type="color" id="hair-color" value="#3a2212" style="height: 38px; width: 60px; padding: 2px;">
-                    <span style="font-size: 0.85rem; color: var(--text-muted);" id="hair-color-name">Chestnut Brown</span>
+                    <span style="font-size: 0.85rem; color: var(--text-muted);" id="hair-color-name">#3A2212</span>
                 </div>
             </div>
 
@@ -115,7 +122,7 @@
             </div>
 
             <div class="control-group">
-                <label>Height Scale</label>
+                <label>Height Scale (Proportional Legs & Torso)</label>
                 <input type="range" id="height-slider" min="0.85" max="1.15" step="0.01" value="1.0">
             </div>
         </aside>
@@ -151,11 +158,11 @@
             <div class="hover-label" id="region-label">CLICK 3D BODY ZONE TO DRESS</div>
             
             <div class="orbit-hint">
-                <span>🖱️ Click & Drag to Rotate 360°</span>
+                <span>🖱️ / 📱 Touch & Drag 360°</span>
                 <span class="divider">•</span>
-                <span>🔍 Scroll to Zoom</span>
+                <span>🔍 Pinch to Zoom</span>
                 <span class="divider">•</span>
-                <span>✨ Click Model Body to Choose Garments</span>
+                <span>✨ Tap Body Zone to Dress</span>
             </div>
         </section>
 
@@ -165,7 +172,7 @@
                 <div style="text-align: center; padding: 2.5rem 1rem;">
                     <div style="font-size: 2.8rem; margin-bottom: 1rem; opacity: 0.9;">🧥</div>
                     <h3 style="font-family: var(--font-heading); margin-bottom: 0.8rem; font-size: 1.25rem; letter-spacing: 1px; text-transform: uppercase;">Select a Body Zone</h3>
-                    <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.7;">Click on Head, Torso, Legs, or Feet on the central figure to view uniquely designed garments and try them on.</p>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.7;">Click on Head, Torso, or Legs on the central figure to view uniquely designed garments and try them on.</p>
                 </div>
             </div>
             
@@ -219,11 +226,84 @@
                 </div>
 
                 <button class="btn-remove-garment" id="remove-garment-btn"><span>✕</span> Remove Current Garment</button>
+                <button type="button" class="btn-primary full-width mobile-only-action" id="view-3d-model-btn" style="margin-top: 0.8rem; background: var(--accent-gold); color: #08080a; font-weight: 700; border: none; padding: 0.85rem; border-radius: 30px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">⚡ View on 3D Runway</button>
                 <a href="catalog.html" id="collection-link" class="btn-primary full-width" style="margin-top: 1.2rem; width: 100%;">View Full Lookbook Collection</a>
             </div>
         </aside>
     </main>
-    
+
+    <script>
+        // Global Mobile Tab Switcher for seamless Phone / Tablet UX
+        window.switchMobileTab = function(target) {
+            const tabs = document.querySelectorAll('.mobile-tab-btn');
+            const leftPanel = document.getElementById('left-panel');
+            const centerPanel = document.getElementById('center-panel');
+            const apparelPanel = document.getElementById('apparel-panel');
+
+            tabs.forEach(t => {
+                if (t.getAttribute('data-target') === target) {
+                    t.classList.add('active');
+                } else {
+                    t.classList.remove('active');
+                }
+            });
+
+            if (window.innerWidth <= 1024) {
+                if (target === 'left-panel') {
+                    if (leftPanel) leftPanel.style.display = 'block';
+                    if (centerPanel) centerPanel.style.display = 'none';
+                    if (apparelPanel) apparelPanel.style.display = 'none';
+                } else if (target === 'center-panel') {
+                    if (leftPanel) leftPanel.style.display = 'none';
+                    if (centerPanel) centerPanel.style.display = 'flex';
+                    if (apparelPanel) apparelPanel.style.display = 'none';
+                    setTimeout(() => {
+                        window.dispatchEvent(new Event('resize'));
+                    }, 50);
+                } else if (target === 'apparel-panel') {
+                    if (leftPanel) leftPanel.style.display = 'none';
+                    if (centerPanel) centerPanel.style.display = 'none';
+                    if (apparelPanel) apparelPanel.style.display = 'block';
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.mobile-tab-btn');
+            const leftPanel = document.getElementById('left-panel');
+            const centerPanel = document.getElementById('center-panel');
+            const apparelPanel = document.getElementById('apparel-panel');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-target');
+                    window.switchMobileTab(target);
+                });
+            });
+
+            const view3DModelBtn = document.getElementById('view-3d-model-btn');
+            if (view3DModelBtn) {
+                view3DModelBtn.addEventListener('click', () => {
+                    window.switchMobileTab('center-panel');
+                });
+            }
+
+            function handleBreakpoint() {
+                if (window.innerWidth > 1024) {
+                    if (leftPanel) leftPanel.style.display = 'block';
+                    if (centerPanel) centerPanel.style.display = 'flex';
+                    if (apparelPanel) apparelPanel.style.display = 'block';
+                } else {
+                    const activeTab = document.querySelector('.mobile-tab-btn.active');
+                    const target = activeTab ? activeTab.getAttribute('data-target') : 'center-panel';
+                    window.switchMobileTab(target);
+                }
+            }
+
+            handleBreakpoint();
+            window.addEventListener('resize', handleBreakpoint);
+        });
+    </script>
     <script src="app.js"></script>
 </body>
 </html>
