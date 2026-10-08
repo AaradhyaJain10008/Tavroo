@@ -163,11 +163,15 @@ body::-webkit-scrollbar-thumb,
 
 .persistent-brand {
     font-family: var(--font-heading);
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 600;
     letter-spacing: 5px;
     text-transform: uppercase;
     color: var(--text-muted);
+    margin-left: 3.5rem;
+    padding-left: 2rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    white-space: nowrap;
 }
 
 .links {
@@ -1303,41 +1307,70 @@ footer {
     left: 0;
     width: 100%;
     z-index: 1000;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+.site-header-wrapper.nav-hidden {
+    transform: translateY(-100%);
 }
 
 .announcement-bar {
-    background: linear-gradient(90deg, #07070a 0%, #151520 50%, #07070a 100%);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-    padding: 0.55rem 1.5rem;
+    background: rgba(8, 8, 12, 0.96);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 0.75rem 4rem;
     font-family: var(--font-heading);
     font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 2px;
+    font-weight: 500;
+    letter-spacing: 2.2px;
     text-transform: uppercase;
     color: var(--accent-champagne);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 2rem;
     transition: all 0.3s ease;
 }
 
-.announcement-bar a {
+.announcement-left {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #e4e4ee;
+    font-size: 0.70rem;
+    white-space: nowrap;
+}
+
+.announcement-center {
+    letter-spacing: 2.4px;
+    color: var(--accent-champagne);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.announcement-right {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    font-size: 0.70rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.announcement-right a {
     color: #ffffff;
-    text-decoration: underline;
-    margin-left: 0.5rem;
+    text-decoration: none;
     transition: color 0.2s ease;
 }
 
-.announcement-bar a:hover {
+.announcement-right a:hover {
     color: var(--accent-gold);
 }
 
-.announcement-meta {
-    display: flex;
-    gap: 1.2rem;
-    align-items: center;
-    font-size: 0.68rem;
-    color: var(--text-muted);
+.announcement-dot {
+    color: var(--accent-gold);
+    font-size: 0.6rem;
 }
 
 /* Adjust glass-nav when under announcement bar */
@@ -1345,6 +1378,11 @@ footer {
     position: relative;
     top: auto;
     left: auto;
+}
+
+.nav-brand-group {
+    display: flex;
+    align-items: center;
 }
 
 /* Mobile Nav Toggle & Drawer */
@@ -1438,8 +1476,8 @@ footer {
 /* Homepage Hero Refinements */
 .landing-page .hero-container {
     min-height: 100vh;
-    padding-top: 7rem;
-    padding-bottom: 4rem;
+    padding-top: 14rem;
+    padding-bottom: 5.5rem;
 }
 
 .hero-stats-row {
@@ -2117,10 +2155,16 @@ footer {
     .announcement-bar {
         font-size: 0.65rem;
         letter-spacing: 1.5px;
-        padding: 0.45rem 1rem;
+        padding: 0.5rem 1rem;
+        justify-content: center;
     }
-    .announcement-meta {
+    .announcement-left, .announcement-right {
         display: none;
+    }
+    .announcement-center {
+        font-size: 0.65rem;
+        letter-spacing: 1.5px;
+        white-space: normal;
     }
     .glass-nav .persistent-brand,
     .glass-nav .links {
