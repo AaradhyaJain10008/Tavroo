@@ -949,6 +949,14 @@ input:checked + .slider:before {
     transform: scale(1.04);
 }
 
+.product-bottoms .catalog-card-img {
+    height: 300px;
+}
+
+.product-bottoms .catalog-card-img img {
+    object-position: center center;
+}
+
 .catalog-card-title {
     font-family: var(--font-heading);
     font-size: 1.4rem;
@@ -1027,6 +1035,10 @@ input:checked + .slider:before {
     display: block;
     object-fit: cover;
     object-position: center 28%;
+}
+
+.product-dialog-bottoms .product-dialog-image img {
+    object-position: center center;
 }
 
 .product-dialog-content {
