@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clothing Variety Catalog - Tavroo</title>
+    <title>Shirt Catalog - Tavroo</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -19,139 +19,66 @@
     </nav>
 
     <header class="page-header">
-        <h1 class="page-title">CLOTHING CATALOG</h1>
-        <p class="subtitle">Explore our full spectrum of customisable digital & physical wardrobe pieces designed for expressive minds.</p>
+        <h1 class="page-title">THE SHIRT EDIT</h1>
+        <p class="subtitle">A curated collection of wearable statement shirts, photographed on real models so you can see the fit, fabric, and styling at a glance.</p>
     </header>
 
     <div class="catalog-filter-bar">
-        <button class="filter-btn active" data-filter="all">All Variety</button>
-        <button class="filter-btn" data-filter="headwear">Headwear</button>
-        <button class="filter-btn" data-filter="torso">Torso & Tops</button>
-        <button class="filter-btn" data-filter="legs">Legs & Bottoms</button>
-        <button class="filter-btn" data-filter="footwear">Footwear</button>
-        <button class="filter-btn" data-filter="outerwear">Outerwear</button>
+        <button class="filter-btn active" data-filter="all">All Shirts</button>
+        <button class="filter-btn" data-filter="casual">Casual</button>
+        <button class="filter-btn" data-filter="denim">Denim</button>
     </div>
 
     <main class="catalog-grid" id="catalog-grid">
-        <!-- HEADWEAR -->
-        <article class="catalog-card" data-category="headwear">
-            <span class="catalog-card-tag">Headwear</span>
-            <div class="catalog-card-img">🧢</div>
+        <article class="catalog-card" data-category="casual">
+            <span class="catalog-card-tag">Casual shirt</span>
+            <div class="catalog-card-img"><img src="assets/products/chocolate-pinstripe-shirt.png" alt="Model wearing a chocolate brown pinstripe shirt"></div>
             <div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.4rem;">Cyber Snapback Cap</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Structured cotton twill with metal stud custom placement.</p>
+                <h3 class="catalog-card-title">Chocolate Pinstripe Shirt</h3>
+                <p class="catalog-card-copy">A fitted, button-front shirt in rich chocolate brown with fine pinstripes and a polished everyday silhouette.</p>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                <strong style="font-size: 1.3rem; color: var(--accent-cyan);">₹2,400</strong>
-                <a href="showcase.html" class="btn-secondary" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">Try in Showcase ⚡</a>
+            <div class="catalog-card-footer">
+                <strong>₹1,499</strong>
+                <a href="showcase.html" class="btn-secondary">View in Showcase</a>
             </div>
         </article>
 
-        <article class="catalog-card" data-category="headwear">
-            <span class="catalog-card-tag">Headwear</span>
-            <div class="catalog-card-img">🎩</div>
+        <article class="catalog-card" data-category="casual">
+            <span class="catalog-card-tag">Casual shirt</span>
+            <div class="catalog-card-img"><img src="assets/products/blush-stripe-shirt.png" alt="Model wearing a blush pink striped relaxed shirt"></div>
             <div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.4rem;">Acid Beanie</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Rib-knit wool blend with tie-dye wash options.</p>
+                <h3 class="catalog-card-title">Blush Stripe Relaxed Shirt</h3>
+                <p class="catalog-card-copy">A light pink striped shirt with an easy drape, designed for bright days and effortless layering.</p>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                <strong style="font-size: 1.3rem; color: var(--accent-cyan);">₹1,850</strong>
-                <a href="showcase.html" class="btn-secondary" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">Try in Showcase ⚡</a>
+            <div class="catalog-card-footer">
+                <strong>₹1,199</strong>
+                <a href="showcase.html" class="btn-secondary">View in Showcase</a>
             </div>
         </article>
 
-        <!-- TORSO -->
-        <article class="catalog-card" data-category="torso">
-            <span class="catalog-card-tag">Torso</span>
-            <div class="catalog-card-img">👕</div>
+        <article class="catalog-card" data-category="denim">
+            <span class="catalog-card-tag">Denim shirt</span>
+            <div class="catalog-card-img"><img src="assets/products/indigo-denim-shirt.png" alt="Model wearing an indigo denim short sleeve shirt"></div>
             <div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.4rem;">Deconstructed Graphic Tee</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Heavyweight organic cotton, customizable front & back text overlays.</p>
+                <h3 class="catalog-card-title">Indigo Utility Denim Shirt</h3>
+                <p class="catalog-card-copy">A short-sleeve indigo denim shirt with contrast stitching, patch pockets, and a clean utility finish.</p>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                <strong style="font-size: 1.3rem; color: var(--accent-magenta);">₹3,200</strong>
-                <a href="showcase.html" class="btn-secondary" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">Try in Showcase ⚡</a>
+            <div class="catalog-card-footer">
+                <strong>₹1,799</strong>
+                <a href="showcase.html" class="btn-secondary">View in Showcase</a>
             </div>
         </article>
 
-        <article class="catalog-card" data-category="torso">
-            <span class="catalog-card-tag">Torso</span>
-            <div class="catalog-card-img">🧥</div>
+        <article class="catalog-card" data-category="casual">
+            <span class="catalog-card-tag">Casual shirt</span>
+            <div class="catalog-card-img"><img src="assets/products/olive-colourblock-shirt.png" alt="Model wearing an olive and ivory colourblock shirt"></div>
             <div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.4rem;">Hyper-Object Oversized Hoodie</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">French terry fleece with custom stud embroidery and dyed gradient options.</p>
+                <h3 class="catalog-card-title">Olive Colourblock Shirt</h3>
+                <p class="catalog-card-copy">A soft ivory shirt with olive colourblocking, relaxed sleeves, and a fresh statement look.</p>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                <strong style="font-size: 1.3rem; color: var(--accent-magenta);">₹5,400</strong>
-                <a href="showcase.html" class="btn-secondary" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">Try in Showcase ⚡</a>
-            </div>
-        </article>
-
-        <!-- LEGS -->
-        <article class="catalog-card" data-category="legs">
-            <span class="catalog-card-tag">Legs</span>
-            <div class="catalog-card-img">👖</div>
-            <div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.4rem;">Modular Cargo Trousers</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Tactical pocket configuration with adjustable hardware straps.</p>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                <strong style="font-size: 1.3rem; color: var(--accent-yellow);">₹4,800</strong>
-                <a href="showcase.html" class="btn-secondary" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">Try in Showcase ⚡</a>
-            </div>
-        </article>
-
-        <article class="catalog-card" data-category="legs">
-            <span class="catalog-card-tag">Legs</span>
-            <div class="catalog-card-img">🩳</div>
-            <div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.4rem;">Distressed Denim Jeans</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Raw Japanese selvedge denim featuring handmade distressing.</p>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                <strong style="font-size: 1.3rem; color: var(--accent-yellow);">₹5,900</strong>
-                <a href="showcase.html" class="btn-secondary" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">Try in Showcase ⚡</a>
-            </div>
-        </article>
-
-        <!-- FOOTWEAR -->
-        <article class="catalog-card" data-category="footwear">
-            <span class="catalog-card-tag">Footwear</span>
-            <div class="catalog-card-img">👟</div>
-            <div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.4rem;">Quantum Chunky Sneakers</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Multi-layered TPU sole with customizable tie-dye colorways.</p>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                <strong style="font-size: 1.3rem; color: var(--accent-cyan);">₹7,500</strong>
-                <a href="showcase.html" class="btn-secondary" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">Try in Showcase ⚡</a>
-            </div>
-        </article>
-
-        <article class="catalog-card" data-category="footwear">
-            <span class="catalog-card-tag">Footwear</span>
-            <div class="catalog-card-img">🥾</div>
-            <div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.4rem;">High-Contrast Combat Boots</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Full-grain leather with steel-toe caps and metallic stud eyelets.</p>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                <strong style="font-size: 1.3rem; color: var(--accent-cyan);">₹8,900</strong>
-                <a href="showcase.html" class="btn-secondary" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">Try in Showcase ⚡</a>
-            </div>
-        </article>
-
-        <!-- OUTERWEAR -->
-        <article class="catalog-card" data-category="outerwear">
-            <span class="catalog-card-tag">Outerwear</span>
-            <div class="catalog-card-img">🥋</div>
-            <div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.4rem;">Acid-Wash Biker Jacket</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Heavy leather outer shell with custom studded lapels and inner lining.</p>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                <strong style="font-size: 1.3rem; color: var(--accent-orange);">₹11,500</strong>
-                <a href="showcase.html" class="btn-secondary" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">Try in Showcase ⚡</a>
+            <div class="catalog-card-footer">
+                <strong>₹1,599</strong>
+                <a href="showcase.html" class="btn-secondary">View in Showcase</a>
             </div>
         </article>
     </main>
