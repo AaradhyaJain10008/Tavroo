@@ -3,19 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Showcase - Tavroo</title>
+    <title>3D Runway Atelier - TAVROO Contemporary Fashion</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body class="showcase-page">
     <nav class="glass-nav">
-        <div class="logo">Tavroo <span>STUDIO</span></div>
+        <a href="index.html" class="logo" aria-label="TAVROO Home">
+            <svg class="tavro-logo-svg" viewBox="0 0 255 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 12 H36 M24 12 V40" stroke="currentColor" stroke-width="4.5" stroke-linecap="square"/>
+                <path d="M57 19 C57 14, 60.5 11, 64 11 C67.5 11, 69.5 13.5, 69.5 16.5 C69.5 19.5, 66.5 21.5, 64 23.5 V26.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+                <path d="M64 26.5 L43 40 H85 Z" stroke="currentColor" stroke-width="3.6" stroke-linejoin="round" fill="none"/>
+                <path d="M96 12 L109 40 L122 12" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+                <path d="M136 40 V12 H152 C160 12, 160 25, 152 25 H136 M148 25 L161 40" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+                <circle cx="188" cy="26" r="14.5" stroke="currentColor" stroke-width="4.2" fill="none"/>
+                <circle cx="228" cy="26" r="14.5" stroke="currentColor" stroke-width="4.2" fill="none"/>
+            </svg>
+            <span class="logo-sub">STUDIO</span>
+        </a>
         <div class="persistent-brand">WEAR YOUR POINT OF VIEW</div>
         <div class="links">
             <a href="index.html">Home</a>
-            <a href="showcase.html" class="active">Showcase</a>
-            <a href="catalog.html">Catalog</a>
+            <a href="showcase.html" class="active">3D Runway Atelier</a>
+            <a href="catalog.html">Lookbook Catalog</a>
             <a href="about.html">About & Contact</a>
         </div>
     </nav>
@@ -23,14 +35,14 @@
     <main class="showcase-grid">
         <!-- Left Column (Base Customisation Panel) -->
         <aside class="panel left-panel glass-panel">
-            <h2>Base Avatar Setup</h2>
-            <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.2rem;">Customise your realistic 3D model figure in real-time.</p>
+            <h2>Avatar Silhouette</h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Sculpt your realistic 3D model figure in real-time.</p>
             
             <div class="control-group">
                 <label>Gender / Silhouette <span class="badge-readout" id="gender-badge">Female</span></label>
                 <select id="gender-select">
-                    <option value="female" selected>Female (Editorial Runway Curves & High-Fashion Posture)</option>
-                    <option value="male">Male (Sculpted Athletic Runway & Chiseled Jawline)</option>
+                    <option value="female" selected>Female (Editorial Runway Curves)</option>
+                    <option value="male">Male (Sculpted Athletic V-Taper)</option>
                     <option value="non-binary">Non-Binary (Sleek Architectural Neutral)</option>
                 </select>
             </div>
@@ -39,21 +51,20 @@
                 <label>Ethnicity Preset <span class="badge-readout" id="ethnicity-badge">Global Standard</span></label>
                 <select id="ethnicity-preset">
                     <option value="default" selected>Global Standard</option>
-                    <option value="south-asian">South Asian (Warm Golden Olive & Deep Undertones)</option>
-                    <option value="east-asian">East Asian (Porcelain Ivory & Smooth Contour)</option>
-                    <option value="african">Afro-Descendant (Rich Espresso & Bronze Sheen)</option>
-                    <option value="caucasian">European (Fair Warm & Neutral Undertone)</option>
+                    <option value="south-asian">South Asian (Warm Golden Undertones)</option>
+                    <option value="east-asian">East Asian (Porcelain Ivory Contour)</option>
+                    <option value="african">Afro-Descendant (Rich Bronze Sheen)</option>
+                    <option value="caucasian">European (Fair Warm Undertone)</option>
                 </select>
             </div>
 
             <div class="control-group">
                 <label>3D Hair Style <span class="badge-readout" id="hair-badge">3D Editorial Side-Part</span></label>
                 <select id="hair-style">
-                    <option value="side-part" selected>3D Editorial Side-Part</option>
-                    <option value="long-waves">3D Long Layered Waves</option>
+                    <option value="side-part" selected>3D Editorial Glamour Waves</option>
+                    <option value="short-crop">3D Modern Textured Quiff / Crop</option>
                     <option value="curly-puff">3D Textured Afro High Puff</option>
-                    <option value="short-crop">3D Modern Textured Crop</option>
-                    <option value="buzz-cut">3D Sculpted Buzz Cut</option>
+                    <option value="buzz-cut">3D Sculpted Clean Buzz Cut</option>
                     <option value="bald">Minimalist Bald / Shaved</option>
                 </select>
             </div>
@@ -104,7 +115,7 @@
         <section class="center-panel" id="center-panel">
             <!-- 3D Studio Top Control Bar -->
             <div class="studio-bar">
-                <div class="studio-badge"><span class="pulse-dot"></span> 3D RUNWAY ENGINE</div>
+                <div class="studio-badge"><span class="pulse-dot"></span> TAVROO 3D ATELIER</div>
                 
                 <div class="studio-modes">
                     <button class="mode-btn active" data-light="atelier" id="light-atelier" title="Atelier Gold Luxury Lighting">Atelier</button>
@@ -142,16 +153,16 @@
         <!-- Right Column (Dynamic Garment Choices & Customisation Toolkit) -->
         <aside class="panel right-panel glass-panel" id="apparel-panel">
             <div id="initial-message" class="state-view active">
-                <div style="text-align: center; padding: 2rem 1rem;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">✨</div>
-                    <h3 style="font-family: var(--font-heading); margin-bottom: 0.8rem; font-size: 1.4rem;">Select a Body Zone</h3>
-                    <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6;">Click on Head, Torso, Legs, or Feet on the central figure to view uniquely designed garments and try them on.</p>
+                <div style="text-align: center; padding: 2.5rem 1rem;">
+                    <div style="font-size: 2.8rem; margin-bottom: 1rem; opacity: 0.9;">🧥</div>
+                    <h3 style="font-family: var(--font-heading); margin-bottom: 0.8rem; font-size: 1.25rem; letter-spacing: 1px; text-transform: uppercase;">Select a Body Zone</h3>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.7;">Click on Head, Torso, Legs, or Feet on the central figure to view uniquely designed garments and try them on.</p>
                 </div>
             </div>
             
             <div id="apparel-list-view" class="state-view">
-                <h3 id="apparel-list-title" style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--accent-cyan); margin-bottom: 0.3rem;">Apparel Options</h3>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">Click any item to try on its unique style.</p>
+                <h3 id="apparel-list-title" style="font-family: var(--font-heading); font-size: 1.25rem; color: #ffffff; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.3rem;">Apparel Options</h3>
+                <p style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 1rem;">Click any item to try on its unique style in 3D.</p>
                 
                 <div class="apparel-grid" id="apparel-grid">
                     <!-- Populated dynamically by JS -->
@@ -160,13 +171,13 @@
 
             <div id="customization-view" class="state-view">
                 <button id="back-to-list" class="btn-text">← Back to Garment Choices</button>
-                <h3 id="selected-item-name" style="font-family: var(--font-heading); font-size: 1.6rem; color: var(--accent-magenta); margin-bottom: 0.2rem;">Selected Garment</h3>
-                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.85rem;">Garment Customisation Toolkit</p>
+                <h3 id="selected-item-name" style="font-family: var(--font-heading); font-size: 1.4rem; color: #ffffff; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.2rem;">Selected Garment</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.82rem;">Garment Customisation Toolkit</p>
 
                 <div class="custom-tools">
                     <div class="tool-group">
                         <label><span class="step-num">1</span> Custom Typography & Decal</label>
-                        <input type="text" id="custom-text" placeholder="Type text overlay (e.g. FRAYD, 2026)...">
+                        <input type="text" id="custom-text" placeholder="Type text overlay (e.g. TAVROO, 2026)...">
                     </div>
 
                     <div class="tool-group">
@@ -183,23 +194,23 @@
                         <label><span class="step-num">3</span> Fabric Dye Color</label>
                         <div class="color-picker-row">
                             <div class="color-input-wrapper">
-                                <input type="color" id="tie-dye-color" value="#ff007f">
+                                <input type="color" id="tie-dye-color" value="#141318">
                             </div>
                             <div>
-                                <div style="font-size: 0.88rem; font-weight: 700; color: #fff;" id="color-hex-label">#FF007F</div>
-                                <div style="font-size: 0.75rem; color: var(--text-muted);">Click swatch to pick custom shade</div>
+                                <div style="font-size: 0.85rem; font-weight: 700; color: #fff;" id="color-hex-label">#141318</div>
+                                <div style="font-size: 0.72rem; color: var(--text-muted);">Click swatch to customize fabric shade</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="tool-group">
-                        <label><span class="step-num">4</span> Expressive Runway Tint</label>
-                        <button class="btn-secondary" style="width: 100%; border-radius: 12px; padding: 0.75rem;" id="open-creativity-btn">🎨 Apply Creative Gradient Tint</button>
+                        <label><span class="step-num">4</span> Expressive Atelier Tint</label>
+                        <button class="btn-secondary" style="width: 100%; border-radius: 30px; padding: 0.75rem; font-size: 0.78rem;" id="open-creativity-btn">🎨 Apply Creative Gradient Tint</button>
                     </div>
                 </div>
 
                 <button class="btn-remove-garment" id="remove-garment-btn"><span>✕</span> Remove Current Garment</button>
-                <a href="catalog.html" id="collection-link" class="btn-primary full-width" style="margin-top: 1rem;">View Full Catalog Collection</a>
+                <a href="catalog.html" id="collection-link" class="btn-primary full-width" style="margin-top: 1.2rem; width: 100%;">View Full Lookbook Collection</a>
             </div>
         </aside>
     </main>

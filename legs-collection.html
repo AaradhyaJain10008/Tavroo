@@ -3,49 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legs Collection - Tavroo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Legs & Trousers Collection - TAVROO</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav class="glass-nav">
-        <div class="logo">Tavroo <span>STUDIO</span></div>
+        <a href="index.html" class="logo" aria-label="TAVROO Home">
+            <svg class="tavro-logo-svg" viewBox="0 0 255 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 12 H36 M24 12 V40" stroke="currentColor" stroke-width="4.5" stroke-linecap="square"/>
+                <path d="M57 19 C57 14, 60.5 11, 64 11 C67.5 11, 69.5 13.5, 69.5 16.5 C69.5 19.5, 66.5 21.5, 64 23.5 V26.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+                <path d="M64 26.5 L43 40 H85 Z" stroke="currentColor" stroke-width="3.6" stroke-linejoin="round" fill="none"/>
+                <path d="M96 12 L109 40 L122 12" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+                <path d="M136 40 V12 H152 C160 12, 160 25, 152 25 H136 M148 25 L161 40" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+                <circle cx="188" cy="26" r="14.5" stroke="currentColor" stroke-width="4.2" fill="none"/>
+                <circle cx="228" cy="26" r="14.5" stroke="currentColor" stroke-width="4.2" fill="none"/>
+            </svg>
+            <span class="logo-sub">STUDIO</span>
+        </a>
         <div class="persistent-brand">WEAR YOUR POINT OF VIEW</div>
         <div class="links">
             <a href="index.html">Home</a>
-            <a href="showcase.html">Showcase</a>
-            <a href="catalog.html">Catalog</a>
+            <a href="showcase.html">3D Runway Atelier</a>
+            <a href="catalog.html">Lookbook Catalog</a>
             <a href="about.html">About & Contact</a>
         </div>
     </nav>
     
-    <header class="collection-header">
-        <h1 style="font-size: 3rem; margin-bottom: 10px; font-family: var(--font-heading);">Legs Collection</h1>
-        <p class="subtitle">Bottoms designed for your point of view.</p>
-        <a href="showcase.html" class="btn-text" style="display:inline-block; margin-top:20px;">← Back to Interactive Showcase</a>
+    <header class="page-header">
+        <h1 class="page-title">TROUSERS & BOTTOMS</h1>
+        <p class="subtitle">Sculpted parachute trousers, tailored wide-leg pleats, and contemporary casual bottoms.</p>
+        <a href="showcase.html" class="btn-text" style="display:inline-flex; margin-top:1.5rem;">← Back to 3D Runway Atelier</a>
     </header>
 
-    <main class="collection-grid">
-        <div class="collection-item">
-            <div class="placeholder-img" style="font-size: 4rem; display:flex; align-items:center; justify-content:center;">👖</div>
-            <h3>Modular Cargo Trousers</h3>
-            <p style="color: var(--accent-yellow); font-weight:700; font-size:1.2rem;">₹4,800</p>
-        </div>
-        <div class="collection-item">
-            <div class="placeholder-img" style="font-size: 4rem; display:flex; align-items:center; justify-content:center;">👖</div>
-            <h3>Distressed Selvedge Jeans</h3>
-            <p style="color: var(--accent-yellow); font-weight:700; font-size:1.2rem;">₹5,900</p>
-        </div>
-        <div class="collection-item">
-            <div class="placeholder-img" style="font-size: 4rem; display:flex; align-items:center; justify-content:center;">🩳</div>
-            <h3>Cyberpunk Shorts</h3>
-            <p style="color: var(--accent-yellow); font-weight:700; font-size:1.2rem;">₹3,800</p>
-        </div>
-        <div class="collection-item">
-            <div class="placeholder-img" style="font-size: 4rem; display:flex; align-items:center; justify-content:center;">👖</div>
-            <h3>Utility Joggers</h3>
-            <p style="color: var(--accent-yellow); font-weight:700; font-size:1.2rem;">₹4,100</p>
-        </div>
+    <main class="catalog-grid">
+        <article class="catalog-card">
+            <span class="catalog-card-tag">Parachute</span>
+            <div class="catalog-img-wrapper">
+                <img src="assets/images/parachute-cargo-leather-blazer.png" alt="Teal Parachute Cargo Trousers">
+            </div>
+            <div class="catalog-info">
+                <h3 class="catalog-item-title">Teal Parachute Cargo Trousers</h3>
+                <p class="catalog-desc">Lightweight technical parachute fabric with toggle-cinch ankles and oversized cargo pockets.</p>
+                <div class="catalog-footer-row">
+                    <div class="catalog-price">₹1,699 <span>₹2,999</span></div>
+                    <a href="showcase.html" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.74rem;">Try in 3D ⚡</a>
+                </div>
+            </div>
+        </article>
+        <article class="catalog-card">
+            <span class="catalog-card-tag">Tailored</span>
+            <div class="catalog-img-wrapper">
+                <img src="assets/images/striped-shirt-pleated-trousers.png" alt="Pleated Wide-Leg Tan Trousers">
+            </div>
+            <div class="catalog-info">
+                <h3 class="catalog-item-title">Pleated Wide-Leg Tan Trousers</h3>
+                <p class="catalog-desc">Tailored high-rise trousers with sharp front pleats and fluid wide-leg drape.</p>
+                <div class="catalog-footer-row">
+                    <div class="catalog-price">₹1,499 <span>₹2,799</span></div>
+                    <a href="showcase.html" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.74rem;">Try in 3D ⚡</a>
+                </div>
+            </div>
+        </article>
     </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-brand">&copy; 2026 TAVROO Studio. All rights reserved. | Wear Your Point of View</p>
+        </div>
+    </footer>
 </body>
 </html>

@@ -3,24 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shirt Catalog - Tavroo</title>
+    <title>Lookbook Catalog - TAVROO Contemporary Fashion</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav class="glass-nav">
-        <div class="logo">Tavroo <span>STUDIO</span></div>
+        <a href="index.html" class="logo" aria-label="TAVROO Home">
+            <svg class="tavro-logo-svg" viewBox="0 0 255 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 12 H36 M24 12 V40" stroke="currentColor" stroke-width="4.5" stroke-linecap="square"/>
+                <path d="M57 19 C57 14, 60.5 11, 64 11 C67.5 11, 69.5 13.5, 69.5 16.5 C69.5 19.5, 66.5 21.5, 64 23.5 V26.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+                <path d="M64 26.5 L43 40 H85 Z" stroke="currentColor" stroke-width="3.6" stroke-linejoin="round" fill="none"/>
+                <path d="M96 12 L109 40 L122 12" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+                <path d="M136 40 V12 H152 C160 12, 160 25, 152 25 H136 M148 25 L161 40" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+                <circle cx="188" cy="26" r="14.5" stroke="currentColor" stroke-width="4.2" fill="none"/>
+                <circle cx="228" cy="26" r="14.5" stroke="currentColor" stroke-width="4.2" fill="none"/>
+            </svg>
+            <span class="logo-sub">STUDIO</span>
+        </a>
         <div class="persistent-brand">WEAR YOUR POINT OF VIEW</div>
         <div class="links">
             <a href="index.html">Home</a>
-            <a href="showcase.html">Showcase</a>
-            <a href="catalog.html" class="active">Catalog</a>
+            <a href="showcase.html">3D Runway Atelier</a>
+            <a href="catalog.html" class="active">Lookbook Catalog</a>
             <a href="about.html">About & Contact</a>
         </div>
     </nav>
 
     <header class="page-header">
-        <h1 class="page-title">THE SHIRT EDIT</h1>
-        <p class="subtitle">A curated collection of wearable statement shirts, photographed on real models so you can see the fit, fabric, and styling at a glance.</p>
+        <h1 class="page-title">LOOKBOOK CATALOG</h1>
+        <p class="subtitle">Curated modern tailoring, graphic knitwear, and sculpted denim photographed on real models. High-fashion luxury at accessible studio pricing (₹799 – ₹2,000).</p>
     </header>
 
     <div class="catalog-filter-bar">
@@ -142,6 +154,132 @@
             <div>
                 <h3 class="catalog-card-title">Navy Stripe Quarter-Zip</h3>
                 <p class="catalog-card-copy">A bold navy and ivory striped quarter-zip sweatshirt with a structured collar and dropped shoulders.</p>
+=======
+        <h1 class="page-title">EDITORIAL LOOKBOOK</h1>
+        <p class="subtitle">Explore modern tailored silhouettes, sculptural streetwear, and customizable wardrobe pieces designed for effortless elegance.</p>
+    </header>
+
+    <div class="catalog-filter-bar">
+        <button class="filter-btn active" data-filter="all">All Collection</button>
+        <button class="filter-btn" data-filter="tops">Tops & Shirts</button>
+        <button class="filter-btn" data-filter="bottoms">Bottoms & Trousers</button>
+        <button class="filter-btn" data-filter="outerwear">Outerwear & Sets</button>
+        <button class="filter-btn" data-filter="custom">Custom Studio</button>
+    </div>
+
+    <main class="catalog-grid" id="catalog-grid">
+        <!-- ITEM 1: Leather Blazer & Parachute Cargos (Real User Photo) -->
+        <article class="catalog-card" data-category="outerwear bottoms">
+            <span class="catalog-card-tag">Outerwear & Bottoms</span>
+            <span class="catalog-badge-pill">Runway Trend</span>
+            <div class="catalog-img-wrapper">
+                <img src="assets/images/parachute-cargo-leather-blazer.png" alt="Oversized Leather Blazer & Parachute Cargo Trousers" loading="lazy">
+            </div>
+            <div class="catalog-info">
+                <div>
+                    <h3 class="catalog-item-title">Vegan Leather Blazer & Parachute Cargos</h3>
+                    <p class="catalog-desc">Architectural drop-shoulder vegan leather blazer styled with wide-leg teal parachute cargo trousers.</p>
+                </div>
+                <div class="catalog-footer-row">
+                    <div class="catalog-price">₹1,899 <span>₹3,499</span></div>
+                    <a href="showcase.html" class="btn-primary" style="padding: 0.6rem 1.4rem; font-size: 0.74rem;">Try in 3D ⚡</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- ITEM 2: Striped Shirt & Pleated Trousers (Real User Photo) -->
+        <article class="catalog-card" data-category="tops bottoms">
+            <span class="catalog-card-tag">Tops & Bottoms</span>
+            <span class="catalog-badge-pill">Editor's Pick</span>
+            <div class="catalog-img-wrapper">
+                <img src="assets/images/striped-shirt-pleated-trousers.png" alt="Relaxed Stripe Poplin Shirt & Pleated Wide-Leg Trousers" loading="lazy">
+            </div>
+            <div class="catalog-info">
+                <div>
+                    <h3 class="catalog-item-title">Stripe Poplin Shirt & Pleated Trousers</h3>
+                    <p class="catalog-desc">Crisp oversized fine-stripe poplin button-down paired with tailored high-waist pleated beige trousers.</p>
+                </div>
+                <div class="catalog-footer-row">
+                    <div class="catalog-price">₹1,499 <span>₹2,899</span></div>
+                    <a href="showcase.html" class="btn-primary" style="padding: 0.6rem 1.4rem; font-size: 0.74rem;">Try in 3D ⚡</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- ITEM 3: Chicago 23 Jersey Tee (Real User Photo) -->
+        <article class="catalog-card" data-category="tops">
+            <span class="catalog-card-tag">Tops & Jersey</span>
+            <span class="catalog-badge-pill">Bestseller</span>
+            <div class="catalog-img-wrapper">
+                <img src="assets/images/chicago-23-jersey-tee.png" alt="Chicago 23 V-Neck Streetwear Athletic Jersey" loading="lazy">
+            </div>
+            <div class="catalog-info">
+                <div>
+                    <h3 class="catalog-item-title">Chicago 23 Oversized V-Neck Jersey</h3>
+                    <p class="catalog-desc">High-contrast athletic mesh streetwear jersey with bold typographic print and double-striped sleeve bands.</p>
+                </div>
+                <div class="catalog-footer-row">
+                    <div class="catalog-price">₹999 <span>₹1,799</span></div>
+                    <a href="showcase.html" class="btn-primary" style="padding: 0.6rem 1.4rem; font-size: 0.74rem;">Try in 3D ⚡</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- ITEM 4: Custom Studio Graphic Tee (Real User Photo) -->
+        <article class="catalog-card" data-category="tops custom">
+            <span class="catalog-card-tag">Custom Studio</span>
+            <span class="catalog-badge-pill">Bespoke Print</span>
+            <div class="catalog-img-wrapper">
+                <img src="assets/images/custom-design-studio-tee.png" alt="TAVROO Signature Custom Studio Graphic Tee" loading="lazy">
+            </div>
+            <div class="catalog-info">
+                <div>
+                    <h3 class="catalog-item-title">TAVROO Custom Studio Graphic Tee</h3>
+                    <p class="catalog-desc">100% heavyweight comb-spun organic cotton with interactive custom graphic overlay and text personalization.</p>
+                </div>
+                <div class="catalog-footer-row">
+                    <div class="catalog-price">₹799 <span>₹1,499</span></div>
+                    <a href="showcase.html" class="btn-primary" style="padding: 0.6rem 1.4rem; font-size: 0.74rem;">Customize ⚡</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- ITEM 5: Hyper-Object Oversized Hoodie -->
+        <article class="catalog-card" data-category="tops outerwear">
+            <span class="catalog-card-tag">Outerwear</span>
+            <span class="catalog-badge-pill">Atelier Exclusive</span>
+            <div class="catalog-img-wrapper" style="display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #251b3d 0%, #101018 100%);">
+                <div style="font-size: 5rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));">🧥</div>
+            </div>
+            <div class="catalog-info">
+                <div>
+                    <h3 class="catalog-item-title">Hyper-Object Oversized Fleece Hoodie</h3>
+                    <p class="catalog-desc">Heavyweight 450 GSM brushed French terry fleece with 3D draped cowl hood and metallic aglet drawstrings.</p>
+                </div>
+                <div class="catalog-footer-row">
+                    <div class="catalog-price">₹1,799 <span>₹2,999</span></div>
+                    <a href="showcase.html" class="btn-primary" style="padding: 0.6rem 1.4rem; font-size: 0.74rem;">Try in 3D ⚡</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- ITEM 6: Acid-Wash Moto Biker Vest -->
+        <article class="catalog-card" data-category="outerwear custom">
+            <span class="catalog-card-tag">Outerwear</span>
+            <span class="catalog-badge-pill">Limited Run</span>
+            <div class="catalog-img-wrapper" style="display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #22222d 0%, #0d0d12 100%);">
+                <div style="font-size: 5rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));">🎽</div>
+            </div>
+            <div class="catalog-info">
+                <div>
+                    <h3 class="catalog-item-title">Acid-Wash Moto Biker Vest</h3>
+                    <p class="catalog-desc">Distressed charcoal moto denim vest with asymmetrical lapels, heavy chrome zipper, and waist belt.</p>
+                </div>
+                <div class="catalog-footer-row">
+                    <div class="catalog-price">₹1,599 <span>₹2,699</span></div>
+                    <a href="showcase.html" class="btn-primary" style="padding: 0.6rem 1.4rem; font-size: 0.74rem;">Try in 3D ⚡</a>
+                </div>
+>>>>>>> Stashed changes
             </div>
             <div class="catalog-card-footer"><strong>₹1,899</strong><button type="button" class="btn-secondary catalog-details-btn">View details</button></div>
         </article>
@@ -310,7 +448,18 @@
     </dialog>
 
     <footer>
-        <p>&copy; 2026 <strong>Tavroo</strong> Studio. All rights reserved. | Wear Your Point of View</p>
+        <div class="footer-content">
+            <svg class="tavro-logo-svg" viewBox="0 0 255 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="height: 24px; opacity: 0.85;">
+                <path d="M12 12 H36 M24 12 V40" stroke="currentColor" stroke-width="4.5" stroke-linecap="square"/>
+                <path d="M57 19 C57 14, 60.5 11, 64 11 C67.5 11, 69.5 13.5, 69.5 16.5 C69.5 19.5, 66.5 21.5, 64 23.5 V26.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+                <path d="M64 26.5 L43 40 H85 Z" stroke="currentColor" stroke-width="3.6" stroke-linejoin="round" fill="none"/>
+                <path d="M96 12 L109 40 L122 12" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+                <path d="M136 40 V12 H152 C160 12, 160 25, 152 25 H136 M148 25 L161 40" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+                <circle cx="188" cy="26" r="14.5" stroke="currentColor" stroke-width="4.2" fill="none"/>
+                <circle cx="228" cy="26" r="14.5" stroke="currentColor" stroke-width="4.2" fill="none"/>
+            </svg>
+            <p class="footer-brand">&copy; 2026 TAVROO Studio. All rights reserved. | Wear Your Point of View</p>
+        </div>
     </footer>
 
     <script>
@@ -334,7 +483,8 @@
                     const category = btn.getAttribute('data-filter');
 
                     cards.forEach(card => {
-                        if(category === 'all' || card.getAttribute('data-category') === category) {
+                        const cardCats = card.getAttribute('data-category') || '';
+                        if (category === 'all' || cardCats.includes(category)) {
                             card.style.display = 'flex';
                         } else {
                             card.style.display = 'none';

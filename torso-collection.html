@@ -3,49 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torso Collection - Tavroo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Torso Collection - TAVROO</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav class="glass-nav">
-        <div class="logo">Tavroo <span>STUDIO</span></div>
+        <a href="index.html" class="logo" aria-label="TAVROO Home">
+            <svg class="tavro-logo-svg" viewBox="0 0 255 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 12 H36 M24 12 V40" stroke="currentColor" stroke-width="4.5" stroke-linecap="square"/>
+                <path d="M57 19 C57 14, 60.5 11, 64 11 C67.5 11, 69.5 13.5, 69.5 16.5 C69.5 19.5, 66.5 21.5, 64 23.5 V26.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+                <path d="M64 26.5 L43 40 H85 Z" stroke="currentColor" stroke-width="3.6" stroke-linejoin="round" fill="none"/>
+                <path d="M96 12 L109 40 L122 12" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+                <path d="M136 40 V12 H152 C160 12, 160 25, 152 25 H136 M148 25 L161 40" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+                <circle cx="188" cy="26" r="14.5" stroke="currentColor" stroke-width="4.2" fill="none"/>
+                <circle cx="228" cy="26" r="14.5" stroke="currentColor" stroke-width="4.2" fill="none"/>
+            </svg>
+            <span class="logo-sub">STUDIO</span>
+        </a>
         <div class="persistent-brand">WEAR YOUR POINT OF VIEW</div>
         <div class="links">
             <a href="index.html">Home</a>
-            <a href="showcase.html">Showcase</a>
-            <a href="catalog.html">Catalog</a>
+            <a href="showcase.html">3D Runway Atelier</a>
+            <a href="catalog.html">Lookbook Catalog</a>
             <a href="about.html">About & Contact</a>
         </div>
     </nav>
     
-    <header class="collection-header">
-        <h1 style="font-size: 3rem; margin-bottom: 10px; font-family: var(--font-heading);">Torso Collection</h1>
-        <p class="subtitle">Express yourself with our custom tops and outerwear.</p>
-        <a href="showcase.html" class="btn-text" style="display:inline-block; margin-top:20px;">← Back to Interactive Showcase</a>
+    <header class="page-header">
+        <h1 class="page-title">TOPS & OUTERWEAR</h1>
+        <p class="subtitle">Sculptural silhouettes and bespoke customizable tops designed for contemporary wardrobe curation.</p>
+        <a href="showcase.html" class="btn-text" style="display:inline-flex; margin-top:1.5rem;">← Back to 3D Runway Atelier</a>
     </header>
 
-    <main class="collection-grid">
-        <div class="collection-item">
-            <div class="placeholder-img" style="font-size: 4rem; display:flex; align-items:center; justify-content:center;">👕</div>
-            <h3>Deconstructed Graphic Tee</h3>
-            <p style="color: var(--accent-magenta); font-weight:700; font-size:1.2rem;">₹3,200</p>
-        </div>
-        <div class="collection-item">
-            <div class="placeholder-img" style="font-size: 4rem; display:flex; align-items:center; justify-content:center;">🧥</div>
-            <h3>Hyper-Object Hoodie</h3>
-            <p style="color: var(--accent-magenta); font-weight:700; font-size:1.2rem;">₹5,400</p>
-        </div>
-        <div class="collection-item">
-            <div class="placeholder-img" style="font-size: 4rem; display:flex; align-items:center; justify-content:center;">🎽</div>
-            <h3>Acid-Wash Biker Vest</h3>
-            <p style="color: var(--accent-magenta); font-weight:700; font-size:1.2rem;">₹4,200</p>
-        </div>
-        <div class="collection-item">
-            <div class="placeholder-img" style="font-size: 4rem; display:flex; align-items:center; justify-content:center;">👔</div>
-            <h3>Oversized Denim Jacket</h3>
-            <p style="color: var(--accent-magenta); font-weight:700; font-size:1.2rem;">₹6,800</p>
-        </div>
+    <main class="catalog-grid">
+        <article class="catalog-card">
+            <span class="catalog-card-tag">Tops</span>
+            <div class="catalog-img-wrapper">
+                <img src="assets/images/custom-design-studio-tee.png" alt="TAVROO Custom Studio Graphic Tee">
+            </div>
+            <div class="catalog-info">
+                <h3 class="catalog-item-title">TAVROO Custom Studio Graphic Tee</h3>
+                <p class="catalog-desc">Heavyweight organic cotton, customizable front & back text overlays.</p>
+                <div class="catalog-footer-row">
+                    <div class="catalog-price">₹799 <span>₹1,499</span></div>
+                    <a href="showcase.html" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.74rem;">Customize in 3D ⚡</a>
+                </div>
+            </div>
+        </article>
+        <article class="catalog-card">
+            <span class="catalog-card-tag">Jersey</span>
+            <div class="catalog-img-wrapper">
+                <img src="assets/images/chicago-23-jersey-tee.png" alt="Chicago 23 Oversized V-Neck Jersey">
+            </div>
+            <div class="catalog-info">
+                <h3 class="catalog-item-title">Chicago 23 Oversized Jersey</h3>
+                <p class="catalog-desc">Athletic streetwear jersey with contrast double sleeve stripes.</p>
+                <div class="catalog-footer-row">
+                    <div class="catalog-price">₹999 <span>₹1,799</span></div>
+                    <a href="showcase.html" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.74rem;">Try in 3D ⚡</a>
+                </div>
+            </div>
+        </article>
+        <article class="catalog-card">
+            <span class="catalog-card-tag">Shirts</span>
+            <div class="catalog-img-wrapper">
+                <img src="assets/images/striped-shirt-pleated-trousers.png" alt="Relaxed Stripe Poplin Shirt">
+            </div>
+            <div class="catalog-info">
+                <h3 class="catalog-item-title">Relaxed Stripe Poplin Shirt</h3>
+                <p class="catalog-desc">Fine-stripe poplin button-down with dropped shoulder drape.</p>
+                <div class="catalog-footer-row">
+                    <div class="catalog-price">₹1,499 <span>₹2,899</span></div>
+                    <a href="showcase.html" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.74rem;">Try in 3D ⚡</a>
+                </div>
+            </div>
+        </article>
+        <article class="catalog-card">
+            <span class="catalog-card-tag">Outerwear</span>
+            <div class="catalog-img-wrapper">
+                <img src="assets/images/parachute-cargo-leather-blazer.png" alt="Oversized Vegan Leather Blazer">
+            </div>
+            <div class="catalog-info">
+                <h3 class="catalog-item-title">Oversized Vegan Leather Blazer</h3>
+                <p class="catalog-desc">Structured tailoring with soft satin lining and notched lapels.</p>
+                <div class="catalog-footer-row">
+                    <div class="catalog-price">₹1,899 <span>₹3,499</span></div>
+                    <a href="showcase.html" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.74rem;">Try in 3D ⚡</a>
+                </div>
+            </div>
+        </article>
     </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-brand">&copy; 2026 TAVROO Studio. All rights reserved. | Wear Your Point of View</p>
+        </div>
+    </footer>
 </body>
 </html>

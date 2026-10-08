@@ -1,4 +1,4 @@
-// app.js - Tavroo Interactive 3D WebGL Runway Showcase Engine
+// app.js - TAVROO Interactive 3D WebGL Runway Atelier Engine
 // Enhanced Human Anatomy Sculpting, Authentic Streetwear Garment Replication & Smart Gender Morphing
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -739,21 +739,21 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.strokeRect(160, 140, 704, 740);
 
         // Top Header Pill
-        ctx.fillStyle = '#ff007f';
+        ctx.fillStyle = '#d4af37';
         ctx.fillRect(160, 140, 704, 85);
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '900 36px "Outfit", sans-serif';
+        ctx.fillStyle = '#08080a';
+        ctx.font = '900 36px "Montserrat", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('⚡ FRAYD STUDIO // ARCHIVE 2026', 512, 196);
+        ctx.fillText('⚡ TAVROO ATELIER // ARCHIVE 2026', 512, 196);
 
         // Main Dynamic Streetwear Typography
-        const displayMain = (customText && customText.trim().length > 0) ? customText.toUpperCase() : 'DECONSTRUCTED';
+        const displayMain = (customText && customText.trim().length > 0) ? customText.toUpperCase() : 'TAVROO';
         ctx.fillStyle = '#ffffff';
-        ctx.font = '900 78px "Outfit", sans-serif';
+        ctx.font = '900 78px "Montserrat", sans-serif';
         ctx.fillText(displayMain, 512, 400);
 
-        ctx.fillStyle = '#00f0ff';
-        ctx.font = '800 48px "Outfit", sans-serif';
+        ctx.fillStyle = '#e5c98d';
+        ctx.font = '800 44px "Montserrat", sans-serif';
         ctx.fillText('WEAR YOUR POINT OF VIEW', 512, 470);
 
         // Editorial Accent Lines & Crosshairs
@@ -766,7 +766,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         ctx.fillStyle = '#aaaaaa';
         ctx.font = '700 24px monospace';
-        ctx.fillText('MILAN // TOKYO // NYC  [SPEC-2026]', 512, 560);
+        ctx.fillText('MILAN // TOKYO // NYC  [SPEC-TAVROO-26]', 512, 560);
 
         // Circular Seal Badge
         ctx.strokeStyle = '#ffc700';

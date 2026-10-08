@@ -4,49 +4,43 @@
 
 ## 📅 Last Session Footprint
 
-- **Timestamp:** 2026-09-30 02:35 IST
-- **Active Task:** Upgraded Tavroo Interactive 3D Showcase into an elite, realistic 3D runway mannequin engine with authentic streetwear replication, smart gender morphing, theme-blended scrollbars, and polished toolkit UI.
+- **Timestamp:** 2026-10-08 20:25 IST
+- **Active Task:** Rebranded brand identity to **TAVROO**, implemented official coat-hanger `A` logo (`T` + clothes-hanger `A` + `VROO`), overhauled aesthetic to a chic luxury editorial online fashion house (inspired by Zara Studio & Tommy Hilfiger), integrated real lookbook fashion photography in the catalog, and structured pricing strictly between ₹799 and ₹2,000.
 - **Git State:** On `main`, tracking GitHub repository `AaradhyaJain10008/Diya_ICA` through `origin`.
 - **Hosting Engine:** Continuous cloud deployment automated via Vercel GitHub Webhook.
 
 ## 📍 Last Edited Points & Core Logic
 
-### 1. 3D Realistic Mannequin Anatomy & Natural Hands
-- **Facial Sculpting:** Sculpted anatomical features including almond-shaped runway eyes (sclera white, iris, pupil, high-specular cornea reflection), arched eyebrows, defined nasal bridge with nostrils, and high-fashion lips with Cupid's bow.
-- **Natural Runway Posed Hands:** Replaced primitive blocks with anatomically tapered palms, rounded thenar muscle pads, angled opposing thumbs, and naturally cascaded, curling fingers (index, middle, ring, pinky) in relaxed runway posture.
-- **Neck & Clavicles:** Integrated defined collarbones (clavicles) and sternocleidomastoid contours transitioning into the shoulders.
+### 1. Brand Rebranding & Official Coat-Hanger Logo
+- **Brand Identity:** Renamed the entire platform across all pages, navigation bars, footers, titles, 3D textures, and metadata to **TAVROO**.
+- **Vector & Asset Logo:** Integrated the user's official coat-hanger logo mark (`T` + clothes-hanger `A` + `VROO`) as an inline SVG and high-resolution asset (`assets/images/tavro-logo.png` / `tavro-logo.jpg`), rendered in sleek white/champagne gold with subtle luxury hover illumination.
 
-### 2. Authentic Streetwear Garment Replication
-- **Deconstructed Graphic Tee:** Integrated front graphic decal plane (`z = 0.178`, outside chest mesh) with streetwear typography (`FRAYD STUDIO // ARCHIVE 2026`, `WEAR YOUR POINT OF VIEW`), technical specs, and a barcode.
-- **Live Typography Updates:** Typing in the "Custom Typography & Decal" input dynamically renders text (e.g. *DIYA STUDIO*) onto the 3D tee in real-time.
-- **Garment Presets:**
-  - *Hyper-Object Hoodie:* 3D cowl behind neck, front kangaroo pouch pocket, drop-shoulder sleeves, and hanging drawstrings with metallic aglets.
-  - *Acid-Wash Biker Vest:* Wide asymmetrical moto lapels, heavy diagonal chrome zipper, and waist belt with silver buckle.
-  - *Oversized Denim Jacket:* Turn-down collar, dual chest flap pockets, and front button placket.
-  - *Modular Cargo Trousers:* 3D box accordion cargo pockets on outer thighs.
-  - *Footwear:* Chunky platform sneakers, combat boots, canvas kicks, chelsea boots, and cyber slides with detailed soles and textures.
+### 2. Chic, Luxury Editorial Aesthetic (Zara & Tommy Hilfiger Inspired)
+- **Palette & Atmosphere:** Refined color system with deep luxury obsidian noir (`#08080a`), warm alabaster cream typography, champagne gold accents (`#d4af37`, `#e5c98d`), subtle 1px glass card borders, and soft luxury shadows.
+- **High-Fashion Typography:** Paired editorial serif styling (`Cormorant Garamond`) with modern luxury geometric sans-serif (`Montserrat` & `Plus Jakarta Sans`) with generous uppercase letter-spacing (`letter-spacing: 2px – 6px`).
+- **Minimalist Luxury Components:** Replaced rounded neon buttons with sleek luxury pill buttons, chic glass cards, and editorial lookbook layouts.
 
-### 3. Theme-Blended Custom Scrollbars
-- Targeted `*::-webkit-scrollbar`, `.panel::-webkit-scrollbar`, and Firefox `scrollbar-color`.
-- Set track to `background: transparent`, eliminating Windows default grey scrollbar gutters.
-- Styled 6px thumb with glowing magenta-to-purple gradient (`linear-gradient(180deg, #ff007f, #7928ca)`), shifting to cyan on hover.
+### 3. Catalog Lookbook with Real Clothing Photography
+- **Actual Apparel Photography:** Integrated high-definition photos provided by the user directly into `catalog.html`, `torso-collection.html`, and `legs-collection.html`:
+  - *Vegan Leather Blazer & Parachute Cargo Trousers:* Featuring `assets/images/parachute-cargo-leather-blazer.png` — **₹1,899**
+  - *Stripe Poplin Shirt & Pleated Wide-Leg Trousers:* Featuring `assets/images/striped-shirt-pleated-trousers.png` — **₹1,499**
+  - *Chicago 23 Oversized V-Neck Jersey:* Featuring `assets/images/chicago-23-jersey-tee.png` — **₹999**
+  - *TAVROO Custom Studio Graphic Tee:* Featuring `assets/images/custom-design-studio-tee.png` — **₹799**
+  - *Hyper-Object Fleece Hoodie:* — **₹1,799**
+  - *Acid-Wash Moto Biker Vest:* — **₹1,599**
+  - *Quantum Platform Sneakers:* — **₹1,799**
+  - *Rib-Knit Wool Beanie:* — **₹799**
+- **Price Range Compliance:** Every single catalog product is strictly priced within the **₹799 to ₹2,000** range.
 
-### 4. Smart Gender Morphing & Hairstyle Synchronization
-- **Female:** Soft runway curves, cinched waist taper, flared hips, soft jawline, and automatic switch to *3D Editorial Side-Part Waves*.
-- **Male:** Broad athletic shoulders, chiseled square jawline, athletic V-taper chest, and automatic switch to *3D Modern Textured Crop*.
-- **Non-Binary:** Sleek architectural androgynous silhouette and automatic switch to *3D Textured Afro High Puff* with gold styling cuff.
-- **Dynamic Re-Fitting:** Switching genders triggers `rebuildAllActiveGarments()`, adapting all equipped garments to the new body proportions.
-
-### 5. UI Consistency & Toolkit Polish
-- **Back Button:** Replaced plain white outline with a glass pill button (`.btn-text`) with cyan border glow, backdrop blur, and hover slide animation.
-- **Step Badges:** Replaced raw text bullets with gradient badges `(1)`, `(2)`, `(3)`, `(4)` and uniform spacing between control groups.
-- **Color Picker Card:** Styled the fabric dye selector into a dark glass card with a glowing preview swatch, live uppercase HEX readout (e.g. `#141318`), and helper subtitle.
+### 4. 3D Runway Atelier & Engine Sync
+- **3D Graphic Tee Decal:** Live dynamic canvas decals in `app.js` now render `TAVROO ATELIER // ARCHIVE 2026` with champagne gold header framing.
+- **Studio Lighting & Controls:** Synchronized Atelier Gold, Cyber Neon, and Editorial Monochrome lighting modes with TAVROO branding.
 
 ## 🐛 Open Quirks & Technical Blocks
 
-- None. All 3D WebGL scenes, OrbitControls, materials, decals, and styling run natively in browser without CORS or external asset dependencies.
+- None. All images are local relative paths (`assets/images/...`) for 100% offline compatibility, GitHub storage, and Vercel cloud deployment.
 
 ## ⏭️ Immediate Next Execution Objectives
 
-1. Push all committed changes to GitHub repository `origin/main` to trigger live Vercel deployment.
-2. Verify live production build on Vercel.
+1. Stage, commit, and push all rebranded files to GitHub `origin/main`.
+2. Confirm live deployment on Vercel.
