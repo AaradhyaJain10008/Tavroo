@@ -1,6 +1,5 @@
 // app.js - TAVROO Interactive 3D WebGL Runway Atelier Engine
-// Principal 3D Character Technical Director Refactor
-// Hyper-Realistic Human Anatomy, Precision Garment Fitting, Advanced PBR & Full Responsiveness
+// Restored Classic Runway Mannequin Figure, Precision Garment Fitting & Responsive Mobile Architecture
 
 document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------------------------
@@ -55,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentHeightScale = 1.0;
 
     // -------------------------------------------------------------
-    // 2. APPAREL DATA DEFINITIONS (FOOTWEAR REMOVED AS SPECIFIED)
+    // 2. APPAREL DATA DEFINITIONS (FOOTWEAR EXCLUDED)
     // -------------------------------------------------------------
     const apparelData = {
         head: [
@@ -132,16 +131,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 4. HIGH-END STUDIO LIGHTING & PBR ENVIRONMENT
+    // 4. STUDIO LIGHTING & PBR ENVIRONMENT
     // -------------------------------------------------------------
     const studioLightsGroup = new THREE.Group();
     scene.add(studioLightsGroup);
 
-    // Hemispherical bounce simulating skin subsurface scattering & ambient sky/ground fill
     const hemiLight = new THREE.HemisphereLight(0xfff6ea, 0x181028, 0.95);
     studioLightsGroup.add(hemiLight);
 
-    // Key Light (Warm sculptural direct sunlight/key light)
     const keyLight = new THREE.DirectionalLight(0xfffaed, 1.45);
     keyLight.position.set(2.4, 4.2, 3.0);
     keyLight.castShadow = true;
@@ -151,19 +148,16 @@ document.addEventListener('DOMContentLoaded', () => {
     keyLight.shadow.normalBias = 0.02;
     studioLightsGroup.add(keyLight);
 
-    // Fill Light (Soft cool shadow fill)
     const fillLight = new THREE.DirectionalLight(0xb8c5e0, 0.85);
     fillLight.position.set(-2.8, 2.2, 2.0);
     studioLightsGroup.add(fillLight);
 
-    // Warm Rim Light (Accentuates shoulders and hair silhouettes)
     const rimLight1 = new THREE.SpotLight(0xd4af37, 2.0, 12, Math.PI / 4, 0.45);
     rimLight1.position.set(-2.2, 3.4, -2.6);
     rimLight1.target.position.set(0, 1.2, 0);
     studioLightsGroup.add(rimLight1);
     studioLightsGroup.add(rimLight1.target);
 
-    // Secondary Accent Rim Light
     const rimLight2 = new THREE.SpotLight(0xffeedd, 1.8, 12, Math.PI / 4, 0.45);
     rimLight2.position.set(2.2, 3.4, -2.6);
     rimLight2.target.position.set(0, 1.2, 0);
@@ -236,101 +230,69 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -------------------------------------------------------------
-    // 5. PROCEDURAL MICRO-TEXTURES & PBR SSS MATERIALS
+    // 5. PBR MATERIALS & HUMAN ANATOMY SCULPTING (RESTORED FIGURE)
     // -------------------------------------------------------------
-    // Procedural Skin Micro-Pore & Roughness Map
-    function createSkinTexture() {
-        const c = document.createElement('canvas');
-        c.width = 512;
-        c.height = 512;
-        const ctx = c.getContext('2d');
-        ctx.fillStyle = '#808080';
-        ctx.fillRect(0, 0, 512, 512);
+    const mannequinRoot = new THREE.Group();
+    scene.add(mannequinRoot);
 
-        // Micro noise distribution
-        const imgData = ctx.getImageData(0, 0, 512, 512);
-        const data = imgData.data;
-        for (let i = 0; i < data.length; i += 4) {
-            const noise = (Math.random() - 0.5) * 18;
-            data[i] = Math.min(255, Math.max(0, 128 + noise));
-            data[i + 1] = Math.min(255, Math.max(0, 128 + noise));
-            data[i + 2] = Math.min(255, Math.max(0, 128 + noise));
-        }
-        ctx.putImageData(imgData, 0, 0);
-
-        const tex = new THREE.CanvasTexture(c);
-        tex.wrapS = THREE.RepeatWrapping;
-        tex.wrapT = THREE.RepeatWrapping;
-        tex.repeat.set(8, 8);
-        return tex;
-    }
-
-    const skinBumpMap = createSkinTexture();
-
-    // High-Fidelity PBR Skin Material with SSS simulation sheen
+    // Realistic PBR Skin Material with clearcoat sheen
     const skinMaterial = new THREE.MeshPhysicalMaterial({
         color: new THREE.Color(currentSkinTone),
-        roughness: 0.48,
-        roughnessMap: skinBumpMap,
-        bumpMap: skinBumpMap,
-        bumpScale: 0.0012,
-        metalness: 0.0,
-        clearcoat: 0.18,
+        roughness: 0.44,
+        metalness: 0.05,
+        clearcoat: 0.25,
         clearcoatRoughness: 0.35,
-        reflectivity: 0.50
+        reflectivity: 0.45
     });
 
-    // Anatomical feature materials
-    const lipsMaterial = new THREE.MeshPhysicalMaterial({
-        color: 0xba6066,
-        roughness: 0.32,
-        clearcoat: 0.45,
-        clearcoatRoughness: 0.18,
-        metalness: 0.02
+    // Anatomical facial feature materials
+    const lipsMaterial = new THREE.MeshStandardMaterial({
+        color: 0xba6468,
+        roughness: 0.38,
+        metalness: 0.05
     });
 
     const eyeWhiteMaterial = new THREE.MeshStandardMaterial({
-        color: 0xf3f4f8,
-        roughness: 0.16,
+        color: 0xf5f6fa,
+        roughness: 0.2,
         metalness: 0.02
     });
 
     const eyeIrisMaterial = new THREE.MeshStandardMaterial({
         color: 0x24160d,
-        roughness: 0.12,
-        metalness: 0.08
+        roughness: 0.15,
+        metalness: 0.1
     });
 
-    const eyePupilMaterial = new THREE.MeshBasicMaterial({ color: 0x050404 });
+    const eyePupilMaterial = new THREE.MeshBasicMaterial({
+        color: 0x050404
+    });
 
+    // High-specular cornea reflection
     const eyeCorneaMaterial = new THREE.MeshPhysicalMaterial({
         color: 0xffffff,
         transparent: true,
-        opacity: 0.45,
-        roughness: 0.03,
+        opacity: 0.4,
+        roughness: 0.05,
         clearcoat: 1.0,
-        clearcoatRoughness: 0.03
+        clearcoatRoughness: 0.05
     });
 
+    // Base Bodysuit Material
     const baseUnderwearMat = new THREE.MeshStandardMaterial({
-        color: 0x0d0d12,
+        color: 0x120e1a,
         roughness: 0.55,
-        metalness: 0.15
-    });
-
-    const hairMaterial = new THREE.MeshStandardMaterial({
-        color: new THREE.Color(currentHairColor),
-        roughness: 0.42,
         metalness: 0.2
     });
 
-    // -------------------------------------------------------------
-    // 6. HYPER-REALISTIC HUMAN ANATOMY & RIGGED BASE MESH
-    // -------------------------------------------------------------
-    const mannequinRoot = new THREE.Group();
-    scene.add(mannequinRoot);
+    // Hair Material
+    const hairMaterial = new THREE.MeshStandardMaterial({
+        color: new THREE.Color(currentHairColor),
+        roughness: 0.45,
+        metalness: 0.22
+    });
 
-    // Anatomical Segment Groups
+    // Body groups
     const headGroup = new THREE.Group();
     headGroup.userData = { region: 'head' };
     const torsoGroup = new THREE.Group();
@@ -354,107 +316,79 @@ document.addEventListener('DOMContentLoaded', () => {
         return mesh;
     }
 
-    // --- A. HEAD & HIGH-FIDELITY FACIAL SCULPTING ---
-    // 1. Cranium with parietal, temporal & occipital curvature
-    const headCranium = addPartMesh(new THREE.SphereGeometry(0.126, 36, 32), skinMaterial, headGroup, 'head');
-    headCranium.position.set(0, 1.835, 0);
-    headCranium.scale.set(0.96, 1.15, 1.04);
+    // --- A. HEAD & HUMAN FACE SCULPTING ---
+    // Oval Cranium
+    const headCranium = addPartMesh(new THREE.SphereGeometry(0.125, 32, 28), skinMaterial, headGroup, 'head');
+    headCranium.position.set(0, 1.83, 0);
+    headCranium.scale.set(0.96, 1.16, 1.02);
 
-    // 2. Zygomatic Arch (Cheekbones)
-    const cheekL = new THREE.Mesh(new THREE.SphereGeometry(0.032, 16, 14), skinMaterial);
-    cheekL.position.set(-0.076, 1.785, 0.065);
-    cheekL.scale.set(1.2, 0.8, 1.1);
-    headGroup.add(cheekL);
-
-    const cheekR = new THREE.Mesh(new THREE.SphereGeometry(0.032, 16, 14), skinMaterial);
-    cheekR.position.set(0.076, 1.785, 0.065);
-    cheekR.scale.set(1.2, 0.8, 1.1);
-    headGroup.add(cheekR);
-
-    // 3. Mandible Jawline & Chin Apex
-    const jawMesh = addPartMesh(new THREE.CylinderGeometry(0.106, 0.064, 0.14, 28), skinMaterial, headGroup, 'head');
-    jawMesh.position.set(0, 1.732, 0.022);
+    // Anatomical Jaw & Chin
+    const jawMesh = addPartMesh(new THREE.CylinderGeometry(0.108, 0.062, 0.13, 24), skinMaterial, headGroup, 'head');
+    jawMesh.position.set(0, 1.73, 0.02);
     jawMesh.scale.set(0.92, 1.0, 0.90);
 
-    const chinTip = new THREE.Mesh(new THREE.SphereGeometry(0.026, 18, 16), skinMaterial);
-    chinTip.position.set(0, 1.678, 0.068);
-    chinTip.scale.set(1.0, 0.85, 1.12);
+    // Chin Apex
+    const chinTip = new THREE.Mesh(new THREE.SphereGeometry(0.024, 16, 14), skinMaterial);
+    chinTip.position.set(0, 1.68, 0.06);
+    chinTip.scale.set(1.0, 0.8, 1.1);
     headGroup.add(chinTip);
 
-    // 4. Anatomical Neck with Sternocleidomastoid Muscle Ridges
-    const neckMesh = addPartMesh(new THREE.CylinderGeometry(0.054, 0.072, 0.165, 28), skinMaterial, headGroup, 'head');
-    neckMesh.position.set(0, 1.635, -0.012);
+    // Refined Neck with Collarbone Transition
+    const neckMesh = addPartMesh(new THREE.CylinderGeometry(0.054, 0.070, 0.16, 24), skinMaterial, headGroup, 'head');
+    neckMesh.position.set(0, 1.64, -0.01);
 
-    // Sternocleidomastoid ridges
-    const scmMuscleL = new THREE.Mesh(new THREE.CylinderGeometry(0.010, 0.016, 0.15, 12), skinMaterial);
-    scmMuscleL.position.set(-0.035, 1.635, 0.025);
-    scmMuscleL.rotation.z = -0.18;
-    scmMuscleL.rotation.x = -0.15;
-    headGroup.add(scmMuscleL);
-
-    const scmMuscleR = new THREE.Mesh(new THREE.CylinderGeometry(0.010, 0.016, 0.15, 12), skinMaterial);
-    scmMuscleR.position.set(0.035, 1.635, 0.025);
-    scmMuscleR.rotation.z = 0.18;
-    scmMuscleR.rotation.x = -0.15;
-    headGroup.add(scmMuscleR);
-
-    // 5. Sculpted Nose (Dorsum, Supratip, Alar Wings, Nostrils, Columella)
-    const noseBridge = new THREE.Mesh(new THREE.CylinderGeometry(0.007, 0.013, 0.068, 16), skinMaterial);
-    noseBridge.position.set(0, 1.798, 0.138);
+    // 1. Nose Bridge, Cartilaginous Tip & Nostrils
+    const noseBridge = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.014, 0.065, 16), skinMaterial);
+    noseBridge.position.set(0, 1.795, 0.135);
     noseBridge.rotation.x = -0.22;
     headGroup.add(noseBridge);
 
     const noseTip = new THREE.Mesh(new THREE.SphereGeometry(0.012, 16, 14), skinMaterial);
-    noseTip.position.set(0, 1.766, 0.158);
+    noseTip.position.set(0, 1.765, 0.154);
     noseTip.scale.set(1.0, 0.85, 1.15);
     headGroup.add(noseTip);
 
-    const nostrilL = new THREE.Mesh(new THREE.SphereGeometry(0.0072, 12, 10), skinMaterial);
-    nostrilL.position.set(-0.014, 1.762, 0.147);
+    const nostrilL = new THREE.Mesh(new THREE.SphereGeometry(0.007, 12, 10), skinMaterial);
+    nostrilL.position.set(-0.014, 1.762, 0.144);
     headGroup.add(nostrilL);
 
-    const nostrilR = new THREE.Mesh(new THREE.SphereGeometry(0.0072, 12, 10), skinMaterial);
-    nostrilR.position.set(0.014, 1.762, 0.147);
+    const nostrilR = new THREE.Mesh(new THREE.SphereGeometry(0.007, 12, 10), skinMaterial);
+    nostrilR.position.set(0.014, 1.762, 0.144);
     headGroup.add(nostrilR);
 
-    // 6. Photorealistic Eyes (Orbital socket, Iris texture, Cornea wetness)
+    // 2. Sculpted Almond Eyes (Properly positioned on facial plane)
     function buildAlmondEye(isLeft) {
         const eyeGroup = new THREE.Group();
         const sideMult = isLeft ? -1 : 1;
 
-        // White Sclera with tear duct orientation
-        const sclera = new THREE.Mesh(new THREE.SphereGeometry(0.015, 20, 16), eyeWhiteMaterial);
-        sclera.scale.set(1.35, 0.85, 0.72);
+        // White Sclera
+        const sclera = new THREE.Mesh(new THREE.SphereGeometry(0.015, 18, 14), eyeWhiteMaterial);
+        sclera.scale.set(1.35, 0.85, 0.7);
         eyeGroup.add(sclera);
 
-        // Tear Duct (Caruncle)
-        const caruncle = new THREE.Mesh(new THREE.SphereGeometry(0.0035, 10, 8), lipsMaterial);
-        caruncle.position.set(0.018 * sideMult, -0.001, 0.006);
-        eyeGroup.add(caruncle);
-
         // Iris
-        const iris = new THREE.Mesh(new THREE.SphereGeometry(0.0088, 18, 16), eyeIrisMaterial);
+        const iris = new THREE.Mesh(new THREE.SphereGeometry(0.0085, 16, 14), eyeIrisMaterial);
         iris.position.set(0, 0, 0.007);
         eyeGroup.add(iris);
 
         // Pupil
-        const pupil = new THREE.Mesh(new THREE.SphereGeometry(0.0042, 14, 14), eyePupilMaterial);
+        const pupil = new THREE.Mesh(new THREE.SphereGeometry(0.0042, 12, 12), eyePupilMaterial);
         pupil.position.set(0, 0, 0.011);
         eyeGroup.add(pupil);
 
         // Cornea Specular Gloss
-        const cornea = new THREE.Mesh(new THREE.SphereGeometry(0.0155, 18, 16), eyeCorneaMaterial);
-        cornea.scale.set(1.35, 0.85, 0.72);
+        const cornea = new THREE.Mesh(new THREE.SphereGeometry(0.0155, 16, 14), eyeCorneaMaterial);
+        cornea.scale.set(1.35, 0.85, 0.7);
         eyeGroup.add(cornea);
 
-        // Upper Eyelid / Lash Line
-        const lidGeo = new THREE.TorusGeometry(0.018, 0.0028, 8, 18, Math.PI);
-        const lid = new THREE.Mesh(lidGeo, new THREE.MeshBasicMaterial({ color: 0x180e0a }));
+        // Upper Eyelid / Eyeliner Arc
+        const lidGeo = new THREE.TorusGeometry(0.018, 0.0028, 8, 16, Math.PI);
+        const lid = new THREE.Mesh(lidGeo, new THREE.MeshBasicMaterial({ color: 0x1a0f0a }));
         lid.position.set(0, 0.004, 0.008);
         lid.rotation.x = Math.PI / 4;
         eyeGroup.add(lid);
 
-        eyeGroup.position.set(0.046 * sideMult, 1.825, 0.128);
+        eyeGroup.position.set(0.046 * sideMult, 1.825, 0.126);
         headGroup.add(eyeGroup);
         return eyeGroup;
     }
@@ -462,128 +396,79 @@ document.addEventListener('DOMContentLoaded', () => {
     const eyeLeftGroup = buildAlmondEye(true);
     const eyeRightGroup = buildAlmondEye(false);
 
-    // 7. Eyebrow Arcs
-    const browGeo = new THREE.TorusGeometry(0.034, 0.0038, 10, 20, Math.PI / 2.1);
+    // 3. Eyebrow Arcs
+    const browGeo = new THREE.TorusGeometry(0.034, 0.0038, 10, 18, Math.PI / 2.1);
     const browL = new THREE.Mesh(browGeo, hairMaterial);
-    browL.position.set(-0.046, 1.856, 0.128);
+    browL.position.set(-0.046, 1.855, 0.126);
     browL.rotation.z = Math.PI * 0.94;
     browL.rotation.x = 0.15;
     headGroup.add(browL);
 
     const browR = new THREE.Mesh(browGeo, hairMaterial);
-    browR.position.set(0.046, 1.856, 0.128);
+    browR.position.set(0.046, 1.855, 0.126);
     browR.rotation.z = Math.PI * 0.06;
     browR.rotation.x = 0.15;
     headGroup.add(browR);
 
-    // 8. Sculpted Lips (Cupid's bow, Philtrum, Vermilion cushions)
-    const upperLipL = new THREE.Mesh(new THREE.CylinderGeometry(0.0058, 0.0058, 0.020, 14), lipsMaterial);
-    upperLipL.position.set(-0.010, 1.740, 0.140);
+    // 4. Sculpted Lips with Cupid's Bow
+    const upperLipL = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.019, 12), lipsMaterial);
+    upperLipL.position.set(-0.010, 1.740, 0.138);
     upperLipL.rotation.z = Math.PI / 2 + 0.12;
     headGroup.add(upperLipL);
 
-    const upperLipR = new THREE.Mesh(new THREE.CylinderGeometry(0.0058, 0.0058, 0.020, 14), lipsMaterial);
-    upperLipR.position.set(0.010, 1.740, 0.140);
+    const upperLipR = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.019, 12), lipsMaterial);
+    upperLipR.position.set(0.010, 1.740, 0.138);
     upperLipR.rotation.z = Math.PI / 2 - 0.12;
     headGroup.add(upperLipR);
 
-    const lowerLip = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.035, 16), lipsMaterial);
-    lowerLip.position.set(0, 1.725, 0.137);
+    const lowerLip = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.034, 14), lipsMaterial);
+    lowerLip.position.set(0, 1.726, 0.135);
     lowerLip.rotation.z = Math.PI / 2;
     headGroup.add(lowerLip);
 
-    // 9. Anatomical Ears with Helix, Antihelix & Lobe
-    function buildEar(isLeft) {
-        const earGroup = new THREE.Group();
-        const sideMult = isLeft ? -1 : 1;
+    // 5. Anatomical Ears
+    const earGeo = new THREE.SphereGeometry(0.024, 14, 12);
+    const earL = new THREE.Mesh(earGeo, skinMaterial);
+    earL.position.set(-0.122, 1.80, -0.01);
+    earL.scale.set(0.45, 1.4, 0.85);
+    headGroup.add(earL);
 
-        const outerHelix = new THREE.Mesh(new THREE.TorusGeometry(0.022, 0.005, 10, 18, Math.PI * 1.2), skinMaterial);
-        outerHelix.rotation.y = Math.PI / 2;
-        outerHelix.rotation.z = 0.2;
-        earGroup.add(outerHelix);
+    const earR = new THREE.Mesh(earGeo, skinMaterial);
+    earR.position.set(0.122, 1.80, -0.01);
+    earR.scale.set(0.45, 1.4, 0.85);
+    headGroup.add(earR);
 
-        const concha = new THREE.Mesh(new THREE.SphereGeometry(0.014, 12, 10), skinMaterial);
-        concha.scale.set(0.5, 1.2, 0.8);
-        earGroup.add(concha);
-
-        const lobe = new THREE.Mesh(new THREE.SphereGeometry(0.009, 12, 10), skinMaterial);
-        lobe.position.set(0, -0.018, 0);
-        earGroup.add(lobe);
-
-        earGroup.position.set(0.120 * sideMult, 1.80, -0.01);
-        headGroup.add(earGroup);
-        return earGroup;
-    }
-
-    buildEar(true);
-    buildEar(false);
-
-    // --- B. TORSO, CLAVICLES, SHOULDERS & ANATOMICAL ARMS ---
-    // 1. Ribcage & Chest Bodice
-    const chestMesh = addPartMesh(new THREE.CylinderGeometry(0.188, 0.162, 0.28, 36), skinMaterial, torsoGroup, 'torso');
+    // --- B. TORSO & ANATOMICAL LIMBS ---
+    const chestMesh = addPartMesh(new THREE.CylinderGeometry(0.19, 0.165, 0.28, 32), skinMaterial, torsoGroup, 'torso');
     chestMesh.position.set(0, 1.44, 0);
-    chestMesh.scale.set(1.10, 1.0, 0.74);
+    chestMesh.scale.set(1.12, 1.0, 0.74);
 
-    // 2. Sculpted Clavicle Collarbones (Curving from sternum to acromion)
-    const clavicleGeoL = new THREE.TorusGeometry(0.13, 0.0065, 10, 24, Math.PI / 2.3);
-    const clavicleMeshL = new THREE.Mesh(clavicleGeoL, skinMaterial);
-    clavicleMeshL.position.set(-0.065, 1.552, 0.042);
-    clavicleMeshL.rotation.x = Math.PI / 2.05;
-    clavicleMeshL.rotation.z = Math.PI / 3.6;
-    torsoGroup.add(clavicleMeshL);
+    // Clavicle Collarbones
+    const clavicleGeo = new THREE.TorusGeometry(0.14, 0.007, 10, 24, Math.PI / 2);
+    const clavicleMesh = new THREE.Mesh(clavicleGeo, skinMaterial);
+    clavicleMesh.position.set(0, 1.55, 0.04);
+    clavicleMesh.rotation.x = Math.PI / 2;
+    clavicleMesh.rotation.z = Math.PI / 4;
+    torsoGroup.add(clavicleMesh);
 
-    const clavicleMeshR = new THREE.Mesh(clavicleGeoL, skinMaterial);
-    clavicleMeshR.position.set(0.065, 1.552, 0.042);
-    clavicleMeshR.rotation.x = Math.PI / 2.05;
-    clavicleMeshR.rotation.z = -Math.PI / 3.6;
-    torsoGroup.add(clavicleMeshR);
-
-    // Trapezius slope bridge connecting neck to shoulders (prevents collapse/candy-wrapper)
-    const trapGeoL = new THREE.CylinderGeometry(0.045, 0.075, 0.16, 20);
-    const trapL = new THREE.Mesh(trapGeoL, skinMaterial);
-    trapL.position.set(-0.14, 1.56, -0.02);
-    trapL.rotation.z = 0.55;
-    torsoGroup.add(trapL);
-
-    const trapR = new THREE.Mesh(trapGeoL, skinMaterial);
-    trapR.position.set(0.14, 1.56, -0.02);
-    trapR.rotation.z = -0.55;
-    torsoGroup.add(trapR);
-
-    // 3. Female / Male Breast / Pectoral volume
-    const breastGeo = new THREE.SphereGeometry(0.072, 20, 16);
-    const breastL = new THREE.Mesh(breastGeo, skinMaterial);
-    breastL.position.set(-0.088, 1.44, 0.095);
-    breastL.scale.set(1.05, 1.15, 0.95);
-    torsoGroup.add(breastL);
-
-    const breastR = new THREE.Mesh(breastGeo, skinMaterial);
-    breastR.position.set(0.088, 1.44, 0.095);
-    breastR.scale.set(1.05, 1.15, 0.95);
-    torsoGroup.add(breastR);
-
-    // 4. Waist Taper & Obliques
-    const waistMesh = addPartMesh(new THREE.CylinderGeometry(0.140, 0.158, 0.22, 36), skinMaterial, torsoGroup, 'torso');
+    // Waist Taper
+    const waistMesh = addPartMesh(new THREE.CylinderGeometry(0.142, 0.158, 0.22, 32), skinMaterial, torsoGroup, 'torso');
     waistMesh.position.set(0, 1.22, 0);
     waistMesh.scale.set(0.96, 1.0, 0.68);
 
-    // 5. Pelvis / Hips & Gluteal Form
-    const hipsMesh = addPartMesh(new THREE.CylinderGeometry(0.162, 0.185, 0.20, 36), baseUnderwearMat, torsoGroup, 'torso');
+    // Pelvis / Hips
+    const hipsMesh = addPartMesh(new THREE.CylinderGeometry(0.165, 0.185, 0.20, 32), baseUnderwearMat, torsoGroup, 'torso');
     hipsMesh.position.set(0, 1.04, 0);
     hipsMesh.scale.set(1.18, 1.0, 0.76);
 
-    // 6. Sculpted Deltoid Shoulders (Tri-head deltoid mass preservation)
-    const shoulderGeo = new THREE.SphereGeometry(0.062, 24, 20);
-    const shoulderL = addPartMesh(shoulderGeo, skinMaterial, torsoGroup, 'torso');
+    // Sculpted Shoulders
+    const shoulderL = addPartMesh(new THREE.SphereGeometry(0.062, 20, 16), skinMaterial, torsoGroup, 'torso');
     shoulderL.position.set(-0.24, 1.52, 0);
-    shoulderL.scale.set(1.05, 1.18, 0.95);
-
-    const shoulderR = addPartMesh(shoulderGeo, skinMaterial, torsoGroup, 'torso');
+    const shoulderR = addPartMesh(new THREE.SphereGeometry(0.062, 20, 16), skinMaterial, torsoGroup, 'torso');
     shoulderR.position.set(0.24, 1.52, 0);
-    shoulderR.scale.set(1.05, 1.18, 0.95);
 
-    // 7. Upper Arms (Natural fashion runway A-pose angle)
-    const upperArmGeo = new THREE.CylinderGeometry(0.042, 0.038, 0.26, 24);
+    // Upper Arms (Naturally resting by side in runway poise)
+    const upperArmGeo = new THREE.CylinderGeometry(0.042, 0.038, 0.26, 20);
     const armLeftUpper = addPartMesh(upperArmGeo, skinMaterial, torsoGroup, 'torso');
     armLeftUpper.position.set(-0.27, 1.36, 0);
     armLeftUpper.rotation.z = -0.14;
@@ -594,15 +479,14 @@ document.addEventListener('DOMContentLoaded', () => {
     armRightUpper.rotation.z = 0.14;
     armRightUpper.rotation.x = 0.06;
 
-    // 8. Elbow Joints (Olecranon volume-preserving hinge)
-    const elbowGeo = new THREE.SphereGeometry(0.035, 18, 16);
-    const elbowL = addPartMesh(elbowGeo, skinMaterial, torsoGroup, 'torso');
+    // Elbow Joints
+    const elbowL = addPartMesh(new THREE.SphereGeometry(0.035, 16, 14), skinMaterial, torsoGroup, 'torso');
     elbowL.position.set(-0.305, 1.22, 0.015);
-    const elbowR = addPartMesh(elbowGeo, skinMaterial, torsoGroup, 'torso');
+    const elbowR = addPartMesh(new THREE.SphereGeometry(0.035, 16, 14), skinMaterial, torsoGroup, 'torso');
     elbowR.position.set(0.305, 1.22, 0.015);
 
-    // 9. Forearms (Tapering naturally toward wrist)
-    const forearmGeo = new THREE.CylinderGeometry(0.035, 0.026, 0.25, 24);
+    // Forearms (Tapering naturally toward wrist)
+    const forearmGeo = new THREE.CylinderGeometry(0.035, 0.026, 0.25, 20);
     const forearmLeft = addPartMesh(forearmGeo, skinMaterial, torsoGroup, 'torso');
     forearmLeft.position.set(-0.312, 1.07, 0.045);
     forearmLeft.rotation.z = -0.06;
@@ -613,164 +497,103 @@ document.addEventListener('DOMContentLoaded', () => {
     forearmRight.rotation.z = 0.06;
     forearmRight.rotation.x = 0.18;
 
-    // --- C. BIOLOGICALLY ACCURATE 5-FINGER SCULPTED HANDS (ALL 3 PHALANGES + KNUCKLES) ---
+    // --- ANATOMICAL POSED RUNWAY HANDS (Sorted, Natural & Refined) ---
     function buildSculptedHand(isLeft) {
         const handRoot = new THREE.Group();
         const sideMult = isLeft ? -1 : 1;
 
         // Slender Wrist Transition
-        const wristMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.024, 0.020, 0.04, 16), skinMaterial);
+        const wristMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.024, 0.020, 0.04, 14), skinMaterial);
         wristMesh.position.set(0, 0.02, 0);
         handRoot.add(wristMesh);
 
-        // Palm Base (Anatomical volume with thenar & hypothenar mounds)
+        // Palm Base (Anatomically tapered volume with thenar pad)
         const palmMesh = new THREE.Mesh(new THREE.BoxGeometry(0.036, 0.052, 0.018), skinMaterial);
         palmMesh.position.set(0, -0.016, 0);
         palmMesh.castShadow = true;
         handRoot.add(palmMesh);
 
         // Thenar Muscle Mound (Base of thumb)
-        const thenarMound = new THREE.Mesh(new THREE.SphereGeometry(0.013, 14, 12), skinMaterial);
+        const thenarMound = new THREE.Mesh(new THREE.SphereGeometry(0.012, 12, 10), skinMaterial);
         thenarMound.position.set(0.018 * sideMult, -0.008, 0.006);
-        thenarMound.scale.set(1.2, 1.0, 0.85);
+        thenarMound.scale.set(1.2, 1.0, 0.8);
         handRoot.add(thenarMound);
 
-        // Posed Biologically Accurate Thumb (Metacarpal + Proximal + Distal phalanges)
-        const thumbProx = new THREE.Mesh(new THREE.CylinderGeometry(0.0065, 0.0055, 0.024, 12), skinMaterial);
+        // Natural Posed Thumb (Angling inward toward index finger)
+        const thumbProx = new THREE.Mesh(new THREE.CylinderGeometry(0.0065, 0.0055, 0.024, 10), skinMaterial);
         thumbProx.position.set(0.024 * sideMult, -0.014, 0.012);
         thumbProx.rotation.z = -0.45 * sideMult;
         thumbProx.rotation.x = 0.35;
         handRoot.add(thumbProx);
 
-        const thumbDist = new THREE.Mesh(new THREE.CylinderGeometry(0.0052, 0.0038, 0.018, 12), skinMaterial);
+        const thumbDist = new THREE.Mesh(new THREE.CylinderGeometry(0.0052, 0.0040, 0.018, 10), skinMaterial);
         thumbDist.position.set(0.032 * sideMult, -0.028, 0.018);
         thumbDist.rotation.z = -0.25 * sideMult;
         thumbDist.rotation.x = 0.50;
         handRoot.add(thumbDist);
 
-        // 4 Cascaded Runway Fingers (Index, Middle, Ring, Pinky with Proximal, Intermediate, Distal phalanges)
+        // 4 Cascaded Runway Fingers (Index, Middle, Ring, Pinky - gently curved)
         const fingerData = [
-            { len: 0.042, xOff: -0.012, curl: 0.16 }, // Index
-            { len: 0.046, xOff: -0.004, curl: 0.15 }, // Middle (longest)
-            { len: 0.040, xOff: 0.004, curl: 0.20 },  // Ring
-            { len: 0.033, xOff: 0.011, curl: 0.26 }   // Pinky (most curled)
+            { len: 0.042, xOff: -0.012, curl: 0.18 }, // Index
+            { len: 0.046, xOff: -0.004, curl: 0.16 }, // Middle (longest)
+            { len: 0.040, xOff: 0.004, curl: 0.22 },  // Ring
+            { len: 0.033, xOff: 0.011, curl: 0.28 }   // Pinky (most curled)
         ];
 
         fingerData.forEach(f => {
             const posX = f.xOff * sideMult;
-
-            // Metacarpophalangeal Knuckle
-            const knuckle = new THREE.Mesh(new THREE.SphereGeometry(0.0048, 10, 8), skinMaterial);
-            knuckle.position.set(posX, -0.042, 0.004);
-            handRoot.add(knuckle);
-
-            // 1. Proximal Phalanx
-            const prox = new THREE.Mesh(new THREE.CylinderGeometry(0.0046, 0.0040, f.len * 0.40, 10), skinMaterial);
-            prox.position.set(posX, -0.042 - (f.len * 0.20), 0.004);
+            const prox = new THREE.Mesh(new THREE.CylinderGeometry(0.0048, 0.0040, f.len * 0.6, 10), skinMaterial);
+            prox.position.set(posX, -0.048, 0.004);
             prox.rotation.x = f.curl;
             handRoot.add(prox);
 
-            // PIP Knuckle
-            const pipKnuckle = new THREE.Mesh(new THREE.SphereGeometry(0.0042, 8, 8), skinMaterial);
-            pipKnuckle.position.set(posX, -0.042 - (f.len * 0.40), 0.004 + (f.curl * 0.02));
-            handRoot.add(pipKnuckle);
-
-            // 2. Intermediate Phalanx
-            const inter = new THREE.Mesh(new THREE.CylinderGeometry(0.0038, 0.0034, f.len * 0.32, 10), skinMaterial);
-            inter.position.set(posX, -0.042 - (f.len * 0.56), 0.007 + (f.curl * 0.04));
-            inter.rotation.x = f.curl * 1.3;
-            handRoot.add(inter);
-
-            // 3. Distal Phalanx with finger pad
-            const dist = new THREE.Mesh(new THREE.CylinderGeometry(0.0034, 0.0026, f.len * 0.28, 10), skinMaterial);
-            dist.position.set(posX, -0.042 - (f.len * 0.72), 0.011 + (f.curl * 0.06));
-            dist.rotation.x = f.curl * 1.6;
+            const dist = new THREE.Mesh(new THREE.CylinderGeometry(0.0038, 0.0028, f.len * 0.45, 10), skinMaterial);
+            dist.position.set(posX, -0.064, 0.012);
+            dist.rotation.x = f.curl + 0.25;
             handRoot.add(dist);
         });
 
-        // Position hand at forearm terminus
-        handRoot.position.set(0.316 * sideMult, 0.92, 0.095);
-        handRoot.rotation.z = 0.10 * sideMult;
-        handRoot.rotation.x = 0.20;
+        // Position hand gracefully on forearm
+        handRoot.position.set(0.316 * sideMult, 0.91, 0.08);
+        handRoot.rotation.y = 0.25 * sideMult;
+        handRoot.rotation.z = -0.06 * sideMult;
         torsoGroup.add(handRoot);
         return handRoot;
     }
 
-    const handL = buildSculptedHand(true);
-    const handR = buildSculptedHand(false);
+    const handLeftMesh = buildSculptedHand(true);
+    const handRightMesh = buildSculptedHand(false);
 
-    // --- D. LEGS, PATIS & BARE RUNWAY FEET ---
-    // 1. Thighs / Femur (Quadriceps volume)
-    const thighGeo = new THREE.CylinderGeometry(0.088, 0.062, 0.38, 28);
-    const thighL = addPartMesh(thighGeo, skinMaterial, legsGroup, 'legs');
-    thighL.position.set(-0.11, 0.77, 0);
-    thighL.scale.set(1.04, 1.0, 1.10);
+    // --- C. SCULPTED ATHLETIC LEGS ---
+    const thighGeo = new THREE.CylinderGeometry(0.084, 0.062, 0.44, 24);
+    const thighLeft = addPartMesh(thighGeo, skinMaterial, legsGroup, 'legs');
+    thighLeft.position.set(-0.11, 0.74, 0);
 
-    const thighR = addPartMesh(thighGeo, skinMaterial, legsGroup, 'legs');
-    thighR.position.set(0.11, 0.77, 0);
-    thighR.scale.set(1.04, 1.0, 1.10);
+    const thighRight = addPartMesh(thighGeo, skinMaterial, legsGroup, 'legs');
+    thighRight.position.set(0.11, 0.74, 0);
 
-    // 2. Knee Joints & Sculpted Patella
-    const kneeGeo = new THREE.SphereGeometry(0.052, 20, 16);
-    const kneeL = addPartMesh(kneeGeo, skinMaterial, legsGroup, 'legs');
-    kneeL.position.set(-0.11, 0.55, 0.01);
-    kneeL.scale.set(0.92, 1.1, 1.0);
+    // Sculpted Kneecaps
+    const kneeL = addPartMesh(new THREE.SphereGeometry(0.052, 18, 14), skinMaterial, legsGroup, 'legs');
+    kneeL.position.set(-0.11, 0.50, 0.012);
+    const kneeR = addPartMesh(new THREE.SphereGeometry(0.052, 18, 14), skinMaterial, legsGroup, 'legs');
+    kneeR.position.set(0.11, 0.50, 0.012);
 
-    const kneeR = addPartMesh(kneeGeo, skinMaterial, legsGroup, 'legs');
-    kneeR.position.set(0.11, 0.55, 0.01);
-    kneeR.scale.set(0.92, 1.1, 1.0);
+    // Calves & Shins
+    const calfGeo = new THREE.CylinderGeometry(0.058, 0.038, 0.44, 24);
+    const calfLeft = addPartMesh(calfGeo, skinMaterial, legsGroup, 'legs');
+    calfLeft.position.set(-0.11, 0.27, 0);
+    const calfRight = addPartMesh(calfGeo, skinMaterial, legsGroup, 'legs');
+    calfRight.position.set(0.11, 0.27, 0);
 
-    // 3. Lower Legs / Shins with Gastrocnemius (Calf definition)
-    const calfGeo = new THREE.CylinderGeometry(0.058, 0.038, 0.44, 28);
-    const shinL = addPartMesh(calfGeo, skinMaterial, legsGroup, 'legs');
-    shinL.position.set(-0.11, 0.31, 0);
-    shinL.scale.set(1.0, 1.0, 1.12);
-
-    const shinR = addPartMesh(calfGeo, skinMaterial, legsGroup, 'legs');
-    shinR.position.set(0.11, 0.31, 0);
-    shinR.scale.set(1.0, 1.0, 1.12);
-
-    // 4. Ankle Bones (Medial & Lateral Malleolus)
-    const ankleGeo = new THREE.SphereGeometry(0.036, 16, 14);
-    const ankleL = new THREE.Mesh(ankleGeo, skinMaterial);
-    ankleL.position.set(-0.11, 0.07, 0);
-    legsGroup.add(ankleL);
-
-    const ankleR = new THREE.Mesh(ankleGeo, skinMaterial);
-    ankleR.position.set(0.11, 0.07, 0);
-    legsGroup.add(ankleR);
-
-    // 5. Bare Editorial Runway Feet
-    function buildSculptedFoot(isLeft) {
-        const footGroup = new THREE.Group();
-        const sideMult = isLeft ? -1 : 1;
-
-        // Foot instep arch
-        const instep = new THREE.Mesh(new THREE.BoxGeometry(0.065, 0.045, 0.14), skinMaterial);
-        instep.position.set(0, 0.022, 0.04);
-        instep.rotation.x = -0.12;
-        footGroup.add(instep);
-
-        // Heel
-        const heel = new THREE.Mesh(new THREE.SphereGeometry(0.030, 14, 12), skinMaterial);
-        heel.position.set(0, 0.024, -0.02);
-        footGroup.add(heel);
-
-        // Toe Pad
-        const toePad = new THREE.Mesh(new THREE.BoxGeometry(0.068, 0.022, 0.045), skinMaterial);
-        toePad.position.set(0, 0.012, 0.115);
-        footGroup.add(toePad);
-
-        footGroup.position.set(0.11 * sideMult, 0, 0);
-        legsGroup.add(footGroup);
-        return footGroup;
-    }
-
-    buildSculptedFoot(true);
-    buildSculptedFoot(false);
+    // --- D. ANATOMICAL FEET ---
+    const footGeo = new THREE.BoxGeometry(0.068, 0.048, 0.17);
+    const footLeft = addPartMesh(footGeo, skinMaterial, legsGroup, 'legs');
+    footLeft.position.set(-0.11, 0.03, 0.03);
+    const footRight = addPartMesh(footGeo, skinMaterial, legsGroup, 'legs');
+    footRight.position.set(0.11, 0.03, 0.03);
 
     // -------------------------------------------------------------
-    // 7. HIGH-FASHION VOLUMETRIC 3D HAIR ENGINE
+    // 6. PROCEDURAL 3D HAIR GEOMETRIES (REALISTIC & GENDER-ALIGNED)
     // -------------------------------------------------------------
     const hairContainer = new THREE.Group();
     headGroup.add(hairContainer);
@@ -786,53 +609,82 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const hairGroup = new THREE.Group();
 
-        // 1. EDITORIAL GLAMOUR WAVES / SIDE-PART
-        if (styleKey === 'side-part') {
-            const crownDome = new THREE.Mesh(new THREE.SphereGeometry(0.134, 28, 24), hairMaterial);
-            crownDome.position.set(0, 1.85, -0.01);
-            crownDome.scale.set(1.02, 1.15, 1.05);
-            hairGroup.add(crownDome);
+        // 1. FEMALE DEFAULT: Editorial Side-Part & Glamour Waves
+        if (styleKey === 'side-part' || styleKey === 'long-waves') {
+            const cap = new THREE.Mesh(new THREE.SphereGeometry(0.134, 28, 24), hairMaterial);
+            cap.position.set(0, 1.86, -0.01);
+            cap.scale.set(1.02, 1.10, 1.05);
+            hairGroup.add(cap);
 
-            const sweepBang = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.145, 0.06, 24), hairMaterial);
-            sweepBang.position.set(0.03, 1.88, 0.04);
-            sweepBang.rotation.z = -0.35;
-            sweepBang.rotation.x = 0.25;
-            hairGroup.add(sweepBang);
+            const sideSweep = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.026, 16, 24, Math.PI * 0.75), hairMaterial);
+            sideSweep.position.set(0.03, 1.88, 0.06);
+            sideSweep.rotation.z = -0.55;
+            sideSweep.rotation.x = 0.25;
+            hairGroup.add(sideSweep);
 
-            const cascadeL = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.08, 0.36, 20), hairMaterial);
-            cascadeL.position.set(-0.115, 1.66, 0.01);
-            cascadeL.rotation.z = 0.12;
-            hairGroup.add(cascadeL);
+            const waveL = new THREE.Mesh(new THREE.CylinderGeometry(0.038, 0.022, 0.48, 16), hairMaterial);
+            waveL.position.set(-0.13, 1.62, 0.03);
+            waveL.rotation.z = -0.16;
+            waveL.rotation.x = 0.08;
+            hairGroup.add(waveL);
 
-            const cascadeR = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.08, 0.36, 20), hairMaterial);
-            cascadeR.position.set(0.115, 1.66, 0.01);
-            cascadeR.rotation.z = -0.12;
-            hairGroup.add(cascadeR);
+            const waveR = new THREE.Mesh(new THREE.CylinderGeometry(0.038, 0.022, 0.48, 16), hairMaterial);
+            waveR.position.set(0.13, 1.62, 0.03);
+            waveR.rotation.z = 0.16;
+            waveR.rotation.x = 0.08;
+            hairGroup.add(waveR);
 
-            const backHair = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.14, 0.38, 20), hairMaterial);
-            backHair.position.set(0, 1.65, -0.07);
-            hairGroup.add(backHair);
+            const backDrape = new THREE.Mesh(new THREE.CylinderGeometry(0.125, 0.085, 0.52, 20), hairMaterial);
+            backDrape.position.set(0, 1.60, -0.09);
+            backDrape.scale.set(1.1, 1.0, 0.85);
+            hairGroup.add(backDrape);
         }
-        // 2. MODERN TEXTURED QUIFF / SHORT CROP
+        // 2. MALE DEFAULT: Modern Textured Quiff / High-Fashion Crop
         else if (styleKey === 'short-crop') {
-            const baseCap = new THREE.Mesh(new THREE.SphereGeometry(0.132, 28, 24), hairMaterial);
-            baseCap.position.set(0, 1.85, -0.01);
-            baseCap.scale.set(1.02, 1.15, 1.04);
-            hairGroup.add(baseCap);
+            const fadeSides = new THREE.Mesh(new THREE.SphereGeometry(0.130, 28, 24), hairMaterial);
+            fadeSides.position.set(0, 1.85, -0.01);
+            fadeSides.scale.set(1.02, 1.12, 1.03);
+            hairGroup.add(fadeSides);
 
-            const topQuiff = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.06, 0.16), hairMaterial);
-            topQuiff.position.set(0, 1.95, 0.02);
-            topQuiff.rotation.x = -0.22;
-            hairGroup.add(topQuiff);
+            const quiffBase = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.045, 0.13), hairMaterial);
+            quiffBase.position.set(0, 1.95, 0.01);
+            quiffBase.rotation.x = 0.15;
+            hairGroup.add(quiffBase);
+
+            for (let i = 0; i < 5; i++) {
+                const strand = new THREE.Mesh(new THREE.ConeGeometry(0.020, 0.065, 8), hairMaterial);
+                const xOff = (-0.04 + (i * 0.02));
+                strand.position.set(xOff, 1.97, 0.03 + (Math.sin(i) * 0.01));
+                strand.rotation.x = 0.45;
+                strand.rotation.z = (i - 2) * 0.12;
+                hairGroup.add(strand);
+            }
         }
-        // 3. AFRO HIGH PUFF
+        // 3. NON-BINARY DEFAULT: Textured Afro High Puff with Metallic Band
         else if (styleKey === 'curly-puff') {
-            const afroDome = new THREE.Mesh(new THREE.SphereGeometry(0.165, 24, 20), hairMaterial);
-            afroDome.position.set(0, 1.94, -0.01);
-            afroDome.scale.set(1.15, 1.15, 1.12);
-            hairGroup.add(afroDome);
+            const baseHair = new THREE.Mesh(new THREE.SphereGeometry(0.132, 24, 20), hairMaterial);
+            baseHair.position.set(0, 1.86, 0);
+            hairGroup.add(baseHair);
+
+            const cuffMat = new THREE.MeshStandardMaterial({ color: 0xffc700, metalness: 0.9, roughness: 0.2 });
+            const cuff = new THREE.Mesh(new THREE.TorusGeometry(0.09, 0.012, 14, 24), cuffMat);
+            cuff.position.set(0, 1.94, -0.02);
+            cuff.rotation.x = Math.PI / 2;
+            hairGroup.add(cuff);
+
+            const puffCrown = new THREE.Mesh(new THREE.SphereGeometry(0.165, 24, 20), hairMaterial);
+            puffCrown.position.set(0, 2.04, -0.02);
+            puffCrown.scale.set(1.15, 0.95, 1.15);
+            hairGroup.add(puffCrown);
+
+            for (let i = 0; i < 8; i++) {
+                const miniCurl = new THREE.Mesh(new THREE.SphereGeometry(0.055, 12, 10), hairMaterial);
+                const angle = (i / 8) * Math.PI * 2;
+                miniCurl.position.set(Math.cos(angle) * 0.13, 2.05 + Math.sin(angle) * 0.03, Math.sin(angle) * 0.13);
+                hairGroup.add(miniCurl);
+            }
         }
-        // 4. CLEAN BUZZ CUT
+        // 4. BUZZ CUT
         else if (styleKey === 'buzz-cut') {
             const buzz = new THREE.Mesh(new THREE.SphereGeometry(0.128, 28, 24), hairMaterial);
             buzz.position.set(0, 1.84, 0);
@@ -847,7 +699,7 @@ document.addEventListener('DOMContentLoaded', () => {
     build3DHair('side-part');
 
     // -------------------------------------------------------------
-    // 8. PRECISION GARMENT TAILORING (FLUSH AROUND SHOULDERS & NECK)
+    // 7. PRECISION GARMENT TAILORING (FLUSH AROUND SHOULDERS & NECK)
     // -------------------------------------------------------------
     const garmentsRoot = new THREE.Group();
     mannequinRoot.add(garmentsRoot);
@@ -856,7 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const garmentMaterials = { head: null, torso: null, legs: null };
     const studsGroups = { head: null, torso: null, legs: null };
 
-    // High-Resolution Streetwear Canvas Graphic Texture
+    // Canvas Texture Generator for Authentic Streetwear Graphics & Decals
     function createGraphicTeeTexture(customText = '') {
         const canvas = document.createElement('canvas');
         canvas.width = 1024;
@@ -963,7 +815,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const isMale = (currentGender === 'male');
         const chestWidthMult = isMale ? 1.25 : 1.0;
-        const shoulderSpread = isMale ? 0.29 : 0.24;
+        const shoulderSpread = isMale ? 0.30 : 0.24;
 
         // =========================================================
         // A. HEADWEAR REPLICATION
@@ -1033,13 +885,12 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (region === 'torso') {
             // 1. DECONSTRUCTED GRAPHIC TEE
             if (item.type === 'tee') {
-                // Main Bodice: terminates at clavicular baseline (y=1.54)
                 const teeBody = new THREE.Mesh(new THREE.CylinderGeometry(0.205 * chestWidthMult, 0.180 * chestWidthMult, 0.48, 36), mat);
                 teeBody.position.set(0, 1.31, 0);
                 teeBody.scale.set(1.15, 1.0, 0.80);
                 garmentGroup.add(teeBody);
 
-                // Shoulder Yokes: slope along 16° trapezius downward angle over deltoids
+                // Shoulder Yokes: slope along trapezius downward angle over deltoids
                 const yokeL = new THREE.Mesh(new THREE.CylinderGeometry(0.068, 0.076, 0.16, 24), mat);
                 yokeL.position.set(-shoulderSpread * 0.72, 1.505, 0.005);
                 yokeL.rotation.z = 0.42;
@@ -1110,7 +961,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 hoodieBody.scale.set(1.18, 1.0, 0.84);
                 garmentGroup.add(hoodieBody);
 
-                // Ergonomic Cowl Collar sitting flush around neck and trapezius
+                // Ergonomic Cowl Collar sitting flush around neck
                 const cowl = new THREE.Mesh(new THREE.TorusGeometry(0.134, 0.038, 18, 36), mat);
                 cowl.position.set(0, 1.585, -0.035);
                 cowl.rotation.x = Math.PI / 2.5;
@@ -1121,7 +972,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 pouch.position.set(0, 1.20, 0.165);
                 garmentGroup.add(pouch);
 
-                // Full Sleeves (Morphs if sleeve length is set to short)
+                // Sleeves
                 const sleeveLen = (currentSleeveMode === 'short') ? 0.22 : 0.46;
                 const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.068, 0.052, sleeveLen, 24), mat);
                 armL.position.set(-shoulderSpread - 0.05, 1.42 - (sleeveLen * 0.25), 0.02);
@@ -1220,7 +1071,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 epauletR.rotation.z = -0.28;
                 garmentGroup.add(epauletR);
 
-                // Sleeves (Morphs if sleeve length is set to short)
+                // Sleeves
                 const sleeveLen = (currentSleeveMode === 'short') ? 0.22 : 0.44;
                 const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.066, 0.050, sleeveLen, 24), mat);
                 armL.position.set(-shoulderSpread - 0.05, 1.42 - (sleeveLen * 0.25), 0.02);
@@ -1373,7 +1224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 9. SMART GENDER, MORPHING & PARAMETRIC ANATOMY
+    // 8. SMART GENDER, MORPHING & PARAMETRIC ANATOMY
     // -------------------------------------------------------------
     function updateGenderMorphing(gender) {
         currentGender = gender;
@@ -1382,121 +1233,74 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (gender === 'male') {
-            // Male Athletic Sculpting
-            headCranium.scale.set(1.02, 1.16, 1.06);
-            jawMesh.scale.set(1.04, 1.02, 1.0);
-            chinTip.scale.set(1.2, 0.9, 1.2);
-            neckMesh.scale.set(1.22, 1.0, 1.15);
+            chestMesh.scale.set(1.36, 1.0, 0.90);
+            waistMesh.scale.set(1.12, 1.0, 0.78);
+            hipsMesh.scale.set(1.04, 1.0, 0.72);
+            shoulderL.position.x = -0.30;
+            shoulderR.position.x = 0.30;
+            armLeftUpper.position.x = -0.33;
+            armRightUpper.position.x = 0.33;
+            elbowL.position.x = -0.365;
+            elbowR.position.x = 0.365;
+            forearmLeft.position.x = -0.372;
+            forearmRight.position.x = 0.372;
+            handLeftMesh.position.x = -0.376;
+            handRightMesh.position.x = 0.376;
+            jawMesh.scale.set(1.14, 1.05, 1.10);
 
-            // Torso Athletic V-Taper
-            chestMesh.scale.set(1.28, 1.0, 0.85);
-            breastL.scale.set(1.2, 0.6, 0.5); // Athletic pectoral line
-            breastR.scale.set(1.2, 0.6, 0.5);
-            shoulderL.position.set(-0.29, 1.54, 0);
-            shoulderL.scale.set(1.25, 1.25, 1.15);
-            shoulderR.position.set(0.29, 1.54, 0);
-            shoulderR.scale.set(1.25, 1.25, 1.15);
-
-            armLeftUpper.position.set(-0.32, 1.36, 0);
-            armLeftUpper.scale.set(1.22, 1.0, 1.22);
-            armRightUpper.position.set(0.32, 1.36, 0);
-            armRightUpper.scale.set(1.22, 1.0, 1.22);
-
-            forearmLeft.position.set(-0.35, 1.07, 0.045);
-            forearmLeft.scale.set(1.20, 1.0, 1.20);
-            forearmRight.position.set(0.35, 1.07, 0.045);
-            forearmRight.scale.set(1.20, 1.0, 1.20);
-
-            handL.position.set(-0.36, 0.92, 0.095);
-            handR.position.set(0.36, 0.92, 0.095);
-
-            waistMesh.scale.set(1.06, 1.0, 0.78);
-            hipsMesh.scale.set(1.08, 1.0, 0.76); // Narrower athletic hips
-
-            // Default to short crop/quiff if on side part
             if (hairStyleSelect && hairStyleSelect.value === 'side-part') {
                 hairStyleSelect.value = 'short-crop';
-                if (hairBadge) hairBadge.textContent = '3D Modern Textured Quiff / Crop';
+                if (hairBadge) hairBadge.textContent = '3D Modern Textured Crop';
                 build3DHair('short-crop');
             }
         } else if (gender === 'female') {
-            // Female Editorial Runway Curves
-            headCranium.scale.set(0.96, 1.15, 1.04);
-            jawMesh.scale.set(0.92, 1.0, 0.90);
-            chinTip.scale.set(1.0, 0.85, 1.12);
-            neckMesh.scale.set(1.0, 1.0, 1.0);
-
-            chestMesh.scale.set(1.10, 1.0, 0.74);
-            breastL.scale.set(1.05, 1.15, 0.95);
-            breastR.scale.set(1.05, 1.15, 0.95);
-            shoulderL.position.set(-0.24, 1.52, 0);
-            shoulderL.scale.set(1.05, 1.18, 0.95);
-            shoulderR.position.set(0.24, 1.52, 0);
-            shoulderR.scale.set(1.05, 1.18, 0.95);
-
-            armLeftUpper.position.set(-0.27, 1.36, 0);
-            armLeftUpper.scale.set(1.0, 1.0, 1.0);
-            armRightUpper.position.set(0.27, 1.36, 0);
-            armRightUpper.scale.set(1.0, 1.0, 1.0);
-
-            forearmLeft.position.set(-0.312, 1.07, 0.045);
-            forearmLeft.scale.set(1.0, 1.0, 1.0);
-            forearmRight.position.set(0.312, 1.07, 0.045);
-            forearmRight.scale.set(1.0, 1.0, 1.0);
-
-            handL.position.set(-0.316, 0.92, 0.095);
-            handR.position.set(0.316, 0.92, 0.095);
-
+            chestMesh.scale.set(1.12, 1.0, 0.74);
             waistMesh.scale.set(0.96, 1.0, 0.68);
-            hipsMesh.scale.set(1.18, 1.0, 0.76); // Pronounced luxury waist-to-hip ratio
+            hipsMesh.scale.set(1.18, 1.0, 0.76);
+            shoulderL.position.x = -0.24;
+            shoulderR.position.x = 0.24;
+            armLeftUpper.position.x = -0.27;
+            armRightUpper.position.x = 0.27;
+            elbowL.position.x = -0.305;
+            elbowR.position.x = 0.305;
+            forearmLeft.position.x = -0.312;
+            forearmRight.position.x = 0.312;
+            handLeftMesh.position.x = -0.316;
+            handRightMesh.position.x = 0.316;
+            jawMesh.scale.set(0.92, 1.0, 0.90);
 
             if (hairStyleSelect && hairStyleSelect.value === 'short-crop') {
                 hairStyleSelect.value = 'side-part';
-                if (hairBadge) hairBadge.textContent = '3D Editorial Glamour Waves';
+                if (hairBadge) hairBadge.textContent = '3D Editorial Side-Part';
                 build3DHair('side-part');
             }
         } else {
-            // Non-Binary Sleek Architectural Neutral
-            headCranium.scale.set(0.98, 1.15, 1.05);
-            jawMesh.scale.set(0.98, 1.0, 0.95);
-            chinTip.scale.set(1.1, 0.88, 1.15);
-            neckMesh.scale.set(1.1, 1.0, 1.05);
-
-            chestMesh.scale.set(1.18, 1.0, 0.80);
-            breastL.scale.set(1.0, 0.8, 0.7);
-            breastR.scale.set(1.0, 0.8, 0.7);
-            shoulderL.position.set(-0.26, 1.53, 0);
-            shoulderL.scale.set(1.12, 1.2, 1.05);
-            shoulderR.position.set(0.26, 1.53, 0);
-            shoulderR.scale.set(1.12, 1.2, 1.05);
-
-            armLeftUpper.position.set(-0.29, 1.36, 0);
-            armLeftUpper.scale.set(1.1, 1.0, 1.1);
-            armRightUpper.position.set(0.29, 1.36, 0);
-            armRightUpper.scale.set(1.1, 1.0, 1.1);
-
-            forearmLeft.position.set(-0.33, 1.07, 0.045);
-            forearmRight.position.set(0.33, 1.07, 0.045);
-
-            handL.position.set(-0.335, 0.92, 0.095);
-            handR.position.set(0.335, 0.92, 0.095);
-
-            waistMesh.scale.set(1.0, 1.0, 0.74);
-            hipsMesh.scale.set(1.12, 1.0, 0.76);
+            chestMesh.scale.set(1.20, 1.0, 0.80);
+            waistMesh.scale.set(1.02, 1.0, 0.72);
+            hipsMesh.scale.set(1.12, 1.0, 0.74);
+            shoulderL.position.x = -0.26;
+            shoulderR.position.x = 0.26;
+            armLeftUpper.position.x = -0.29;
+            armRightUpper.position.x = 0.29;
+            elbowL.position.x = -0.325;
+            elbowR.position.x = 0.325;
+            forearmLeft.position.x = -0.332;
+            forearmRight.position.x = 0.332;
+            handLeftMesh.position.x = -0.336;
+            handRightMesh.position.x = 0.336;
+            jawMesh.scale.set(1.0, 1.0, 0.95);
         }
 
-        // Re-fit active torso garment if present
         if (selectedGarments.torso) {
             build3DGarmentMesh('torso', selectedGarments.torso);
         }
     }
 
-    // Body Type Scaling
     function updateBodyType(type) {
         currentBodyType = type;
         if (type === 'athletic') {
             waistMesh.scale.y = 1.0;
-            chestMesh.scale.x = (currentGender === 'male') ? 1.28 : 1.10;
+            chestMesh.scale.x = (currentGender === 'male') ? 1.36 : 1.12;
         } else if (type === 'slim') {
             chestMesh.scale.x *= 0.92;
             waistMesh.scale.x *= 0.90;
@@ -1511,18 +1315,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Proportional Height Scaling (Localized morphing on legs and torso; preserves headwear and hand ratios)
     function updateHeightScale(val) {
         currentHeightScale = parseFloat(val);
-        // Morph legs proportionally
         legsGroup.scale.y = currentHeightScale;
         legsGroup.position.y = (1.0 - currentHeightScale) * 0.15;
 
-        // Morph torso
         torsoGroup.scale.y = 1.0 + (currentHeightScale - 1.0) * 0.4;
         headGroup.position.y = (currentHeightScale - 1.0) * 0.25;
 
-        // Preserve headwear 1:1 circular proportions without vertical stretching
         if (active3DGarments.head) {
             active3DGarments.head.position.y = (currentHeightScale - 1.0) * 0.25;
             active3DGarments.head.scale.y = 1.0;
@@ -1537,7 +1337,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 10. RAYCASTING, HOVER & SELECTION LOGIC
+    // 9. RAYCASTING, HOVER & SELECTION LOGIC
     // -------------------------------------------------------------
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
@@ -1583,7 +1383,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderer.domElement.addEventListener('click', onPointerClick);
 
     // -------------------------------------------------------------
-    // 11. UI STATE TRANSITIONS & SELECTION HANDLERS
+    // 10. UI STATE TRANSITIONS & SELECTION HANDLERS
     // -------------------------------------------------------------
     function selectBodyRegion(region) {
         activeRegion = region;
@@ -1708,7 +1508,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 12. UI SELECT & SLIDER EVENT LISTENERS
+    // 11. UI SELECT & SLIDER EVENT LISTENERS
     // -------------------------------------------------------------
     if (genderSelect) {
         genderSelect.addEventListener('change', (e) => updateGenderMorphing(e.target.value));
@@ -1746,7 +1546,6 @@ document.addEventListener('DOMContentLoaded', () => {
         sleeveSelect.addEventListener('change', (e) => {
             currentSleeveMode = e.target.value;
             if (sleeveBadge) sleeveBadge.textContent = (currentSleeveMode === 'long' ? 'Long Sleeves' : 'Short Sleeves');
-            // Dynamically morph or rebuild active torso garment sleeves without texture stretching
             if (selectedGarments.torso) {
                 build3DGarmentMesh('torso', selectedGarments.torso);
             }
@@ -1791,7 +1590,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 13. ANIMATION LOOP & RESIZE HANDLING
+    // 12. ANIMATION LOOP & RESIZE HANDLING
     // -------------------------------------------------------------
     function onWindowResize() {
         if (!container || !renderer || !camera) return;
