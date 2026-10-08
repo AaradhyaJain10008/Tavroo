@@ -1292,7 +1292,796 @@ footer {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive */
+/* ==========================================================================
+   HOMEPAGE PROTOTYPE DESIGN EXTENSIONS (TASK 2 REQUIREMENTS)
+   ========================================================================== */
+
+/* Top Announcement & OVP Ticker */
+.site-header-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.announcement-bar {
+    background: linear-gradient(90deg, #07070a 0%, #151520 50%, #07070a 100%);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+    padding: 0.55rem 1.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-champagne);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.announcement-bar a {
+    color: #ffffff;
+    text-decoration: underline;
+    margin-left: 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.announcement-bar a:hover {
+    color: var(--accent-gold);
+}
+
+.announcement-meta {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+}
+
+/* Adjust glass-nav when under announcement bar */
+.site-header-wrapper .glass-nav {
+    position: relative;
+    top: auto;
+    left: auto;
+}
+
+/* Mobile Nav Toggle & Drawer */
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    width: 42px;
+    height: 42px;
+    padding: 8px;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1002;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-drawer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(8, 8, 12, 0.98);
+    backdrop-filter: blur(24px);
+    z-index: 999;
+    padding: 7rem 2rem 3rem;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+}
+
+.mobile-drawer.active {
+    display: flex;
+    animation: fadeIn 0.35s ease;
+}
+
+.mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.mobile-links a {
+    font-family: var(--font-editorial);
+    font-size: 2rem;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    transition: color 0.2s ease;
+}
+
+.mobile-links a:hover, .mobile-links a.active {
+    color: var(--accent-gold);
+}
+
+.mobile-drawer-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Homepage Hero Refinements */
+.landing-page .hero-container {
+    min-height: 100vh;
+    padding-top: 7rem;
+    padding-bottom: 4rem;
+}
+
+.hero-stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 2rem;
+}
+
+.hero-stat-item {
+    text-align: center;
+}
+
+.hero-stat-value {
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--accent-champagne);
+    letter-spacing: 1px;
+}
+
+.hero-stat-label {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 0.3rem;
+}
+
+/* Homepage Section Layout */
+.homepage-section {
+    padding: 6.5rem 2.5rem;
+    max-width: 1320px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 0.9rem;
+    display: block;
+}
+
+.section-title {
+    font-family: var(--font-editorial);
+    font-size: clamp(2.4rem, 4vw, 3.8rem);
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #ffffff;
+    line-height: 1.15;
+}
+
+.section-title em {
+    font-style: italic;
+    color: var(--accent-champagne);
+}
+
+.section-desc {
+    color: var(--text-muted);
+    font-size: 1.02rem;
+    max-width: 720px;
+    margin: 1.2rem auto 0;
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+/* 1. Online Value Proposition (OVP) */
+.ovp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.ovp-card {
+    background: rgba(16, 16, 24, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 2.6rem 2.2rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(14px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.ovp-card:hover {
+    border-color: rgba(212, 175, 55, 0.45);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.12);
+}
+
+.ovp-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.ovp-card:hover::before {
+    opacity: 1;
+}
+
+.ovp-num {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: var(--accent-gold);
+    margin-bottom: 1.4rem;
+}
+
+.ovp-card h3 {
+    font-family: var(--font-editorial);
+    font-size: 1.85rem;
+    font-weight: 400;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.ovp-card p {
+    color: var(--text-muted);
+    font-size: 0.94rem;
+    line-height: 1.7;
+    margin-bottom: 1.8rem;
+}
+
+.ovp-badge {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-champagne);
+}
+
+/* 2. Interactive 3D Service Feature Banner */
+.atelier-feature-banner {
+    background: linear-gradient(135deg, rgba(20, 20, 30, 0.85) 0%, rgba(10, 10, 15, 0.95) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 28px;
+    padding: 4.5rem 3.5rem;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 3.5rem;
+    align-items: center;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+    margin: 3rem 0;
+}
+
+.atelier-feature-visual {
+    background: radial-gradient(circle at center, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.atelier-feature-badge-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    justify-content: center;
+}
+
+.feature-pill {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.76rem;
+    letter-spacing: 1px;
+    color: var(--accent-champagne);
+}
+
+/* 3. Product & Service Section Grid */
+.home-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 2.2rem;
+}
+
+.home-products-grid .catalog-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--accent-gold);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.product-rating span {
+    color: var(--text-muted);
+    font-size: 0.76rem;
+    margin-left: 0.3rem;
+}
+
+/* 4. UGC Content (User Generated Content) & Community Lookbook */
+.ugc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 2rem;
+}
+
+.ugc-card {
+    background: rgba(18, 18, 26, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.35s ease;
+    backdrop-filter: blur(14px);
+}
+
+.ugc-card:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.ugc-stars {
+    color: var(--accent-gold);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+}
+
+.ugc-quote {
+    font-family: var(--font-body);
+    font-style: normal;
+    color: #e4e4ea;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1.8rem;
+}
+
+.ugc-tag {
+    font-size: 0.76rem;
+    color: var(--accent-champagne);
+    font-family: var(--font-heading);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.ugc-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1.2rem;
+}
+
+.ugc-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-crimson));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: #08080a;
+    font-size: 0.88rem;
+    font-family: var(--font-heading);
+}
+
+.ugc-info h4 {
+    font-size: 0.94rem;
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.ugc-info span {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.verified-badge {
+    color: #4ade80;
+    font-size: 0.82rem;
+}
+
+.ugc-community-banner {
+    margin-top: 3.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px dashed rgba(212, 175, 55, 0.3);
+    border-radius: 18px;
+    padding: 2.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* 5. SEO & Off-Page Architecture Showcase (Transparency & Criteria) */
+.seo-matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.seo-matrix-card {
+    background: rgba(14, 14, 20, 0.85);
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    border-radius: 20px;
+    padding: 2.4rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.seo-matrix-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent-champagne);
+    margin-bottom: 1rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.seo-matrix-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 1.2rem;
+}
+
+.seo-pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.seo-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.74rem;
+    color: #e4e4ec;
+    font-family: var(--font-body);
+}
+
+.seo-link-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-top: 0.8rem;
+}
+
+.seo-link-list li a {
+    color: var(--accent-champagne);
+    text-decoration: none;
+    font-size: 0.86rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s ease;
+}
+
+.seo-link-list li a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* 6. FAQ Accordion (On-Page SEO Rich Results) */
+.faq-accordion {
+    max-width: 920px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.faq-item {
+    background: rgba(16, 16, 24, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item[open] {
+    border-color: rgba(212, 175, 55, 0.35);
+    background: rgba(22, 22, 32, 0.9);
+}
+
+.faq-question {
+    padding: 1.5rem 2rem;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    user-select: none;
+}
+
+.faq-question::-webkit-details-marker {
+    display: none;
+}
+
+.faq-icon {
+    font-size: 1.2rem;
+    color: var(--accent-gold);
+    transition: transform 0.3s ease;
+}
+
+.faq-item[open] .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    padding: 0 2rem 1.6rem;
+    color: var(--text-muted);
+    font-size: 0.94rem;
+    line-height: 1.75;
+}
+
+/* 7. Contact Information & Atelier Concierge */
+.concierge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.contact-info-card {
+    background: rgba(16, 16, 24, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 3rem;
+    backdrop-filter: blur(16px);
+}
+
+.contact-info-item {
+    margin-bottom: 1.8rem;
+}
+
+.contact-label {
+    font-family: var(--font-heading);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.contact-value {
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.contact-value a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.contact-value a:hover {
+    color: var(--accent-champagne);
+    text-decoration: underline;
+}
+
+/* 8. VIP Atelier Drop List (CTA Banner) */
+.vip-newsletter-section {
+    background: linear-gradient(135deg, rgba(22, 22, 34, 0.9) 0%, rgba(10, 10, 16, 0.95) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 24px;
+    padding: 4.5rem 2.5rem;
+    text-align: center;
+    max-width: 960px;
+    margin: 5rem auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.newsletter-form-row {
+    display: flex;
+    gap: 1rem;
+    max-width: 580px;
+    margin: 2rem auto 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.newsletter-input {
+    flex: 1;
+    min-width: 260px;
+    padding: 1.1rem 1.6rem;
+    background: rgba(8, 8, 12, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 40px;
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.newsletter-input:focus {
+    border-color: var(--accent-gold);
+}
+
+/* 9. Rich Multi-Column Luxury Footer */
+.luxury-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: #060608;
+    padding: 5rem 2.5rem 2.5rem;
+}
+
+.footer-nav-grid {
+    max-width: 1320px;
+    margin: 0 auto 4rem;
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap: 3.5rem;
+}
+
+.footer-col-brand p {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    margin: 1.2rem 0;
+    max-width: 320px;
+}
+
+.footer-col h4 {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 1.4rem;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.86rem;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--accent-gold);
+}
+
+.footer-bottom-bar {
+    max-width: 1320px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+}
+
+.footer-social-links {
+    display: flex;
+    gap: 1.2rem;
+}
+
+.footer-social-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+    transition: color 0.2s ease;
+}
+
+.footer-social-links a:hover {
+    color: var(--accent-gold);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS (MOBILE-FRIENDLY CONSIDERATIONS)
+   ========================================================================== */
 @media (max-width: 1024px) {
     .showcase-grid {
         grid-template-columns: 1fr;
@@ -1305,10 +2094,63 @@ footer {
         grid-template-columns: 1fr;
     }
     .glass-nav {
-        padding: 1rem 1.5rem;
+        padding: 1rem 2rem;
     }
     .hero-title {
-        font-size: 3.5rem;
+        font-size: 4rem;
+    }
+    .atelier-feature-banner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 3rem 2rem;
+    }
+    .concierge-grid {
+        grid-template-columns: 1fr;
+    }
+    .footer-nav-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
     }
 }
+
+@media (max-width: 768px) {
+    .announcement-bar {
+        font-size: 0.65rem;
+        letter-spacing: 1.5px;
+        padding: 0.45rem 1rem;
+    }
+    .announcement-meta {
+        display: none;
+    }
+    .glass-nav .persistent-brand,
+    .glass-nav .links {
+        display: none;
+    }
+    .mobile-menu-btn {
+        display: flex;
+    }
+    .hero-title {
+        font-size: 2.8rem;
+        line-height: 1.1;
+    }
+    .hero-stats-row {
+        gap: 1.5rem;
+    }
+    .homepage-section {
+        padding: 4.5rem 1.25rem;
+    }
+    .footer-nav-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .footer-bottom-bar {
+        flex-direction: column;
+        text-align: center;
+    }
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        padding: 1rem 1.8rem;
+    }
+}
+
 
