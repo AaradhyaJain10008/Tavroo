@@ -1,4 +1,4 @@
-# Morrow & Thread - Digital Marketing Campaign Prototype
+# Tavroo - Digital Marketing Campaign Prototype
 
 A responsive, no-commerce storefront and assessment companion for a fictional custom apparel, jewellery and headwear brand. The landing page starts with an animated, clickable product edit that cycles through shoes, tees, pants, lowers, jewellery, headwear and complete outfits. The site also covers the brief's homepage, customer persona, two-platform content strategy, Google Search campaign and GA4 measurement plan.
 

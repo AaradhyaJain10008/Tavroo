@@ -1,4 +1,4 @@
-// app.js - frayD Interactive 3D WebGL Runway Showcase Engine
+// app.js - Tavroo Interactive 3D WebGL Runway Showcase Engine
 // Enhanced Human Anatomy Sculpting, Authentic Streetwear Garment Replication & Smart Gender Morphing
 
 document.addEventListener('DOMContentLoaded', () => {
