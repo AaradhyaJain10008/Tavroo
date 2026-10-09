@@ -12,11 +12,14 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Runway Atelier - TAVROO Contemporary Fashion</title>
+    <title>AI Virtual Dressing Studio - TAVROO Contemporary Fashion</title>
+    <meta name="description" content="TAVROO AI Virtual Dressing Studio powered by IMAGDressing. Upload garments, choose poses, and generate photorealistic virtual try-on images with AI.">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <link rel="stylesheet" href="showcase-ai.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body class="showcase-page">
     <nav class="glass-nav">
@@ -35,195 +38,266 @@
         <div class="persistent-brand">WEAR YOUR POINT OF VIEW</div>
         <div class="links">
             <a href="index.html">Home</a>
-            <a href="showcase.html" class="active">3D Runway Atelier</a>
+            <a href="showcase.html" class="active">AI Dressing Studio</a>
             <a href="catalog.html">Lookbook Catalog</a>
             <a href="about.html">About & Contact</a>
         </div>
     </nav>
     
-    <main class="showcase-grid">
-        <!-- Left Column (Base Customisation Panel) -->
-        <aside class="panel left-panel glass-panel">
-            <h2>Avatar Silhouette</h2>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Sculpt your realistic 3D model figure in real-time.</p>
-            
-            <div class="control-group">
-                <label>Gender / Silhouette <span class="badge-readout" id="gender-badge">Female</span></label>
-                <select id="gender-select">
-                    <option value="female" selected>Female (Editorial Runway Curves)</option>
-                    <option value="male">Male (Sculpted Athletic V-Taper)</option>
-                    <option value="non-binary">Non-Binary (Sleek Architectural Neutral)</option>
-                </select>
+    <main class="ai-showcase-grid">
+        <!-- Left Column — Input Controls -->
+        <aside class="ai-panel ai-left-panel glass-panel">
+            <div class="ai-panel-header">
+                <div class="ai-badge"><span class="pulse-dot"></span> AI DRESSING STUDIO</div>
+                <p class="ai-subtitle">Powered by IMAGDressing-v1 · AAAI 2025</p>
             </div>
 
-            <div class="control-group">
-                <label>Ethnicity Preset <span class="badge-readout" id="ethnicity-badge">Global Standard</span></label>
-                <select id="ethnicity-preset">
-                    <option value="default" selected>Global Standard</option>
-                    <option value="south-asian">South Asian (Warm Golden Undertones)</option>
-                    <option value="east-asian">East Asian (Porcelain Ivory Contour)</option>
-                    <option value="african">Afro-Descendant (Rich Bronze Sheen)</option>
-                    <option value="caucasian">European (Fair Warm Undertone)</option>
-                </select>
-            </div>
+            <!-- Step 1: Garment Selection -->
+            <div class="ai-step-section">
+                <div class="ai-step-label"><span class="ai-step-num">1</span> Select Garment</div>
+                <p class="ai-step-desc">Choose a garment from our collection or upload your own clothing image.</p>
+                
+                <div class="ai-garment-grid" id="ai-garment-grid">
+                    <!-- Populated by JS -->
+                </div>
 
-            <div class="control-group">
-                <label>3D Hair Style <span class="badge-readout" id="hair-badge">3D Editorial Side-Part</span></label>
-                <select id="hair-style">
-                    <option value="side-part" selected>3D Editorial Glamour Waves</option>
-                    <option value="short-crop">3D Modern Textured Quiff / Crop</option>
-                    <option value="curly-puff">3D Textured Afro High Puff</option>
-                    <option value="buzz-cut">3D Sculpted Clean Buzz Cut</option>
-                    <option value="bald">Minimalist Bald / Shaved</option>
-                </select>
-            </div>
+                <div class="ai-upload-zone" id="garment-upload-zone">
+                    <input type="file" id="garment-upload" accept="image/*" hidden>
+                    <label for="garment-upload" class="ai-upload-label">
+                        <span class="ai-upload-icon">📤</span>
+                        <span>Upload Your Own Garment</span>
+                    </label>
+                </div>
 
-            <div class="control-group">
-                <label>Hair Color</label>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="color" id="hair-color" value="#3a2212" style="height: 38px; width: 60px; padding: 2px;">
-                    <span style="font-size: 0.85rem; color: var(--text-muted);" id="hair-color-name">Chestnut Brown</span>
+                <div class="ai-preview-row" id="garment-preview-row" style="display: none;">
+                    <div class="ai-preview-thumb" id="garment-preview-thumb"></div>
+                    <div class="ai-preview-info">
+                        <span class="ai-preview-name" id="garment-preview-name">Selected Garment</span>
+                        <button class="ai-clear-btn" id="clear-garment">✕ Clear</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="control-group">
-                <label>Sleeve Length Control <span class="badge-readout" id="sleeve-badge">Short Sleeves</span></label>
-                <select id="sleeve-select">
-                    <option value="short" selected>Short Sleeves (Mid-Bicep)</option>
-                    <option value="long">Long Sleeves (Wrist Length)</option>
-                </select>
-            </div>
+            <!-- Step 2: Face Upload (Optional) -->
+            <div class="ai-step-section">
+                <div class="ai-step-label"><span class="ai-step-num">2</span> Face Reference <span class="ai-optional-badge">Optional</span></div>
+                <p class="ai-step-desc">Upload a face photo to preserve identity in the generated image.</p>
 
-            <div class="control-group">
-                <label>Skin Tone & Melanin PBR</label>
-                <div class="color-picker" id="skin-picker">
-                    <div class="swatch active" style="background: #f3c299;" data-tone="#f3c299" title="Peach Warm"></div>
-                    <div class="swatch" style="background: #e0ac69;" data-tone="#e0ac69" title="Golden Olive"></div>
-                    <div class="swatch" style="background: #a26538;" data-tone="#a26538" title="Warm Cinnamon"></div>
-                    <div class="swatch" style="background: #5c351b;" data-tone="#5c351b" title="Rich Espresso"></div>
-                    <div class="swatch" style="background: #ffe3cf;" data-tone="#ffe3cf" title="Light Porcelain"></div>
+                <div class="ai-toggle-row">
+                    <span>Use face reference</span>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-face" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div id="face-controls">
+                    <div class="ai-upload-zone" id="face-upload-zone">
+                        <input type="file" id="face-upload" accept="image/*" hidden>
+                        <label for="face-upload" class="ai-upload-label">
+                            <span class="ai-upload-icon">🧑</span>
+                            <span>Upload Face Photo</span>
+                        </label>
+                    </div>
+                    
+                    <div class="ai-example-faces" id="example-faces">
+                        <span class="ai-example-label">Or use an example:</span>
+                        <div class="ai-example-row" id="face-examples-row">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <div class="ai-preview-row" id="face-preview-row" style="display: none;">
+                        <div class="ai-preview-thumb" id="face-preview-thumb"></div>
+                        <div class="ai-preview-info">
+                            <span class="ai-preview-name" id="face-preview-name">Face Reference</span>
+                            <button class="ai-clear-btn" id="clear-face">✕ Clear</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="control-group">
-                <label>Body Proportions</label>
-                <select id="body-type">
-                    <option value="athletic" selected>Athletic Runway Silhouette</option>
-                    <option value="slim">Slim / High-Fashion Lean</option>
-                    <option value="plus">Full / Sculpted Curves</option>
-                </select>
+            <!-- Step 3: Pose Selection -->
+            <div class="ai-step-section">
+                <div class="ai-step-label"><span class="ai-step-num">3</span> Pose Preset <span class="ai-optional-badge">Optional</span></div>
+                <p class="ai-step-desc">Choose a body pose for the generated image.</p>
+
+                <div class="ai-toggle-row">
+                    <span>Use pose control</span>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-pose" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div id="pose-controls">
+                    <div class="ai-pose-grid" id="ai-pose-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
             </div>
 
-            <div class="control-group">
-                <label>Height Scale</label>
-                <input type="range" id="height-slider" min="0.85" max="1.15" step="0.01" value="1.0">
+            <!-- Step 4: Text Prompt -->
+            <div class="ai-step-section">
+                <div class="ai-step-label"><span class="ai-step-num">4</span> Scene Description</div>
+                <p class="ai-step-desc">Describe the scene, lighting, or style you want.</p>
+                <input type="text" id="ai-prompt" placeholder="A beautiful model in a studio, professional lighting..." value="A beautiful model standing in a fashion studio, professional photography">
             </div>
+
+            <!-- Advanced Settings (Collapsed) -->
+            <details class="ai-advanced-details">
+                <summary class="ai-advanced-summary">⚙️ Advanced Settings</summary>
+                <div class="ai-advanced-body">
+                    <div class="ai-slider-group">
+                        <label>Cloth Guidance <span class="ai-slider-value" id="cloth-val">0.85</span></label>
+                        <input type="range" id="cloth-guidance" min="0" max="1" step="0.05" value="0.85">
+                    </div>
+                    <div class="ai-slider-group">
+                        <label>Prompt Guidance <span class="ai-slider-value" id="prompt-val">6.5</span></label>
+                        <input type="range" id="prompt-guidance" min="1" max="10" step="0.5" value="6.5">
+                    </div>
+                    <div class="ai-slider-group">
+                        <label>Face Guidance <span class="ai-slider-value" id="face-val">0.9</span></label>
+                        <input type="range" id="face-guidance" min="0" max="2" step="0.1" value="0.9">
+                    </div>
+                    <div class="ai-slider-group">
+                        <label>Self-Attention LoRA <span class="ai-slider-value" id="self-lora-val">0.2</span></label>
+                        <input type="range" id="self-lora" min="0" max="0.5" step="0.05" value="0.2">
+                    </div>
+                    <div class="ai-slider-group">
+                        <label>Cross-Attention LoRA <span class="ai-slider-value" id="cross-lora-val">0.2</span></label>
+                        <input type="range" id="cross-lora" min="0" max="0.5" step="0.05" value="0.2">
+                    </div>
+                    <div class="ai-slider-group">
+                        <label>Denoising Steps <span class="ai-slider-value" id="steps-val">30</span></label>
+                        <input type="range" id="denoise-steps" min="20" max="50" step="1" value="30">
+                    </div>
+                    <div class="ai-slider-group">
+                        <label>Seed <span class="ai-slider-value" id="seed-val">20240508</span></label>
+                        <input type="number" id="ai-seed" value="20240508" min="-1" max="2147483647" style="width: 100%;">
+                    </div>
+                </div>
+            </details>
         </aside>
 
-        <!-- Center Column (Interactive 3D WebGL Studio Mannequin) -->
-        <section class="center-panel" id="center-panel">
-            <!-- 3D Studio Top Control Bar -->
-            <div class="studio-bar">
-                <div class="studio-badge"><span class="pulse-dot"></span> TAVROO 3D ATELIER</div>
-                
-                <div class="studio-modes">
-                    <button class="mode-btn active" data-light="atelier" id="light-atelier" title="Atelier Gold Luxury Lighting">Atelier</button>
-                    <button class="mode-btn" data-light="cyber" id="light-cyber" title="Cyberpunk Neon Rim Lighting">Cyber Neon</button>
-                    <button class="mode-btn" data-light="editorial" id="light-editorial" title="Minimalist Monochrome Lighting">Editorial</button>
-                </div>
-
-                <div class="studio-actions">
-                    <button class="tool-btn" id="btn-autorotate" title="Toggle 360 Turntable Auto-Rotation">
-                        <span class="btn-icon">↻</span> <span id="autorotate-text">Auto-Spin</span>
-                    </button>
-                    <button class="tool-btn" id="btn-reset-cam" title="Reset Camera View">
-                        <span class="btn-icon">⊙</span> Reset
-                    </button>
+        <!-- Center Column — AI Generation Canvas -->
+        <section class="ai-center-panel" id="ai-center-panel">
+            <!-- Studio Top Bar -->
+            <div class="ai-studio-bar">
+                <div class="studio-badge"><span class="pulse-dot"></span> TAVROO AI STUDIO</div>
+                <div class="ai-status-pill" id="ai-status-pill">
+                    <span class="ai-status-dot" id="ai-status-dot"></span>
+                    <span id="ai-status-text">Ready</span>
                 </div>
             </div>
 
-            <!-- 3D WebGL Canvas Container -->
-            <div id="webgl-canvas-container" class="webgl-stage">
-                <!-- Three.js Canvas mounts here dynamically -->
+            <!-- Main Output Display -->
+            <div class="ai-output-stage" id="ai-output-stage">
+                <!-- Initial Empty State -->
+                <div class="ai-empty-state" id="ai-empty-state">
+                    <div class="ai-empty-icon">
+                        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="10" y="10" width="60" height="60" rx="12" stroke="rgba(212,175,55,0.4)" stroke-width="2" stroke-dasharray="6 4"/>
+                            <path d="M30 50 L40 35 L50 50" stroke="rgba(212,175,55,0.6)" stroke-width="2" fill="none"/>
+                            <circle cx="52" cy="28" r="4" stroke="rgba(212,175,55,0.6)" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="ai-empty-title">AI Virtual Dressing</h3>
+                    <p class="ai-empty-desc">Select a garment, optionally upload a face and pick a pose, then click <strong>"Generate AI Look"</strong> to create a photorealistic try-on.</p>
+                    <div class="ai-empty-steps">
+                        <div class="ai-mini-step"><span>1</span> Choose Garment</div>
+                        <div class="ai-mini-step"><span>2</span> Upload Face</div>
+                        <div class="ai-mini-step"><span>3</span> Pick Pose</div>
+                        <div class="ai-mini-step"><span>4</span> Generate</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="ai-loading-state" id="ai-loading-state" style="display: none;">
+                    <div class="ai-loader">
+                        <div class="ai-loader-ring"></div>
+                        <div class="ai-loader-ring"></div>
+                        <div class="ai-loader-ring"></div>
+                    </div>
+                    <h3 class="ai-loading-title">Generating Your Look</h3>
+                    <p class="ai-loading-desc" id="ai-loading-desc">Connecting to IMAGDressing AI model...</p>
+                    <div class="ai-progress-bar">
+                        <div class="ai-progress-fill" id="ai-progress-fill"></div>
+                    </div>
+                    <p class="ai-loading-timer" id="ai-loading-timer">Estimated: 30-60 seconds</p>
+                </div>
+
+                <!-- Result State -->
+                <div class="ai-result-state" id="ai-result-state" style="display: none;">
+                    <img id="ai-result-image" class="ai-result-img" alt="AI Generated Virtual Dressing Result">
+                </div>
+
+                <!-- Error State -->
+                <div class="ai-error-state" id="ai-error-state" style="display: none;">
+                    <div class="ai-error-icon">⚠️</div>
+                    <h3 class="ai-error-title">Generation Failed</h3>
+                    <p class="ai-error-desc" id="ai-error-desc">The AI model is temporarily unavailable. Please try again.</p>
+                    <button class="ai-retry-btn" id="ai-retry-btn">↻ Retry</button>
+                </div>
             </div>
 
-            <!-- Floating 3D Interaction Hints & Zone Tooltip -->
-            <div class="hover-label" id="region-label">CLICK 3D BODY ZONE TO DRESS</div>
-            
-            <div class="orbit-hint">
-                <span>🖱️ Click & Drag to Rotate 360°</span>
+            <!-- Action Bar -->
+            <div class="ai-action-bar">
+                <button class="ai-generate-btn" id="ai-generate-btn" disabled>
+                    <span class="ai-gen-icon">✨</span>
+                    <span id="ai-gen-text">Generate AI Look</span>
+                </button>
+                <button class="ai-download-btn" id="ai-download-btn" style="display: none;">
+                    <span>📥</span> Download Image
+                </button>
+            </div>
+
+            <!-- Hints Bar -->
+            <div class="ai-hints-bar">
+                <span>🤖 Powered by IMAGDressing-v1</span>
                 <span class="divider">•</span>
-                <span>🔍 Scroll to Zoom</span>
+                <span>🎨 SD 1.5 + ControlNet + IP-Adapter</span>
                 <span class="divider">•</span>
-                <span>✨ Click Model Body to Choose Garments</span>
+                <span>⏱️ ~30-60s per generation</span>
             </div>
         </section>
 
-        <!-- Right Column (Dynamic Garment Choices & Customisation Toolkit) -->
-        <aside class="panel right-panel glass-panel" id="apparel-panel">
-            <div id="initial-message" class="state-view active">
-                <div style="text-align: center; padding: 2.5rem 1rem;">
-                    <div style="font-size: 2.8rem; margin-bottom: 1rem; opacity: 0.9;">🧥</div>
-                    <h3 style="font-family: var(--font-heading); margin-bottom: 0.8rem; font-size: 1.25rem; letter-spacing: 1px; text-transform: uppercase;">Select a Body Zone</h3>
-                    <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.7;">Click on Head, Torso, Legs, or Feet on the central figure to view uniquely designed garments and try them on.</p>
-                </div>
-            </div>
+        <!-- Right Column — Results Gallery & Info -->
+        <aside class="ai-panel ai-right-panel glass-panel">
+            <h2>Generation History</h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Your recently generated AI looks appear here. Click to enlarge.</p>
             
-            <div id="apparel-list-view" class="state-view">
-                <h3 id="apparel-list-title" style="font-family: var(--font-heading); font-size: 1.25rem; color: #ffffff; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.3rem;">Apparel Options</h3>
-                <p style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 1rem;">Click any item to try on its unique style in 3D.</p>
-                
-                <div class="apparel-grid" id="apparel-grid">
-                    <!-- Populated dynamically by JS -->
+            <div class="ai-history-grid" id="ai-history-grid">
+                <!-- Populated dynamically -->
+            </div>
+
+            <div class="ai-history-empty" id="ai-history-empty">
+                <div style="text-align: center; padding: 2rem 1rem;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.7;">🖼️</div>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.7;">No generations yet. Select a garment and click <strong>"Generate AI Look"</strong> to get started.</p>
                 </div>
             </div>
 
-            <div id="customization-view" class="state-view">
-                <button id="back-to-list" class="btn-text">← Back to Garment Choices</button>
-                <h3 id="selected-item-name" style="font-family: var(--font-heading); font-size: 1.4rem; color: #ffffff; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.2rem;">Selected Garment</h3>
-                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.82rem;">Garment Customisation Toolkit</p>
-
-                <div class="custom-tools">
-                    <div class="tool-group">
-                        <label><span class="step-num">1</span> Custom Typography & Decal</label>
-                        <input type="text" id="custom-text" placeholder="Type text overlay (e.g. TAVROO, 2026)...">
-                    </div>
-
-                    <div class="tool-group">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <label style="margin: 0;"><span class="step-num">2</span> Metallic Chrome Studs</label>
-                            <label class="switch">
-                                <input type="checkbox" id="toggle-studs">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="tool-group">
-                        <label><span class="step-num">3</span> Fabric Dye Color</label>
-                        <div class="color-picker-row">
-                            <div class="color-input-wrapper">
-                                <input type="color" id="tie-dye-color" value="#141318">
-                            </div>
-                            <div>
-                                <div style="font-size: 0.85rem; font-weight: 700; color: #fff;" id="color-hex-label">#141318</div>
-                                <div style="font-size: 0.72rem; color: var(--text-muted);">Click swatch to customize fabric shade</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tool-group">
-                        <label><span class="step-num">4</span> Expressive Atelier Tint</label>
-                        <button class="btn-secondary" style="width: 100%; border-radius: 30px; padding: 0.75rem; font-size: 0.78rem;" id="open-creativity-btn">🎨 Apply Creative Gradient Tint</button>
-                    </div>
+            <div class="ai-info-section">
+                <h3 class="ai-info-title">About IMAGDressing</h3>
+                <p class="ai-info-text">IMAGDressing-v1 is an AI-powered virtual dressing system published at AAAI 2025. It generates photorealistic images of people wearing specified garments with customizable pose and scene control.</p>
+                <div class="ai-info-badges">
+                    <a href="https://github.com/muzishen/IMAGDressing" target="_blank" rel="noopener" class="ai-info-badge">GitHub</a>
+                    <a href="https://imagdressing.github.io/" target="_blank" rel="noopener" class="ai-info-badge">Project Page</a>
+                    <a href="http://arxiv.org/abs/2407.12705" target="_blank" rel="noopener" class="ai-info-badge">Paper</a>
                 </div>
-
-                <button class="btn-remove-garment" id="remove-garment-btn"><span>✕</span> Remove Current Garment</button>
-                <a href="catalog.html" id="collection-link" class="btn-primary full-width" style="margin-top: 1.2rem; width: 100%;">View Full Lookbook Collection</a>
             </div>
+
+            <a href="catalog.html" class="btn-primary full-width" style="margin-top: 1.5rem; width: 100%;">View Full Lookbook Collection</a>
         </aside>
     </main>
     
-    <script src="app.js"></script>
+    <!-- Lightbox Overlay -->
+    <div class="ai-lightbox" id="ai-lightbox" style="display: none;">
+        <button class="ai-lightbox-close" id="ai-lightbox-close">✕</button>
+        <img id="ai-lightbox-img" class="ai-lightbox-image" alt="Enlarged AI Generation">
+    </div>
+
+    <script src="showcase-engine.js"></script>
 </body>
 </html>
