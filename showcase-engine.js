@@ -349,8 +349,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             updateLoadingProgress(10, 'Connecting to IMAGDressing AI...');
 
-            // Connect to Gradio Space
-            const app = await client(HF_SPACE_ID);
+            // Connect to Gradio Space with timeout (Space is currently in CONFIG_ERROR on HuggingFace)
+            const app = await Promise.race([
+                client(HF_SPACE_ID),
+                new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error("Connection timed out. The IMAGDressing HuggingFace Space is currently offline or broken (CONFIG_ERROR).")), 15000)
+                )
+            ]);
 
             // Get image blobs
             const garmBlob = await getImageBlob(selectedGarment);
