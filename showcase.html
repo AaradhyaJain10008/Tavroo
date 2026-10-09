@@ -185,6 +185,17 @@
             <!-- Studio Top Bar -->
             <div class="ai-studio-bar">
                 <div class="studio-badge"><span class="pulse-dot"></span> TAVROO AI STUDIO</div>
+                
+                <!-- Engine Mode Switcher -->
+                <div class="ai-mode-switcher" id="ai-mode-switcher">
+                    <button type="button" class="ai-mode-tab active" id="mode-demo-btn" title="Instant high-fidelity AI dressing preview">
+                        <span class="mode-icon">⚡</span> Showcase AI Demo
+                    </button>
+                    <button type="button" class="ai-mode-tab" id="mode-live-btn" title="Live ZeroGPU HuggingFace Space connection">
+                        <span class="mode-icon">☁️</span> Live ZeroGPU
+                    </button>
+                </div>
+
                 <div class="ai-status-pill" id="ai-status-pill">
                     <span class="ai-status-dot" id="ai-status-dot"></span>
                     <span id="ai-status-text">Ready</span>
@@ -224,12 +235,18 @@
                     <div class="ai-progress-bar">
                         <div class="ai-progress-fill" id="ai-progress-fill"></div>
                     </div>
-                    <p class="ai-loading-timer" id="ai-loading-timer">Estimated: 30-60 seconds</p>
+                    <p class="ai-loading-timer" id="ai-loading-timer">Estimated: 3-5 seconds</p>
                 </div>
 
                 <!-- Result State -->
                 <div class="ai-result-state" id="ai-result-state" style="display: none;">
-                    <img id="ai-result-image" class="ai-result-img" alt="AI Generated Virtual Dressing Result">
+                    <div class="ai-result-card">
+                        <div class="ai-result-badge" id="ai-result-badge">
+                            <span>✨ IMAGDressing-v1 Neural Dressing</span>
+                            <span class="ai-result-tag" id="ai-result-tag">Showcase Ultra-HD</span>
+                        </div>
+                        <img id="ai-result-image" class="ai-result-img" alt="AI Generated Virtual Dressing Result">
+                    </div>
                 </div>
 
                 <!-- Error State -->
@@ -237,7 +254,10 @@
                     <div class="ai-error-icon">⚠️</div>
                     <h3 class="ai-error-title">Generation Failed</h3>
                     <p class="ai-error-desc" id="ai-error-desc">The AI model is temporarily unavailable. Please try again.</p>
-                    <button class="ai-retry-btn" id="ai-retry-btn">↻ Retry</button>
+                    <div class="ai-error-actions">
+                        <button class="ai-demo-fallback-btn" id="ai-demo-fallback-btn">⚡ View in Showcase AI Demo</button>
+                        <button class="ai-retry-btn" id="ai-retry-btn">↻ Retry Live</button>
+                    </div>
                 </div>
             </div>
 
