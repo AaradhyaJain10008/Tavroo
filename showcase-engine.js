@@ -2,45 +2,39 @@
 // Integrates with IMAGDressing-v1 via HuggingFace Gradio Space API
 // =================================================================
 
+import { client } from "https://cdn.jsdelivr.net/npm/@gradio/client@0.1.4/dist/index.js";
+
 document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------------------------------
     // 1. CONFIGURATION & HF SPACE URL
     // -----------------------------------------------------------------
-    const HF_SPACE_URL = 'https://feishen29-imagdressing-v1.hf.space';
-    const HF_API_ENDPOINT = HF_SPACE_URL + '/api/predict';
-    const HF_QUEUE_JOIN = HF_SPACE_URL + '/queue/join';
-    const HF_QUEUE_DATA = HF_SPACE_URL + '/queue/data';
-    const HF_UPLOAD = HF_SPACE_URL + '/upload';
-
+    const HF_SPACE_ID = 'feishen29/IMAGDressing-v1';
+    
     // Example images from the IMAGDressing HF Space repo
-    const EXAMPLE_BASE = 'https://huggingface.co/spaces/feishen29/IMAGDressing-v1/resolve/main/example';
+    const EXAMPLE_BASE = 'https://huggingface.co/spaces/feishen29/IMAGDressing-v1/resolve/main';
 
     // -----------------------------------------------------------------
     // 2. SAMPLE DATA — Garments, Faces, Poses
     // -----------------------------------------------------------------
     const sampleGarments = [
-        { id: 'g1', name: 'Blue Jacket', img: `${EXAMPLE_BASE}/cloth/00035_00.jpg`, prompt: 'wearing a blue jacket' },
-        { id: 'g2', name: 'Striped Shirt', img: `${EXAMPLE_BASE}/cloth/00055_00.jpg`, prompt: 'wearing a striped shirt' },
-        { id: 'g3', name: 'Red Dress', img: `${EXAMPLE_BASE}/cloth/00069_00.jpg`, prompt: 'wearing a red dress' },
-        { id: 'g4', name: 'Black T-shirt', img: `${EXAMPLE_BASE}/cloth/00126_00.jpg`, prompt: 'wearing a black t-shirt' },
-        { id: 'g5', name: 'Floral Top', img: `${EXAMPLE_BASE}/cloth/03615_00.jpg`, prompt: 'wearing a floral top' },
-        { id: 'g6', name: 'Denim Jacket', img: `${EXAMPLE_BASE}/cloth/03780_00.jpg`, prompt: 'wearing a denim jacket' },
+        { id: 'g1', name: 'White Dress', img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597315917349_in_post.png`, prompt: 'wearing a white dress' },
+        { id: 'g2', name: 'Black Top', img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597325621176_in_post.png`, prompt: 'wearing a black top' },
+        { id: 'g3', name: 'Green Skirt', img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597325684024_in_post.png`, prompt: 'wearing a green skirt' },
+        { id: 'g4', name: 'Patterned Blouse', img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597326026201_in_post.png`, prompt: 'wearing a patterned blouse' },
+        { id: 'g5', name: 'Red Suit', img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597326873307_in_post.png`, prompt: 'wearing a red suit' },
+        { id: 'g6', name: 'Blue Denim', img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597335012288_in_post.png`, prompt: 'wearing a denim piece' },
     ];
 
     const sampleFaces = [
-        { id: 'f1', img: `${EXAMPLE_BASE}/face/01.png`, name: 'Face 1' },
-        { id: 'f2', img: `${EXAMPLE_BASE}/face/03.png`, name: 'Face 2' },
-        { id: 'f3', img: `${EXAMPLE_BASE}/face/06.png`, name: 'Face 3' },
-        { id: 'f4', img: `${EXAMPLE_BASE}/face/10.png`, name: 'Face 4' },
+        { id: 'f1', img: `${EXAMPLE_BASE}/example/face/1.jpg`, name: 'Face 1' },
+        { id: 'f2', img: `${EXAMPLE_BASE}/example/face/2.jpg`, name: 'Face 2' },
+        { id: 'f3', img: `${EXAMPLE_BASE}/example/face/3333.jpg`, name: 'Face 3' }
     ];
 
     const samplePoses = [
-        { id: 'p1', name: 'Standing', img: `${EXAMPLE_BASE}/pose/01.png` },
-        { id: 'p2', name: 'Walking', img: `${EXAMPLE_BASE}/pose/02.png` },
-        { id: 'p3', name: 'Casual', img: `${EXAMPLE_BASE}/pose/04.png` },
-        { id: 'p4', name: 'Side View', img: `${EXAMPLE_BASE}/pose/05.png` },
-        { id: 'p5', name: 'Sitting', img: `${EXAMPLE_BASE}/pose/06.png` },
-        { id: 'p6', name: 'Dynamic', img: `${EXAMPLE_BASE}/pose/07.png` },
+        { id: 'p1', name: 'Pose 1', img: `${EXAMPLE_BASE}/example/pose/00034_00.jpg` },
+        { id: 'p2', name: 'Pose 2', img: `${EXAMPLE_BASE}/example/pose/00121_00.jpg` },
+        { id: 'p3', name: 'Pose 3', img: `${EXAMPLE_BASE}/example/pose/01992_00.jpg` }
     ];
 
     // -----------------------------------------------------------------
@@ -109,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------------------------------
     let selectedGarment = null;   // { img: url/blob, name: str, isFile: bool, file: File? }
     let selectedFace = null;      // { img: url/blob, name: str, isFile: bool, file: File? }
-    let selectedPose = null;      // { img: url, name: str }
+    let selectedPose = null;      // { img: url, name: str, isFile: bool, file: File? }
     let generationHistory = [];
     let isGenerating = false;
 
@@ -197,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        selectedPose = { img: pose.img, name: pose.name, id: pose.id };
+        selectedPose = { img: pose.img, name: pose.name, id: pose.id, isFile: false };
         document.querySelectorAll('.ai-pose-card').forEach(c => c.classList.remove('selected'));
         if (cardEl) cardEl.classList.add('selected');
     }
@@ -307,207 +301,22 @@ document.addEventListener('DOMContentLoaded', () => {
         return await response.blob();
     }
 
-    async function fileToBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = reject;
-            reader.readAsDataURL(file);
-        });
-    }
-
-    async function urlToBase64(url) {
-        try {
-            const blob = await urlToBlob(url);
-            const file = new File([blob], 'image.png', { type: blob.type });
-            return await fileToBase64(file);
-        } catch (e) {
-            // If CORS blocks, try loading through a canvas
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.crossOrigin = 'anonymous';
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.naturalWidth;
-                    canvas.height = img.naturalHeight;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-                    resolve(canvas.toDataURL('image/png'));
-                };
-                img.onerror = reject;
-                img.src = url;
-            });
-        }
-    }
-
-    async function getImageData(selection) {
+    async function getImageBlob(selection) {
         if (!selection) return null;
         if (selection.isFile && selection.file) {
-            return await fileToBase64(selection.file);
+            return selection.file;
         }
-        return await urlToBase64(selection.img);
+        return await urlToBlob(selection.img);
     }
 
     // -----------------------------------------------------------------
     // 11. GRADIO API — Call HuggingFace Space
     // -----------------------------------------------------------------
-    async function callGradioAPI(garmentData, faceData, poseData, prompt, settings) {
-        // The IMAGDressing-v1 Gradio interface expects:
-        // fn: dress_process
-        // inputs: [garm_img, face_img, pose_img, prompt, cloth_guidance_scale,
-        //          caption_guidance_scale, face_guidance_scale, self_guidance_scale,
-        //          cross_guidance_scale, if_ipa, if_control, denoise_steps, seed]
-        // api_name: 'IMAGDressing-v1'
-
-        const useFace = toggleFace.checked && faceData;
-        const usePose = togglePose.checked && poseData;
-
-        // Step 1: Get a session hash
-        const sessionHash = Math.random().toString(36).substring(2);
-
-        // Step 2: Send request to queue/join
-        const payload = {
-            data: [
-                garmentData,                    // Garment image (base64)
-                useFace ? faceData : null,      // Face image (base64 or null)
-                usePose ? poseData : null,       // Pose image (base64 or null)
-                prompt,                          // Text prompt
-                settings.clothGuidance,          // Cloth guidance scale
-                settings.promptGuidance,         // Caption guidance scale
-                settings.faceGuidance,           // Face guidance scale
-                settings.selfLora,               // Self-attention LoRA scale
-                settings.crossLora,              // Cross-attention LoRA scale
-                useFace,                         // if_ipa (use face)
-                usePose,                         // if_control (use pose)
-                settings.denoiseSteps,           // Denoising steps
-                settings.seed                    // Seed
-            ],
-            fn_index: 0,
-            session_hash: sessionHash
-        };
-
-        updateLoadingProgress(10, 'Connecting to AI model...');
-
-        // Try the Gradio queue API (for Spaces with queuing enabled)
-        try {
-            // Join the queue
-            const joinResponse = await fetch(HF_QUEUE_JOIN, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (!joinResponse.ok) {
-                throw new Error(`Queue join failed: ${joinResponse.status}`);
-            }
-
-            updateLoadingProgress(20, 'In queue, waiting for GPU...');
-
-            // Stream results using SSE
-            const result = await pollQueueForResult(sessionHash);
-            return result;
-
-        } catch (queueError) {
-            console.warn('Queue API failed, trying direct predict:', queueError);
-            
-            // Fallback: Try direct /api/predict
-            try {
-                updateLoadingProgress(15, 'Trying direct API call...');
-                
-                const predictResponse = await fetch(HF_API_ENDPOINT, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        data: payload.data,
-                        fn_index: 0
-                    })
-                });
-
-                if (!predictResponse.ok) {
-                    throw new Error(`Predict API failed: ${predictResponse.status}`);
-                }
-
-                const result = await predictResponse.json();
-                return result.data[0];
-
-            } catch (predictError) {
-                console.warn('Direct predict also failed:', predictError);
-                throw new Error(
-                    'The IMAGDressing AI model is currently unavailable. ' +
-                    'The HuggingFace Space may be sleeping or experiencing high traffic. ' +
-                    'Please try again in a few minutes, or visit the space directly at: ' +
-                    'https://huggingface.co/spaces/feishen29/IMAGDressing-v1'
-                );
-            }
-        }
-    }
-
-    async function pollQueueForResult(sessionHash) {
-        return new Promise((resolve, reject) => {
-            const eventSource = new EventSource(`${HF_QUEUE_DATA}?session_hash=${sessionHash}`);
-            let progressPercent = 20;
-
-            eventSource.onmessage = (event) => {
-                try {
-                    const data = JSON.parse(event.data);
-
-                    if (data.msg === 'estimation') {
-                        const eta = data.rank_eta ? Math.round(data.rank_eta) : 30;
-                        updateLoadingProgress(25, `Queue position: #${data.rank || '?'} · ETA: ~${eta}s`);
-                        if (loadingTimer) loadingTimer.textContent = `Estimated: ${eta} seconds`;
-                    }
-
-                    if (data.msg === 'process_starts') {
-                        updateLoadingProgress(40, 'GPU is generating your look...');
-                    }
-
-                    if (data.msg === 'process_generating') {
-                        progressPercent = Math.min(progressPercent + 5, 85);
-                        updateLoadingProgress(progressPercent, 'Generating...');
-                    }
-
-                    if (data.msg === 'process_completed') {
-                        eventSource.close();
-                        updateLoadingProgress(100, 'Complete!');
-                        
-                        if (data.output && data.output.data && data.output.data[0]) {
-                            resolve(data.output.data[0]);
-                        } else {
-                            reject(new Error('No output image received from the model.'));
-                        }
-                    }
-
-                    if (data.msg === 'queue_full') {
-                        eventSource.close();
-                        reject(new Error('The AI model queue is full. Please try again later.'));
-                    }
-
-                } catch (e) {
-                    // Ignore parse errors on heartbeat messages
-                }
-            };
-
-            eventSource.onerror = () => {
-                eventSource.close();
-                reject(new Error('Connection to AI model lost. The Space may be sleeping.'));
-            };
-
-            // Timeout after 3 minutes
-            setTimeout(() => {
-                eventSource.close();
-                reject(new Error('Generation timed out after 3 minutes. Please try again.'));
-            }, 180000);
-        });
-    }
-
     function updateLoadingProgress(percent, message) {
         if (progressFill) progressFill.style.width = percent + '%';
         if (loadingDesc) loadingDesc.textContent = message;
     }
 
-    // -----------------------------------------------------------------
-    // 12. GENERATION FLOW
-    // -----------------------------------------------------------------
     async function generateLook() {
         if (!selectedGarment || isGenerating) return;
 
@@ -520,13 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateLoadingProgress(5, 'Preparing images...');
 
         try {
-            // Get image data
-            const garmentData = await getImageData(selectedGarment);
-            const faceData = toggleFace.checked ? await getImageData(selectedFace) : null;
-            const poseData = togglePose.checked && selectedPose ? await urlToBase64(selectedPose.img) : null;
-
-            updateLoadingProgress(15, 'Images prepared, sending to AI...');
-
             // Build prompt
             let prompt = promptInput.value.trim() || 'A beautiful model standing in a fashion studio';
             if (selectedGarment.prompt) {
@@ -534,48 +336,65 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Get advanced settings
-            const settings = {
-                clothGuidance: parseFloat(document.getElementById('cloth-guidance').value),
-                promptGuidance: parseFloat(document.getElementById('prompt-guidance').value),
-                faceGuidance: parseFloat(document.getElementById('face-guidance').value),
-                selfLora: parseFloat(document.getElementById('self-lora').value),
-                crossLora: parseFloat(document.getElementById('cross-lora').value),
-                denoiseSteps: parseInt(document.getElementById('denoise-steps').value),
-                seed: parseInt(document.getElementById('ai-seed').value)
-            };
+            const clothGuidance = parseFloat(document.getElementById('cloth-guidance').value);
+            const promptGuidance = parseFloat(document.getElementById('prompt-guidance').value);
+            const faceGuidance = parseFloat(document.getElementById('face-guidance').value);
+            const selfLora = parseFloat(document.getElementById('self-lora').value);
+            const crossLora = parseFloat(document.getElementById('cross-lora').value);
+            const denoiseSteps = parseInt(document.getElementById('denoise-steps').value);
+            const seed = parseInt(document.getElementById('ai-seed').value);
 
-            // Call the API
-            const result = await callGradioAPI(garmentData, faceData, poseData, prompt, settings);
+            const useFace = toggleFace.checked && selectedFace;
+            const usePose = togglePose.checked && selectedPose;
 
-            // Display result
-            let imageUrl;
-            if (typeof result === 'string') {
-                if (result.startsWith('data:')) {
-                    imageUrl = result;
-                } else if (result.startsWith('http')) {
-                    imageUrl = result;
-                } else {
-                    // It might be a file path on the server
-                    imageUrl = HF_SPACE_URL + '/file=' + result;
-                }
-            } else if (result && result.url) {
-                imageUrl = result.url;
-            } else if (result && result.path) {
-                imageUrl = HF_SPACE_URL + '/file=' + result.path;
+            updateLoadingProgress(10, 'Connecting to IMAGDressing AI...');
+
+            // Connect to Gradio Space
+            const app = await client(HF_SPACE_ID);
+
+            // Get image blobs
+            const garmBlob = await getImageBlob(selectedGarment);
+            const faceBlob = useFace ? await getImageBlob(selectedFace) : null;
+            const poseBlob = usePose ? await getImageBlob(selectedPose) : null;
+
+            updateLoadingProgress(20, 'Sending data to GPU...');
+
+            const result = await app.predict("/dress_process", [
+                garmBlob,
+                faceBlob,
+                poseBlob,
+                prompt,
+                clothGuidance,
+                promptGuidance,
+                faceGuidance,
+                selfLora,
+                crossLora,
+                useFace ? true : false,
+                usePose ? true : false,
+                denoiseSteps,
+                seed,
+            ]);
+
+            updateLoadingProgress(100, 'Complete!');
+            
+            console.log("Result:", result);
+
+            if (result && result.data && result.data[0]) {
+                const imageUrl = result.data[0].url || result.data[0];
+
+                resultImage.src = imageUrl;
+                resultImage.onload = () => {
+                    showState(resultState);
+                    setStatus('Complete', '');
+                    downloadBtn.style.display = 'flex';
+                    addToHistory(imageUrl);
+                };
+                resultImage.onerror = () => {
+                    throw new Error('Failed to load the generated image.');
+                };
             } else {
                 throw new Error('Unexpected result format from the AI model.');
             }
-
-            resultImage.src = imageUrl;
-            resultImage.onload = () => {
-                showState(resultState);
-                setStatus('Complete', '');
-                downloadBtn.style.display = 'flex';
-                addToHistory(imageUrl);
-            };
-            resultImage.onerror = () => {
-                throw new Error('Failed to load the generated image.');
-            };
 
         } catch (error) {
             console.error('Generation failed:', error);
@@ -642,7 +461,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Result image also opens lightbox
     if (resultImage) {
         resultImage.addEventListener('click', () => {
             if (resultImage.src) openLightbox(resultImage.src);
@@ -671,19 +489,13 @@ document.addEventListener('DOMContentLoaded', () => {
         retryBtn.addEventListener('click', generateLook);
     }
 
-    // Keyboard shortcut: Enter to generate
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !isGenerating && selectedGarment) {
-            // Don't trigger if focused on an input
             if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
                 return;
             }
             generateLook();
         }
-    });
-
-    // ESC to close lightbox
-    document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && lightbox.style.display !== 'none') {
             closeLightbox();
         }
@@ -698,5 +510,4 @@ document.addEventListener('DOMContentLoaded', () => {
     updateGenerateBtn();
 
     console.log('🧥 TAVROO AI Dressing Studio initialized');
-    console.log('📡 Connected to IMAGDressing-v1 HuggingFace Space');
 });
