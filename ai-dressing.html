@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D3SFVX78SR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-D3SFVX78SR');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Virtual Dressing Studio - TAVROO Contemporary Fashion</title>
+    <meta name="description" content="TAVROO AI Virtual Dressing Studio powered by IMAGDressing. Upload garments, choose poses, and generate photorealistic virtual try-on images with AI.">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="showcase-ai.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="showcase-page">
+    <nav class="glass-nav">
+        <a href="index.html" class="logo" aria-label="TAVROO Home">
+            <svg class="tavro-logo-svg" viewBox="0 0 255 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 12 H36 M24 12 V40" stroke="currentColor" stroke-width="4.5" stroke-linecap="square"/>
+                <path d="M57 19 C57 14, 60.5 11, 64 11 C67.5 11, 69.5 13.5, 69.5 16.5 C69.5 19.5, 66.5 21.5, 64 23.5 V26.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+                <path d="M64 26.5 L43 40 H85 Z" stroke="currentColor" stroke-width="3.6" stroke-linejoin="round" fill="none"/>
+                <path d="M96 12 L109 40 L122 12" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+                <path d="M136 40 V12 H152 C160 12, 160 25, 152 25 H136 M148 25 L161 40" stroke="currentColor" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+                <circle cx="188" cy="26" r="14.5" stroke="currentColor" stroke-width="4.2" fill="none"/>
+                <circle cx="228" cy="26" r="14.5" stroke="currentColor" stroke-width="4.2" fill="none"/>
+            </svg>
+            <span class="logo-sub">STUDIO</span>
+        </a>
+        <div class="persistent-brand">WEAR YOUR POINT OF VIEW</div>
+        <div class="links">
+            <a href="index.html">Home</a>
+            <a href="showcase.html">3D Runway Atelier</a>
+            <a href="ai-dressing.html" class="active">AI Dressing Studio</a>
+            <a href="catalog.html">Lookbook Catalog</a>
+            <a href="about.html">About & Contact</a>
+        </div>
+    </nav>
+    
+    <main class="ai-showcase-grid">
+        <!-- Left Column ΓÇö Input Controls -->
+        <aside class="ai-panel ai-left-panel glass-panel">
+            <div class="ai-panel-header">
+                <div class="ai-badge"><span class="pulse-dot"></span> AI DRESSING STUDIO</div>
+                <p class="ai-subtitle">Powered by IMAGDressing-v1 ┬╖ AAAI 2025</p>
+            </div>
+
+            <!-- Step 1: Upper Garment Selection -->
+            <div class="ai-step-section">
+                <div class="ai-step-label"><span class="ai-step-num">01</span> Select Top / Upper</div>
+                <p class="ai-step-desc">Choose a top or dress from our collection or upload your own clothing image.</p>
+                
+                <div class="ai-garment-grid" id="ai-garment-grid">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div class="ai-upload-zone" id="garment-upload-zone">
+                    <input type="file" id="garment-upload" accept="image/*" hidden>
+                    <label for="garment-upload" class="ai-upload-label">
+                        <svg class="ai-upload-icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <span>Upload Custom Top</span>
+                    </label>
+                </div>
+
+                <div class="ai-preview-row" id="garment-preview-row" style="display: none;">
+                    <div class="ai-preview-thumb" id="garment-preview-thumb"></div>
+                    <div class="ai-preview-info">
+                        <span class="ai-preview-name" id="garment-preview-name">Selected Top</span>
+                        <button class="ai-clear-btn" id="clear-garment" type="button">Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Bottoms & Lowers Selection -->
+            <div class="ai-step-section">
+                <div class="ai-step-label"><span class="ai-step-num">02</span> Select Bottom / Lower <span class="ai-optional-badge">Pair Outfit</span></div>
+                <p class="ai-step-desc">Pick trousers, denim, or cargos from Tavroo's collection or upload your own.</p>
+                
+                <div class="ai-bottoms-grid" id="ai-bottoms-grid">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div class="ai-upload-zone" id="bottom-upload-zone">
+                    <input type="file" id="bottom-upload" accept="image/*" hidden>
+                    <label for="bottom-upload" class="ai-upload-label">
+                        <svg class="ai-upload-icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <span>Upload Custom Bottom</span>
+                    </label>
+                </div>
+
+                <div class="ai-preview-row" id="bottom-preview-row" style="display: none;">
+                    <div class="ai-preview-thumb" id="bottom-preview-thumb"></div>
+                    <div class="ai-preview-info">
+                        <span class="ai-preview-name" id="bottom-preview-name">Selected Bottom</span>
+                        <button class="ai-clear-btn" id="clear-bottom" type="button">Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Face Upload (Optional) -->
+            <div class="ai-step-section">
+                <div class="ai-step-label"><span class="ai-step-num">03</span> Face Reference <span class="ai-optional-badge">Optional</span></div>
+                <p class="ai-step-desc">Upload a face photo to preserve identity in the generated image.</p>
+
+                <div class="ai-toggle-row">
+                    <span>Preserve facial identity</span>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-face" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div id="face-controls">
+                    <div class="ai-upload-zone" id="face-upload-zone">
+                        <input type="file" id="face-upload" accept="image/*" hidden>
+                        <label for="face-upload" class="ai-upload-label">
+                            <svg class="ai-upload-icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <span>Upload Portrait Photo</span>
+                        </label>
+                    </div>
+                    
+                    <div class="ai-example-faces" id="example-faces">
+                        <span class="ai-example-label">Or choose sample portrait:</span>
+                        <div class="ai-example-row" id="face-examples-row">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <div class="ai-preview-row" id="face-preview-row" style="display: none;">
+                        <div class="ai-preview-thumb" id="face-preview-thumb"></div>
+                        <div class="ai-preview-info">
+                            <span class="ai-preview-name" id="face-preview-name">Face Reference</span>
+                            <button class="ai-clear-btn" id="clear-face" type="button">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Pose Selection -->
+            <div class="ai-step-section">
+                <div class="ai-step-label"><span class="ai-step-num">04</span> Pose Preset <span class="ai-optional-badge">Optional</span></div>
+                <p class="ai-step-desc">Choose a body pose for the generated image.</p>
+
+                <div class="ai-toggle-row">
+                    <span>Apply posture control</span>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-pose" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div id="pose-controls">
+                    <div class="ai-pose-grid" id="ai-pose-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Text Prompt -->
+            <div class="ai-step-section">
+                <div class="ai-step-label"><span class="ai-step-num">05</span> Scene Direction</div>
+                <p class="ai-step-desc">Describe the studio environment, lighting, and mood.</p>
+                <input type="text" id="ai-prompt" placeholder="A beautiful model in a studio, professional lighting..." value="A beautiful model standing in a fashion studio, professional photography">
+            </div>
+
+            <!-- Advanced Settings (Collapsed) -->
+            <details class="ai-advanced-details">
+                <summary class="ai-advanced-summary">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    <span>Fine-Tuning Controls</span>
+                </summary>
+                <div class="ai-advanced-body">
+                    <div class="ai-slider-group">
+                        <label>Cloth Guidance <span class="ai-slider-value" id="cloth-val">0.85</span></label>
+                        <input type="range" id="cloth-guidance" min="0" max="1" step="0.05" value="0.85">
+                    </div>
+                    <div class="ai-slider-group">
+                        <label>Prompt Guidance <span class="ai-slider-value" id="prompt-val">6.5</span></label>
+                        <input type="range" id="prompt-guidance" min="1" max="10" step="0.5" value="6.5">
+                    </div>
+                    <div class="ai-slider-group">
+                        <label>Face Guidance <span class="ai-slider-value" id="face-val">0.9</span></label>
+                        <input type="range" id="face-guidance" min="0" max="2" step="0.1" value="0.9">
+                    </div>
+                    <div class="ai-slider-group">
+                        <label>Self-Attention LoRA <span class="ai-slider-value" id="self-lora-val">0.2</span></label>
+                        <input type="range" id="self-lora" min="0" max="0.5" step="0.05" value="0.2">
+                    </div>
+                    <div class="ai-slider-group">
+                        <label>Cross-Attention LoRA <span class="ai-slider-value" id="cross-lora-val">0.2</span></label>
+                        <input type="range" id="cross-lora" min="0" max="0.5" step="0.05" value="0.2">
+                    </div>
+                    <div class="ai-slider-group">
+                        <label>Denoising Steps <span class="ai-slider-value" id="steps-val">30</span></label>
+                        <input type="range" id="denoise-steps" min="20" max="50" step="1" value="30">
+                    </div>
+                    <div class="ai-slider-group">
+                        <label>Seed <span class="ai-slider-value" id="seed-val">20240508</span></label>
+                        <input type="number" id="ai-seed" value="20240508" min="-1" max="2147483647" style="width: 100%;">
+                    </div>
+                </div>
+            </details>
+        </aside>
+
+        <!-- Center Column ΓÇö AI Generation Canvas -->
+        <section class="ai-center-panel" id="ai-center-panel">
+            <!-- Studio Top Bar -->
+            <div class="ai-studio-bar">
+                <div class="studio-badge"><span class="studio-jewel"></span> TAVROO ATELIER</div>
+                
+                <!-- Engine Mode Switcher -->
+                <div class="ai-mode-switcher" id="ai-mode-switcher">
+                    <button type="button" class="ai-mode-tab active" id="mode-demo-btn" title="Instant high-fidelity AI dressing preview">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        <span>Showcase Studio</span>
+                    </button>
+                    <button type="button" class="ai-mode-tab" id="mode-live-btn" title="Live ZeroGPU HuggingFace Space connection">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+                        <span>Live ZeroGPU</span>
+                    </button>
+                </div>
+
+                <div class="ai-status-pill" id="ai-status-pill">
+                    <span class="ai-status-dot" id="ai-status-dot"></span>
+                    <span id="ai-status-text">Ready</span>
+                </div>
+            </div>
+
+            <!-- Main Output Display -->
+            <div class="ai-output-stage" id="ai-output-stage">
+                <!-- Initial Empty State -->
+                <div class="ai-empty-state" id="ai-empty-state">
+                    <div class="ai-empty-icon">
+                        <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="rgba(212,175,55,0.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                    </div>
+                    <h3 class="ai-empty-title">Virtual Dressing Atelier</h3>
+                    <p class="ai-empty-desc">Select an upper garment and an optional lower piece. Click <strong>Generate Look</strong> to render high-definition virtual styling on the runway model.</p>
+                    <div class="ai-empty-steps">
+                        <div class="ai-mini-step"><span>01</span> Choose Top</div>
+                        <div class="ai-mini-step"><span>02</span> Choose Lower</div>
+                        <div class="ai-mini-step"><span>03</span> Face & Pose</div>
+                        <div class="ai-mini-step"><span>04</span> Render</div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="ai-loading-state" id="ai-loading-state" style="display: none;">
+                    <div class="ai-loader">
+                        <div class="ai-loader-ring"></div>
+                        <div class="ai-loader-ring"></div>
+                        <div class="ai-loader-ring"></div>
+                    </div>
+                    <h3 class="ai-loading-title">Synthesizing Editorial Look</h3>
+                    <p class="ai-loading-desc" id="ai-loading-desc">Calculating neural garment flow and illumination...</p>
+                    <div class="ai-progress-bar">
+                        <div class="ai-progress-fill" id="ai-progress-fill"></div>
+                    </div>
+                    <p class="ai-loading-timer" id="ai-loading-timer">Estimated synthesis: 2-4 seconds</p>
+                </div>
+
+                <!-- Result State -->
+                <div class="ai-result-state" id="ai-result-state" style="display: none;">
+                    <div class="ai-result-card">
+                        <div class="ai-result-top-controls">
+                            <div class="ai-result-badge" id="ai-result-badge">
+                                <span class="ai-result-jewel"></span>
+                                <span class="ai-result-brand">IMAGDressing-v1</span>
+                                <span class="ai-result-tag" id="ai-result-tag">Ultra-HD Studio</span>
+                            </div>
+                            <div class="ai-stage-actions">
+                                <button class="ai-stage-btn" id="stage-redo-btn" type="button" title="Generate another variation without refreshing">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                                    <span>Redo Variation</span>
+                                </button>
+                                <button class="ai-stage-btn secondary" id="stage-change-btn" type="button" title="Return to outfit selection">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                                    <span>Change Outfit</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="ai-result-figure-wrap">
+                            <img id="ai-result-image" class="ai-result-img" alt="AI Generated Virtual Dressing Result">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error State -->
+                <div class="ai-error-state" id="ai-error-state" style="display: none;">
+                    <div class="ai-error-icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    </div>
+                    <h3 class="ai-error-title">Synthesis Interrupted</h3>
+                    <p class="ai-error-desc" id="ai-error-desc">Remote endpoint is temporarily offline. Switch to Showcase Demo for instant preview.</p>
+                    <div class="ai-error-actions">
+                        <button class="ai-demo-fallback-btn" id="ai-demo-fallback-btn" type="button">Switch to Showcase Demo</button>
+                        <button class="ai-retry-btn" id="ai-retry-btn" type="button">Retry Connection</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="ai-action-bar">
+                <button class="ai-generate-btn" id="ai-generate-btn" type="button" disabled>
+                    <svg class="ai-btn-icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <span id="ai-gen-text">Generate AI Look</span>
+                </button>
+                <button class="ai-redo-btn" id="ai-redo-btn" type="button" style="display: none;" title="Regenerate look with new variation">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    <span>Redo Look</span>
+                </button>
+                <button class="ai-reset-btn" id="ai-reset-btn" type="button" style="display: none;" title="Change tops or bottoms without refreshing">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    <span>Change Outfit</span>
+                </button>
+                <button class="ai-download-btn" id="ai-download-btn" type="button" style="display: none;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Export High-Res</span>
+                </button>
+            </div>
+
+            <!-- Hints Bar -->
+            <div class="ai-hints-bar">
+                <span>IMAGDRESSING V1</span>
+                <span class="divider">/</span>
+                <span>CONTROLNET &bull; IP-ADAPTER</span>
+                <span class="divider">/</span>
+                <span>NEURAL RUNWAY PIPELINE</span>
+            </div>
+        </section>
+
+        <!-- Right Column ΓÇö Results Gallery & Info -->
+        <aside class="ai-panel ai-right-panel glass-panel">
+            <h2>Generation History</h2>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1.2rem; letter-spacing: 0.2px;">Recent runway outputs from this session. Click to view high-res.</p>
+            
+            <div class="ai-history-grid" id="ai-history-grid">
+                <!-- Populated dynamically -->
+            </div>
+
+            <div class="ai-history-empty" id="ai-history-empty">
+                <div style="text-align: center; padding: 2.5rem 1rem;">
+                    <div style="display: flex; justify-content: center; margin-bottom: 0.8rem; opacity: 0.35;">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.82rem; line-height: 1.6;">No looks generated yet. Select garments and click <strong>Generate AI Look</strong> to build your atelier book.</p>
+                </div>
+            </div>
+
+            <div class="ai-info-section">
+                <h3 class="ai-info-title">About IMAGDressing</h3>
+                <p class="ai-info-text">IMAGDressing-v1 is an AI-powered virtual dressing system published at AAAI 2025. It generates photorealistic images of people wearing specified garments with customizable pose and scene control.</p>
+                <div class="ai-info-badges">
+                    <a href="https://github.com/muzishen/IMAGDressing" target="_blank" rel="noopener" class="ai-info-badge">GitHub Γåù</a>
+                    <a href="https://imagdressing.github.io/" target="_blank" rel="noopener" class="ai-info-badge">Project Γåù</a>
+                    <a href="http://arxiv.org/abs/2407.12705" target="_blank" rel="noopener" class="ai-info-badge">Paper Γåù</a>
+                </div>
+            </div>
+
+            <a href="catalog.html" class="ai-lookbook-cta" style="margin-top: 1.5rem;">
+                <span>View Full Lookbook Collection</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+        </aside>
+    </main>
+    
+    <!-- Lightbox Overlay -->
+    <div class="ai-lightbox" id="ai-lightbox" style="display: none;">
+        <button class="ai-lightbox-close" id="ai-lightbox-close">Γ£ò</button>
+        <img id="ai-lightbox-img" class="ai-lightbox-image" alt="Enlarged AI Generation">
+    </div>
+
+    <script type="module" src="showcase-engine.js"></script>
+</body>
+</html>
