@@ -4,24 +4,19 @@
 
 ## 📅 Last Session Footprint
 
-- **Timestamp:** 2026-10-09 16:15 IST
-- **Active Task:** Restored Classic Runway Mannequin Human Figure & Reconciled Remote AI Virtual Dressing Engine:
-  1. **Restored Classic Human Figure Geometry:**
-     - Restored the sleek, elegant mannequin human figure base mesh: oval cranium, sculpted jaw, chin apex, refined neck, contoured nose, almond eyes (sclera, iris, pupil, glossy cornea), eyebrow arcs, lips with Cupid's bow, and anatomical ears.
-     - Restored clean posed runway hands: slender wrist, palm base, thenar muscle mound, thumb with proximal and distal sections, and four gracefully curving cascaded fingers (index, middle, ring, pinky).
-     - Restored sculpted athletic legs (thighs, kneecaps, calves) with base runway feet.
-     - Restored smooth PBR skin material (`MeshPhysicalMaterial`, roughness: 0.44, metalness: 0.05, clearcoat: 0.25) eliminating grainy procedural micro-textures.
-  2. **Preserved Precision Garment Fitting (Neck & Shoulders):**
-     - Torso garments (tees, hoodies, biker vests, denim jackets, zip sweaters) continue to fit flush around the neck and shoulders without clipping or floating.
-  3. **Footwear Exclusion Preserved:**
-     - Footwear apparel category remains completely removed from the 3D customizer, raycaster targets, catalog filters, and navigation links.
-  4. **Cross-Device Responsiveness (Phone, Laptop, PC):**
-     - Retained sticky segmented mobile tabs (`[ ⚡ 3D Runway ] [ 👤 Avatar Controls ] [ 🧥 Garments ]`), automatic mobile tab switching on zone selection, and full PC/Laptop layout optimization.
-  5. **Merged Remote Upstream & Dual-Studio Architecture:**
-     - Maintained `showcase.html` as the primary interactive 3D Runway Atelier powered by Three.js WebGL (`app.js`).
-     - Integrated upstream AI Virtual Dressing Studio as `ai-dressing.html` powered by IMAGDressing-v1 (`showcase-engine.js` and `showcase-ai.css`), allowing seamless bidirectional navigation.
+- **Timestamp:** 2026-10-09 16:30 IST
+- **Active Task:** Solidified `showcase.html` Solely as AI Virtual Dressing Studio & Synced Upstream Navigation:
+  1. **showcase.html Primary AI Dressing Studio:**
+     - `showcase.html` is the primary AI Virtual Dressing Studio powered by IMAGDressing-v1 (`showcase-engine.js` and `showcase-ai.css`).
+     - Includes Step 2 Bottoms / Lowers selection, live pairing with upper garments, and custom garment upload zones.
+     - Includes non-refresh `Redo Look` (seed randomization) and `Change Outfit` (reset stage) actions.
+     - Features 100% zoom viewport fit (`calc(100vh - 75px)`, `object-fit: contain` with flexbox containment, zero overflow or cutoff).
+     - Fully redesigned buttons with human-crafted luxury atelier styling (ivory bone primary button, obsidian glass secondary buttons, clean SVG vector glyphs, zero emojis).
+  2. **Backward-Compatible Routing:**
+     - `ai-dressing.html` includes zero-delay auto-redirect to `showcase.html` to prevent any broken links.
+     - Site-wide navigation updated across `index.html`, `catalog.html`, `about.html`, and collection pages pointing to `showcase.html` (AI Dressing Studio).
 - **Git State:** On `main`, tracking GitHub repository `AaradhyaJain10008/Tavroo` through `origin`.
-- **Hosting Engine:** Continuous cloud deployment automated via Vercel GitHub Webhook to `https://tavroo.vercel.app`.
+- **Hosting Engine:** Continuous cloud deployment automated via GitHub Pages & Vercel.
 
 ## 📍 Last Edited Points & Core Logic
 
