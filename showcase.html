@@ -52,10 +52,10 @@
                 <p class="ai-subtitle">Powered by IMAGDressing-v1 · AAAI 2025</p>
             </div>
 
-            <!-- Step 1: Garment Selection -->
+            <!-- Step 1: Upper Garment Selection -->
             <div class="ai-step-section">
-                <div class="ai-step-label"><span class="ai-step-num">1</span> Select Garment</div>
-                <p class="ai-step-desc">Choose a garment from our collection or upload your own clothing image.</p>
+                <div class="ai-step-label"><span class="ai-step-num">1</span> Select Top / Upper</div>
+                <p class="ai-step-desc">Choose a top or dress from our collection or upload your own clothing image.</p>
                 
                 <div class="ai-garment-grid" id="ai-garment-grid">
                     <!-- Populated by JS -->
@@ -65,22 +65,48 @@
                     <input type="file" id="garment-upload" accept="image/*" hidden>
                     <label for="garment-upload" class="ai-upload-label">
                         <span class="ai-upload-icon">📤</span>
-                        <span>Upload Your Own Garment</span>
+                        <span>Upload Your Own Top</span>
                     </label>
                 </div>
 
                 <div class="ai-preview-row" id="garment-preview-row" style="display: none;">
                     <div class="ai-preview-thumb" id="garment-preview-thumb"></div>
                     <div class="ai-preview-info">
-                        <span class="ai-preview-name" id="garment-preview-name">Selected Garment</span>
+                        <span class="ai-preview-name" id="garment-preview-name">Selected Top</span>
                         <button class="ai-clear-btn" id="clear-garment">✕ Clear</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Step 2: Face Upload (Optional) -->
+            <!-- Step 2: Bottoms & Lowers Selection -->
             <div class="ai-step-section">
-                <div class="ai-step-label"><span class="ai-step-num">2</span> Face Reference <span class="ai-optional-badge">Optional</span></div>
+                <div class="ai-step-label"><span class="ai-step-num">2</span> Select Bottom / Lower <span class="ai-optional-badge">Pair Outfit</span></div>
+                <p class="ai-step-desc">Pick trousers, denim, or cargos from Tavroo's collection or upload your own.</p>
+                
+                <div class="ai-bottoms-grid" id="ai-bottoms-grid">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div class="ai-upload-zone" id="bottom-upload-zone">
+                    <input type="file" id="bottom-upload" accept="image/*" hidden>
+                    <label for="bottom-upload" class="ai-upload-label">
+                        <span class="ai-upload-icon">👖</span>
+                        <span>Upload Your Own Bottom</span>
+                    </label>
+                </div>
+
+                <div class="ai-preview-row" id="bottom-preview-row" style="display: none;">
+                    <div class="ai-preview-thumb" id="bottom-preview-thumb"></div>
+                    <div class="ai-preview-info">
+                        <span class="ai-preview-name" id="bottom-preview-name">Selected Bottom</span>
+                        <button class="ai-clear-btn" id="clear-bottom">✕ Clear</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Face Upload (Optional) -->
+            <div class="ai-step-section">
+                <div class="ai-step-label"><span class="ai-step-num">3</span> Face Reference <span class="ai-optional-badge">Optional</span></div>
                 <p class="ai-step-desc">Upload a face photo to preserve identity in the generated image.</p>
 
                 <div class="ai-toggle-row">
@@ -117,9 +143,9 @@
                 </div>
             </div>
 
-            <!-- Step 3: Pose Selection -->
+            <!-- Step 4: Pose Selection -->
             <div class="ai-step-section">
-                <div class="ai-step-label"><span class="ai-step-num">3</span> Pose Preset <span class="ai-optional-badge">Optional</span></div>
+                <div class="ai-step-label"><span class="ai-step-num">4</span> Pose Preset <span class="ai-optional-badge">Optional</span></div>
                 <p class="ai-step-desc">Choose a body pose for the generated image.</p>
 
                 <div class="ai-toggle-row">
@@ -137,9 +163,9 @@
                 </div>
             </div>
 
-            <!-- Step 4: Text Prompt -->
+            <!-- Step 5: Text Prompt -->
             <div class="ai-step-section">
-                <div class="ai-step-label"><span class="ai-step-num">4</span> Scene Description</div>
+                <div class="ai-step-label"><span class="ai-step-num">5</span> Scene Description</div>
                 <p class="ai-step-desc">Describe the scene, lighting, or style you want.</p>
                 <input type="text" id="ai-prompt" placeholder="A beautiful model in a studio, professional lighting..." value="A beautiful model standing in a fashion studio, professional photography">
             </div>
@@ -241,9 +267,19 @@
                 <!-- Result State -->
                 <div class="ai-result-state" id="ai-result-state" style="display: none;">
                     <div class="ai-result-card">
-                        <div class="ai-result-badge" id="ai-result-badge">
-                            <span>✨ IMAGDressing-v1 Neural Dressing</span>
-                            <span class="ai-result-tag" id="ai-result-tag">Showcase Ultra-HD</span>
+                        <div class="ai-result-top-controls">
+                            <div class="ai-result-badge" id="ai-result-badge">
+                                <span>✨ IMAGDressing-v1 Neural Dressing</span>
+                                <span class="ai-result-tag" id="ai-result-tag">Showcase Ultra-HD</span>
+                            </div>
+                            <div class="ai-stage-actions">
+                                <button class="ai-stage-btn" id="stage-redo-btn" title="Generate another variation without refreshing">
+                                    <span>↺</span> Redo Look
+                                </button>
+                                <button class="ai-stage-btn secondary" id="stage-change-btn" title="Return to outfit selection">
+                                    <span>👗</span> Change Outfit
+                                </button>
+                            </div>
                         </div>
                         <img id="ai-result-image" class="ai-result-img" alt="AI Generated Virtual Dressing Result">
                     </div>
@@ -266,6 +302,12 @@
                 <button class="ai-generate-btn" id="ai-generate-btn" disabled>
                     <span class="ai-gen-icon">✨</span>
                     <span id="ai-gen-text">Generate AI Look</span>
+                </button>
+                <button class="ai-redo-btn" id="ai-redo-btn" style="display: none;" title="Regenerate look with new variation">
+                    <span>↺</span> Redo Look
+                </button>
+                <button class="ai-reset-btn" id="ai-reset-btn" style="display: none;" title="Change tops or bottoms without refreshing">
+                    <span>👗</span> Change Outfit
                 </button>
                 <button class="ai-download-btn" id="ai-download-btn" style="display: none;">
                     <span>📥</span> Download Image

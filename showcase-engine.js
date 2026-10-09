@@ -67,6 +67,57 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     ];
 
+    const sampleBottoms = [
+        {
+            id: 'b1',
+            name: 'Stone Trousers',
+            img: 'assets/products/denims/stone-tailored-trousers.png',
+            prompt: 'wearing tailored high-waisted stone pleat wide-leg trousers',
+            demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
+            tag: 'Tailored Suiting'
+        },
+        {
+            id: 'b2',
+            name: 'Wide-Leg Denim',
+            img: 'assets/products/denims/light-wide-leg-jeans.png',
+            prompt: 'wearing relaxed light wash wide-leg denim jeans',
+            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            tag: 'Casual Streetwear'
+        },
+        {
+            id: 'b3',
+            name: 'Olive Cargos',
+            img: 'assets/products/denims/olive-utility-cargos.png',
+            prompt: 'wearing olive green utility cargo trousers with cinch toggles',
+            demoResult: 'assets/images/demo/b3-olive-cargos.jpg',
+            tag: 'Utility Streetwear'
+        },
+        {
+            id: 'b4',
+            name: 'Charcoal Jeans',
+            img: 'assets/products/denims/charcoal-relaxed-jeans.png',
+            prompt: 'wearing charcoal relaxed straight denim pants',
+            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            tag: 'Monochrome Denim'
+        },
+        {
+            id: 'b5',
+            name: 'Navy Pinstripe',
+            img: 'assets/products/denims/navy-pinstripe-trousers.png',
+            prompt: 'wearing navy blue tailored trousers with fine vertical pinstripes',
+            demoResult: 'assets/images/demo/g3-green-skirt.jpg',
+            tag: 'Parisian Tailored'
+        },
+        {
+            id: 'b6',
+            name: 'Cocoa Cargos',
+            img: 'assets/products/denims/cocoa-cargo-pants.png',
+            prompt: 'wearing relaxed cocoa brown cargo pants with utility pockets',
+            demoResult: 'assets/images/demo/g2-black-top.jpg',
+            tag: 'Earth Tone Streetwear'
+        }
+    ];
+
     const sampleFaces = [
         { id: 'f1', img: `${EXAMPLE_BASE}/example/face/1.jpg`, name: 'Face 1' },
         { id: 'f2', img: `${EXAMPLE_BASE}/example/face/2.jpg`, name: 'Face 2' },
@@ -82,12 +133,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------------------------------
     // 3. DOM REFERENCES
     // -----------------------------------------------------------------
+    // Upper Garment Controls
     const garmentGrid = document.getElementById('ai-garment-grid');
     const garmentUpload = document.getElementById('garment-upload');
     const garmentPreviewRow = document.getElementById('garment-preview-row');
     const garmentPreviewThumb = document.getElementById('garment-preview-thumb');
     const garmentPreviewName = document.getElementById('garment-preview-name');
     const clearGarmentBtn = document.getElementById('clear-garment');
+
+    // Bottoms & Lowers Controls
+    const bottomsGrid = document.getElementById('ai-bottoms-grid');
+    const bottomUpload = document.getElementById('bottom-upload');
+    const bottomPreviewRow = document.getElementById('bottom-preview-row');
+    const bottomPreviewThumb = document.getElementById('bottom-preview-thumb');
+    const bottomPreviewName = document.getElementById('bottom-preview-name');
+    const clearBottomBtn = document.getElementById('clear-bottom');
 
     const toggleFace = document.getElementById('toggle-face');
     const faceControls = document.getElementById('face-controls');
@@ -106,6 +166,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const generateBtn = document.getElementById('ai-generate-btn');
     const genText = document.getElementById('ai-gen-text');
     const downloadBtn = document.getElementById('ai-download-btn');
+    const redoBtn = document.getElementById('ai-redo-btn');
+    const resetBtn = document.getElementById('ai-reset-btn');
+    const stageRedoBtn = document.getElementById('stage-redo-btn');
+    const stageChangeBtn = document.getElementById('stage-change-btn');
 
     // Engine Mode Controls
     const modeDemoBtn = document.getElementById('mode-demo-btn');
@@ -151,6 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------------------------------
     let engineMode = 'demo';       // 'demo' | 'live'
     let selectedGarment = null;   // { id, img, name, isFile, file, prompt, demoResult, tag }
+    let selectedBottom = null;    // { id, img, name, isFile, file, prompt, demoResult, tag }
     let selectedFace = null;      // { id, img, name, isFile, file }
     let selectedPose = null;      // { id, img, name, isFile, file }
     let generationHistory = [];
@@ -160,6 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. POPULATE UI GRIDS
     // -----------------------------------------------------------------
     function populateGarments() {
+        if (!garmentGrid) return;
         garmentGrid.innerHTML = '';
         sampleGarments.forEach(g => {
             const card = document.createElement('div');
@@ -172,6 +238,23 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             card.addEventListener('click', () => selectGarment(g, card));
             garmentGrid.appendChild(card);
+        });
+    }
+
+    function populateBottoms() {
+        if (!bottomsGrid) return;
+        bottomsGrid.innerHTML = '';
+        sampleBottoms.forEach(b => {
+            const card = document.createElement('div');
+            card.className = 'ai-bottom-card';
+            card.dataset.id = b.id;
+            card.innerHTML = `
+                <img class="ai-bottom-img" src="${b.img}" alt="${b.name}" loading="lazy"
+                     onerror="this.style.display='none'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML = '<span style=\\'font-size:2rem; opacity:0.4\\'>👖</span><span class=\\'ai-bottom-label\\'>${b.name}</span>';">
+                <span class="ai-bottom-label">${b.name}</span>
+            `;
+            card.addEventListener('click', () => selectBottom(b, card));
+            bottomsGrid.appendChild(card);
         });
     }
 
@@ -253,82 +336,153 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cardEl) cardEl.classList.add('selected');
     }
 
+    function selectBottom(bottom, cardEl) {
+        if (selectedBottom && selectedBottom.id === bottom.id) {
+            clearBottomSelection();
+            return;
+        }
+
+        selectedBottom = { 
+            id: bottom.id, 
+            img: bottom.img, 
+            name: bottom.name, 
+            isFile: false, 
+            prompt: bottom.prompt,
+            demoResult: bottom.demoResult,
+            tag: bottom.tag
+        };
+
+        document.querySelectorAll('.ai-bottom-card').forEach(c => c.classList.remove('selected'));
+        if (cardEl) cardEl.classList.add('selected');
+
+        if (bottomPreviewThumb) bottomPreviewThumb.innerHTML = `<img src="${bottom.img}" alt="${bottom.name}">`;
+        if (bottomPreviewName) bottomPreviewName.textContent = bottom.name;
+        if (bottomPreviewRow) bottomPreviewRow.style.display = 'flex';
+    }
+
+    function clearBottomSelection() {
+        selectedBottom = null;
+        if (bottomUpload) bottomUpload.value = '';
+        if (bottomPreviewRow) bottomPreviewRow.style.display = 'none';
+        document.querySelectorAll('.ai-bottom-card').forEach(c => c.classList.remove('selected'));
+    }
+
     function updateGenerateBtn() {
         const canGenerate = selectedGarment !== null && !isGenerating;
-        generateBtn.disabled = !canGenerate;
+        if (generateBtn) generateBtn.disabled = !canGenerate;
     }
 
     // -----------------------------------------------------------------
-    // 7. FILE UPLOAD HANDLERS
+    // 7. FILE UPLOAD & CLEAR HANDLERS
     // -----------------------------------------------------------------
-    garmentUpload.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+    if (garmentUpload) {
+        garmentUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
 
-        const url = URL.createObjectURL(file);
-        selectedGarment = { 
-            id: 'custom-' + Date.now(), 
-            img: url, 
-            name: file.name, 
-            isFile: true, 
-            file: file,
-            demoResult: 'assets/images/demo/custom-fallback.jpg',
-            tag: 'Custom Upload Look'
-        };
-        
-        document.querySelectorAll('.ai-garment-card').forEach(c => c.classList.remove('selected'));
-        garmentPreviewThumb.innerHTML = `<img src="${url}" alt="${file.name}">`;
-        garmentPreviewName.textContent = file.name;
-        garmentPreviewRow.style.display = 'flex';
-        
-        updateGenerateBtn();
-    });
+            const url = URL.createObjectURL(file);
+            selectedGarment = { 
+                id: 'custom-' + Date.now(), 
+                img: url, 
+                name: file.name, 
+                isFile: true, 
+                file: file,
+                demoResult: 'assets/images/demo/custom-fallback.jpg',
+                tag: 'Custom Upload Look'
+            };
+            
+            document.querySelectorAll('.ai-garment-card').forEach(c => c.classList.remove('selected'));
+            if (garmentPreviewThumb) garmentPreviewThumb.innerHTML = `<img src="${url}" alt="${file.name}">`;
+            if (garmentPreviewName) garmentPreviewName.textContent = file.name;
+            if (garmentPreviewRow) garmentPreviewRow.style.display = 'flex';
+            
+            updateGenerateBtn();
+        });
+    }
 
-    faceUpload.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+    if (bottomUpload) {
+        bottomUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
 
-        const url = URL.createObjectURL(file);
-        selectedFace = { img: url, name: file.name, isFile: true, file: file };
+            const url = URL.createObjectURL(file);
+            selectedBottom = { 
+                id: 'custom-bottom-' + Date.now(), 
+                img: url, 
+                name: file.name, 
+                isFile: true, 
+                file: file,
+                prompt: 'custom styled bottom trousers',
+                demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
+                tag: 'Custom Bottom Look'
+            };
+            
+            document.querySelectorAll('.ai-bottom-card').forEach(c => c.classList.remove('selected'));
+            if (bottomPreviewThumb) bottomPreviewThumb.innerHTML = `<img src="${url}" alt="${file.name}">`;
+            if (bottomPreviewName) bottomPreviewName.textContent = file.name;
+            if (bottomPreviewRow) bottomPreviewRow.style.display = 'flex';
+        });
+    }
 
-        document.querySelectorAll('.ai-example-thumb').forEach(t => t.classList.remove('selected'));
-        facePreviewThumb.innerHTML = `<img src="${url}" alt="${file.name}">`;
-        facePreviewName.textContent = file.name;
-        facePreviewRow.style.display = 'flex';
-    });
+    if (faceUpload) {
+        faceUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const url = URL.createObjectURL(file);
+            selectedFace = { img: url, name: file.name, isFile: true, file: file };
+
+            document.querySelectorAll('.ai-example-thumb').forEach(t => t.classList.remove('selected'));
+            if (facePreviewThumb) facePreviewThumb.innerHTML = `<img src="${url}" alt="${file.name}">`;
+            if (facePreviewName) facePreviewName.textContent = file.name;
+            if (facePreviewRow) facePreviewRow.style.display = 'flex';
+        });
+    }
 
     // Clear buttons
-    clearGarmentBtn.addEventListener('click', () => {
-        selectedGarment = null;
-        document.querySelectorAll('.ai-garment-card').forEach(c => c.classList.remove('selected'));
-        garmentPreviewRow.style.display = 'none';
-        garmentUpload.value = '';
-        updateGenerateBtn();
-    });
+    if (clearGarmentBtn) {
+        clearGarmentBtn.addEventListener('click', () => {
+            selectedGarment = null;
+            document.querySelectorAll('.ai-garment-card').forEach(c => c.classList.remove('selected'));
+            if (garmentPreviewRow) garmentPreviewRow.style.display = 'none';
+            if (garmentUpload) garmentUpload.value = '';
+            updateGenerateBtn();
+        });
+    }
 
-    clearFaceBtn.addEventListener('click', () => {
-        selectedFace = null;
-        document.querySelectorAll('.ai-example-thumb').forEach(t => t.classList.remove('selected'));
-        facePreviewRow.style.display = 'none';
-        faceUpload.value = '';
-    });
+    if (clearBottomBtn) {
+        clearBottomBtn.addEventListener('click', clearBottomSelection);
+    }
+
+    if (clearFaceBtn) {
+        clearFaceBtn.addEventListener('click', () => {
+            selectedFace = null;
+            document.querySelectorAll('.ai-example-thumb').forEach(t => t.classList.remove('selected'));
+            if (facePreviewRow) facePreviewRow.style.display = 'none';
+            if (faceUpload) faceUpload.value = '';
+        });
+    }
 
     // Toggle controls
-    toggleFace.addEventListener('change', () => {
-        faceControls.style.display = toggleFace.checked ? 'block' : 'none';
-        if (!toggleFace.checked) {
-            selectedFace = null;
-            facePreviewRow.style.display = 'none';
-        }
-    });
+    if (toggleFace && faceControls) {
+        toggleFace.addEventListener('change', () => {
+            faceControls.style.display = toggleFace.checked ? 'block' : 'none';
+            if (!toggleFace.checked) {
+                selectedFace = null;
+                if (facePreviewRow) facePreviewRow.style.display = 'none';
+            }
+        });
+    }
 
-    togglePose.addEventListener('change', () => {
-        poseControls.style.display = togglePose.checked ? 'block' : 'none';
-        if (!togglePose.checked) {
-            selectedPose = null;
-            document.querySelectorAll('.ai-pose-card').forEach(c => c.classList.remove('selected'));
-        }
-    });
+    if (togglePose && poseControls) {
+        togglePose.addEventListener('change', () => {
+            poseControls.style.display = togglePose.checked ? 'block' : 'none';
+            if (!togglePose.checked) {
+                selectedPose = null;
+                document.querySelectorAll('.ai-pose-card').forEach(c => c.classList.remove('selected'));
+            }
+        });
+    }
 
     // -----------------------------------------------------------------
     // 8. ADVANCED SETTINGS SYNC
@@ -386,6 +540,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -----------------------------------------------------------------
+    // 11. REDO & CHANGE OUTFIT ACTIONS (NO REFRESH NEEDED)
+    // -----------------------------------------------------------------
+    function redoLook() {
+        if (!selectedGarment || isGenerating) return;
+
+        // Randomize seed to create a distinct variation
+        const newSeed = Math.floor(Math.random() * 90000000) + 10000000;
+        const seedInput = document.getElementById('ai-seed');
+        const seedVal = document.getElementById('seed-val');
+        if (seedInput) seedInput.value = newSeed;
+        if (seedVal) seedVal.textContent = newSeed;
+
+        generateLook();
+    }
+
+    function changeOutfit() {
+        // Return stage back to initial atelier empty state without refreshing
+        showState(emptyState);
+        setStatus(engineMode === 'demo' ? 'Ready (Demo Mode)' : 'Ready (Live ZeroGPU)', '');
+        if (downloadBtn) downloadBtn.style.display = 'none';
+        if (redoBtn) redoBtn.style.display = 'none';
+        if (resetBtn) resetBtn.style.display = 'none';
+        
+        // Scroll to outfit selection smoothly
+        const leftPanel = document.querySelector('.ai-left-panel');
+        if (leftPanel) {
+            leftPanel.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    if (redoBtn) redoBtn.addEventListener('click', redoLook);
+    if (resetBtn) resetBtn.addEventListener('click', changeOutfit);
+    if (stageRedoBtn) stageRedoBtn.addEventListener('click', redoLook);
+    if (stageChangeBtn) stageChangeBtn.addEventListener('click', changeOutfit);
+
+    // -----------------------------------------------------------------
     // 11. IMAGE HELPERS
     // -----------------------------------------------------------------
     async function urlToBlob(url) {
@@ -407,21 +597,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -----------------------------------------------------------------
-    // 12. GENERATE LOOK (DEMO SIMULATION & LIVE API)
+    // 13. GENERATE LOOK (DEMO SIMULATION & LIVE API)
     // -----------------------------------------------------------------
     async function generateLook() {
         if (!selectedGarment || isGenerating) return;
 
         isGenerating = true;
         updateGenerateBtn();
-        genText.textContent = 'Generating...';
+        if (genText) genText.textContent = 'Generating...';
         showState(loadingState);
         setStatus('Processing', 'processing');
-        downloadBtn.style.display = 'none';
+        if (downloadBtn) downloadBtn.style.display = 'none';
+        if (redoBtn) redoBtn.style.display = 'none';
+        if (resetBtn) resetBtn.style.display = 'none';
         updateLoadingProgress(8, 'Initializing IMAGDressing AI pipeline...');
 
-        const useFace = toggleFace.checked && selectedFace;
-        const usePose = togglePose.checked && selectedPose;
+        const useFace = toggleFace && toggleFace.checked && selectedFace;
+        const usePose = togglePose && togglePose.checked && selectedPose;
 
         // =============================================================
         // PATH A: SHOWCASE AI DEMO MODE (Instant High-Fidelity Preview)
@@ -430,8 +622,12 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const sleep = ms => new Promise(r => setTimeout(r, ms));
                 
-                await sleep(600);
-                updateLoadingProgress(22, 'Extracting garment geometry & cloth mask...');
+                await sleep(500);
+                if (selectedBottom) {
+                    updateLoadingProgress(24, `Styling outfit: ${selectedGarment.name} + ${selectedBottom.name}...`);
+                } else {
+                    updateLoadingProgress(24, `Extracting garment contours for ${selectedGarment.name}...`);
+                }
                 
                 await sleep(800);
                 if (useFace && usePose) {
@@ -444,18 +640,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateLoadingProgress(48, 'Calculating model posture & garment drape...');
                 }
 
-                await sleep(1000);
+                await sleep(900);
                 const steps = document.getElementById('denoise-steps')?.value || '30';
                 updateLoadingProgress(78, `Running SD 1.5 + IP-Adapter denoising (${steps}/${steps} steps)...`);
 
-                await sleep(900);
+                await sleep(800);
                 updateLoadingProgress(94, 'Refining fabric texture folds & studio lighting reflections...');
 
-                await sleep(500);
+                await sleep(400);
                 updateLoadingProgress(100, 'Generation Complete!');
 
-                const demoUrl = selectedGarment.demoResult || 'assets/images/demo/custom-fallback.jpg';
-                const tagText = selectedGarment.tag || 'Showcase AI Ultra-HD';
+                // Adapt preview based on chosen top and bottom
+                let demoUrl = selectedGarment.demoResult || 'assets/images/demo/custom-fallback.jpg';
+                let tagText = selectedGarment.tag || 'Showcase AI Ultra-HD';
+
+                if (selectedBottom) {
+                    if (['b1', 'b2', 'b3'].includes(selectedBottom.id)) {
+                        demoUrl = selectedBottom.demoResult;
+                    }
+                    tagText = `${selectedGarment.name} • ${selectedBottom.name}`;
+                }
 
                 resultImage.src = demoUrl;
                 if (resultTag) resultTag.textContent = tagText;
@@ -463,7 +667,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 resultImage.onload = () => {
                     showState(resultState);
                     setStatus('Complete (Demo Mode)', '');
-                    downloadBtn.style.display = 'flex';
+                    if (downloadBtn) downloadBtn.style.display = 'flex';
+                    if (redoBtn) redoBtn.style.display = 'flex';
+                    if (resetBtn) resetBtn.style.display = 'flex';
                     addToHistory(demoUrl);
                 };
                 resultImage.onerror = () => {
@@ -477,7 +683,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setStatus('Error', 'error');
             } finally {
                 isGenerating = false;
-                genText.textContent = 'Generate AI Look';
+                if (genText) genText.textContent = 'Generate AI Look';
                 updateGenerateBtn();
             }
             return;
@@ -490,6 +696,9 @@ document.addEventListener('DOMContentLoaded', () => {
             let prompt = promptInput.value.trim() || 'A beautiful model standing in a fashion studio';
             if (selectedGarment.prompt) {
                 prompt = prompt + ', ' + selectedGarment.prompt;
+            }
+            if (selectedBottom && selectedBottom.prompt) {
+                prompt = prompt + ', paired with ' + selectedBottom.prompt;
             }
 
             const clothGuidance = parseFloat(document.getElementById('cloth-guidance').value);
@@ -537,11 +746,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const imageUrl = result.data[0].url || result.data[0];
 
                 resultImage.src = imageUrl;
-                if (resultTag) resultTag.textContent = 'Live ZeroGPU Model';
+                if (resultTag) resultTag.textContent = selectedBottom ? `${selectedGarment.name} + ${selectedBottom.name}` : 'Live ZeroGPU Model';
                 resultImage.onload = () => {
                     showState(resultState);
                     setStatus('Complete (Live)', '');
-                    downloadBtn.style.display = 'flex';
+                    if (downloadBtn) downloadBtn.style.display = 'flex';
+                    if (redoBtn) redoBtn.style.display = 'flex';
+                    if (resetBtn) resetBtn.style.display = 'flex';
                     addToHistory(imageUrl);
                 };
                 resultImage.onerror = () => {
@@ -560,13 +771,13 @@ document.addEventListener('DOMContentLoaded', () => {
             setStatus('Error', 'error');
         } finally {
             isGenerating = false;
-            genText.textContent = 'Generate AI Look';
+            if (genText) genText.textContent = 'Generate AI Look';
             updateGenerateBtn();
         }
     }
 
     // -----------------------------------------------------------------
-    // 13. HISTORY MANAGEMENT
+    // 14. HISTORY MANAGEMENT
     // -----------------------------------------------------------------
     function addToHistory(imageUrl) {
         generationHistory.unshift(imageUrl);
@@ -576,14 +787,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderHistory() {
         if (generationHistory.length === 0) {
-            historyGrid.style.display = 'none';
-            historyEmpty.style.display = 'block';
+            if (historyGrid) historyGrid.style.display = 'none';
+            if (historyEmpty) historyEmpty.style.display = 'block';
             return;
         }
 
-        historyGrid.style.display = 'grid';
-        historyEmpty.style.display = 'none';
-        historyGrid.innerHTML = '';
+        if (historyGrid) historyGrid.style.display = 'grid';
+        if (historyEmpty) historyEmpty.style.display = 'none';
+        if (historyGrid) historyGrid.innerHTML = '';
 
         generationHistory.forEach((url, idx) => {
             const card = document.createElement('div');
@@ -593,20 +804,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="ai-history-num">#${idx + 1}</span>
             `;
             card.addEventListener('click', () => openLightbox(url));
-            historyGrid.appendChild(card);
+            if (historyGrid) historyGrid.appendChild(card);
         });
     }
 
     // -----------------------------------------------------------------
-    // 14. LIGHTBOX
+    // 15. LIGHTBOX
     // -----------------------------------------------------------------
     function openLightbox(imageUrl) {
+        if (!lightboxImg || !lightbox) return;
         lightboxImg.src = imageUrl;
         lightbox.style.display = 'flex';
         document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox() {
+        if (!lightbox) return;
         lightbox.style.display = 'none';
         document.body.style.overflow = '';
     }
@@ -625,36 +838,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -----------------------------------------------------------------
-    // 15. DOWNLOAD
+    // 16. DOWNLOAD
     // -----------------------------------------------------------------
-    downloadBtn.addEventListener('click', async () => {
-        if (!resultImage.src) return;
-        try {
-            const response = await fetch(resultImage.src);
-            const blob = await response.blob();
-            const blobUrl = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = blobUrl;
-            const garmentName = (selectedGarment?.name || 'outfit').toLowerCase().replace(/\s+/g, '-');
-            a.download = `tavroo-ai-look-${garmentName}-${Date.now()}.jpg`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
-        } catch {
-            const a = document.createElement('a');
-            a.href = resultImage.src;
-            a.download = `tavroo-ai-look-${Date.now()}.jpg`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
-    });
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', async () => {
+            if (!resultImage.src) return;
+            try {
+                const response = await fetch(resultImage.src);
+                const blob = await response.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                const topName = (selectedGarment?.name || 'top').toLowerCase().replace(/\s+/g, '-');
+                const bottomName = selectedBottom ? `-${selectedBottom.name.toLowerCase().replace(/\s+/g, '-')}` : '';
+                a.download = `tavroo-look-${topName}${bottomName}-${Date.now()}.jpg`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+            } catch {
+                const a = document.createElement('a');
+                a.href = resultImage.src;
+                a.download = `tavroo-look-${Date.now()}.jpg`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+        });
+    }
 
     // -----------------------------------------------------------------
-    // 16. EVENT BINDINGS
+    // 17. EVENT BINDINGS
     // -----------------------------------------------------------------
-    generateBtn.addEventListener('click', generateLook);
+    if (generateBtn) generateBtn.addEventListener('click', generateLook);
     
     if (retryBtn) {
         retryBtn.addEventListener('click', generateLook);
@@ -667,23 +883,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             generateLook();
         }
-        if (e.key === 'Escape' && lightbox.style.display !== 'none') {
+        if (e.key === 'Escape' && lightbox && lightbox.style.display !== 'none') {
             closeLightbox();
         }
     });
 
     // -----------------------------------------------------------------
-    // 17. INIT
+    // 18. INIT
     // -----------------------------------------------------------------
     populateGarments();
+    populateBottoms();
     populateFaces();
     populatePoses();
     setEngineMode('demo');
 
     // Pre-select first garment for instant readiness
-    if (sampleGarments.length > 0 && garmentGrid.children.length > 0) {
+    if (sampleGarments.length > 0 && garmentGrid && garmentGrid.children.length > 0) {
         selectGarment(sampleGarments[0], garmentGrid.children[0]);
     }
 
-    console.log('🧥 TAVROO AI Dressing Studio initialized with Demo Simulation Mode');
+    console.log('🧥 TAVROO AI Dressing Studio initialized with Bottoms & Redo controls');
 });
