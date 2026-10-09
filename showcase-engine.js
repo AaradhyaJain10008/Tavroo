@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.dataset.id = g.id;
             card.innerHTML = `
                 <img class="ai-garment-img" src="${g.img}" alt="${g.name}" loading="lazy" crossorigin="anonymous"
-                     onerror="this.style.display='none'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML = '<span style=\\'font-size:2rem; opacity:0.4\\'>👕</span><span class=\\'ai-garment-label\\'>${g.name}</span>';">
+                     onerror="this.style.display='none'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML = '<span class=\\'ai-garment-label\\'>${g.name}</span>';">
                 <span class="ai-garment-label">${g.name}</span>
             `;
             card.addEventListener('click', () => selectGarment(g, card));
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.dataset.id = b.id;
             card.innerHTML = `
                 <img class="ai-bottom-img" src="${b.img}" alt="${b.name}" loading="lazy"
-                     onerror="this.style.display='none'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML = '<span style=\\'font-size:2rem; opacity:0.4\\'>👖</span><span class=\\'ai-bottom-label\\'>${b.name}</span>';">
+                     onerror="this.style.display='none'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML = '<span class=\\'ai-bottom-label\\'>${b.name}</span>';">
                 <span class="ai-bottom-label">${b.name}</span>
             `;
             card.addEventListener('click', () => selectBottom(b, card));
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.dataset.id = p.id;
             card.innerHTML = `
                 <img class="ai-pose-img" src="${p.img}" alt="${p.name}" loading="lazy" crossorigin="anonymous"
-                     onerror="this.style.display='none'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML = '<span style=\\'font-size:2rem; opacity:0.4\\'>🧍</span><span class=\\'ai-pose-label\\'>${p.name}</span>';">
+                     onerror="this.style.display='none'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML = '<span class=\\'ai-pose-label\\'>${p.name}</span>';">
                 <span class="ai-pose-label">${p.name}</span>
             `;
             card.addEventListener('click', () => selectPose(p, card));
