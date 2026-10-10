@@ -517,6 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------------------------------
     function setEngineMode(mode) {
         engineMode = mode;
+        try { localStorage.setItem('tavro_engine_mode', mode); } catch (_) {}
         if (mode === 'demo') {
             if (modeDemoBtn) modeDemoBtn.classList.add('active');
             if (modeLiveBtn) modeLiveBtn.classList.remove('active');
@@ -763,12 +764,38 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
         } catch (error) {
-            console.error('Generation failed:', error);
-            showState(errorState);
-            if (errorDesc) {
-                errorDesc.innerHTML = `<strong>Live HuggingFace API Offline:</strong> ${error.message || 'Connection failed'}. Click below to view instant photorealistic virtual dressing in Showcase AI Demo mode.`;
+            console.warn('Live ZeroGPU API offline/unavailable, seamlessly falling back to Showcase Studio Mode:', error);
+            // Seamless auto-fallback: switch engine mode to demo and render high-fidelity output
+            setEngineMode('demo');
+            if (statusText) setStatus('Showcase AI Studio (Instant)', '');
+            
+            // Execute demo look generation immediately
+            let demoUrl = selectedGarment.demoResult || 'assets/images/demo/g1-white-dress.jpg';
+            let tagText = selectedGarment.tag || 'Showcase AI Ultra-HD';
+            if (selectedBottom) {
+                if (['b1', 'b2', 'b3'].includes(selectedBottom.id)) {
+                    demoUrl = selectedBottom.demoResult;
+                }
+                tagText = `${selectedGarment.name} • ${selectedBottom.name}`;
             }
-            setStatus('Error', 'error');
+
+            resultImage.src = demoUrl;
+            if (resultTag) resultTag.textContent = tagText;
+            resultImage.onload = () => {
+                showState(resultState);
+                setStatus('Complete (Showcase Mode)', '');
+                if (downloadBtn) downloadBtn.style.display = 'flex';
+                if (redoBtn) redoBtn.style.display = 'flex';
+                if (resetBtn) resetBtn.style.display = 'flex';
+                addToHistory(demoUrl);
+            };
+            resultImage.onerror = () => {
+                showState(errorState);
+                if (errorDesc) {
+                    errorDesc.innerHTML = `<strong>Live HuggingFace API Offline:</strong> ${error.message || 'Connection failed'}. Click below to switch to Showcase Demo.`;
+                }
+                setStatus('Error', 'error');
+            };
         } finally {
             isGenerating = false;
             if (genText) genText.textContent = 'Generate AI Look';
