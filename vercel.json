@@ -1,0 +1,7 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/pair-your-look", "destination": "/pair-your-look.html" },
+    { "source": "/shoe-partner", "destination": "/pair-your-look.html" }
+  ]
+}

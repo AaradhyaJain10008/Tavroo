@@ -2349,24 +2349,779 @@ footer {
     }
 }
 
-@media (max-width: 480px) {
-    .hero-title {
-        font-size: 2.2rem;
-    }
-    .mobile-tab-btn {
-        padding: 0.45rem 0.5rem;
-        font-size: 0.68rem;
-        letter-spacing: 0.5px;
-    }
-    .panel {
-        padding: 1.25rem 0.85rem;
-    }
-    .control-group {
-        padding: 0.85rem;
-    }
-    .apparel-grid {
+/* ==========================================================================
+   PARTNER SHOWCASE - TAVROO × KICK CANVAS COLLABORATION
+   ========================================================================== */
+
+.partner-page {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+.partner-hero-section {
+    position: relative;
+    padding: 130px 2rem 5rem;
+    max-width: 1360px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.partner-hero-content {
+    max-width: 960px;
+    margin: 0 auto 3.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.partner-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 1.25rem;
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 30px;
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-champagne);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.12);
+}
+
+.partner-badge .pulse-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent-gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-gold);
+    animation: partnerPulse 2s infinite ease-in-out;
+}
+
+@keyframes partnerPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.6); opacity: 0.4; }
+}
+
+.partner-brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+}
+
+.partner-brand-lockup span.x-divider {
+    color: var(--accent-gold);
+    font-weight: 300;
+    font-size: 1.1rem;
+}
+
+.partner-headline {
+    font-family: var(--font-editorial);
+    font-size: clamp(2.4rem, 4.8vw, 4.2rem);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    text-wrap: balance;
+}
+
+.partner-subheadline {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.3vw, 1.18rem);
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--text-muted);
+    max-width: 820px;
+    margin: 0 auto 2.4rem;
+    letter-spacing: 0.2px;
+}
+
+.partner-cta-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.btn-partner-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.15rem 2.8rem;
+    background: linear-gradient(135deg, #ffffff 0%, var(--accent-champagne) 100%);
+    color: #08080a;
+    font-family: var(--font-heading);
+    font-size: 0.86rem;
+    font-weight: 800;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 40px;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+    box-shadow: 0 10px 35px rgba(229, 201, 141, 0.28);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-partner-cta:hover {
+    background: linear-gradient(135deg, var(--accent-gold) 0%, #ffffff 100%);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 16px 45px rgba(212, 175, 55, 0.45);
+    color: #050507;
+}
+
+.btn-partner-cta .cta-arrow {
+    font-size: 1.15rem;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.btn-partner-cta:hover .cta-arrow {
+    transform: translate(3px, -3px);
+}
+
+.partner-pill-tags {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: var(--font-heading);
+}
+
+.partner-pill-tags span.dot {
+    color: var(--accent-gold);
+    opacity: 0.6;
+}
+
+/* ==========================================================================
+   PARTNER HERO DUAL STAGE (TAVROO APPAREL + KICKCANVAS CUSTOM KICKS)
+   ========================================================================== */
+
+.partner-hero-stage {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.8rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 2.5rem auto 0;
+    position: relative;
+}
+
+.partner-stage-card {
+    background: rgba(16, 16, 22, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    position: relative;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+}
+
+.partner-stage-card:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.15);
+}
+
+.partner-stage-card-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #181822 0%, #0c0c10 100%);
+}
+
+.partner-stage-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.partner-stage-card:hover .partner-stage-card-img-wrap img {
+    transform: scale(1.05);
+}
+
+.partner-stage-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(8, 8, 10, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--accent-champagne);
+    font-family: var(--font-heading);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    border-radius: 4px;
+}
+
+.partner-stage-card-info {
+    padding: 1.5rem 1.8rem;
+    text-align: left;
+}
+
+.partner-stage-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 0.4rem;
+}
+
+.partner-stage-card-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.partner-stage-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 0.9rem;
+    color: var(--accent-champagne);
+}
+
+.partner-stage-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    z-index: 2;
+}
+
+.partner-plus-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(14, 14, 18, 0.95);
+    border: 1.5px solid var(--accent-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-family: var(--font-heading);
+    color: var(--accent-champagne);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+}
+
+.partner-plus-text {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent-champagne);
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   3-STEP WALKTHROUGH SECTION
+   ========================================================================== */
+
+.walkthrough-section {
+    padding: 6rem 2rem;
+    max-width: 1360px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.walkthrough-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+}
+
+.walkthrough-kicker {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 0.8rem;
+    display: block;
+}
+
+.walkthrough-title {
+    font-family: var(--font-editorial);
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 600;
+    line-height: 1.2;
+    color: #ffffff;
+    margin-bottom: 1.2rem;
+}
+
+.walkthrough-sub {
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    letter-spacing: 0.2px;
+}
+
+.walkthrough-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.step-card {
+    background: rgba(16, 16, 22, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 2.4rem 2rem 2.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.step-card:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    transform: translateY(-6px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 30px rgba(212, 175, 55, 0.12);
+}
+
+.step-card:hover::before {
+    opacity: 1;
+}
+
+.step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.step-badge {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-champagne);
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+}
+
+.step-index-large {
+    font-family: var(--font-editorial);
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.12);
+    line-height: 1;
+}
+
+.step-content {
+    margin-bottom: 1.8rem;
+}
+
+.step-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 0.9rem;
+}
+
+.step-copy {
+    font-family: var(--font-body);
+    font-size: 0.94rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    letter-spacing: 0.2px;
+}
+
+.step-media {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.8rem;
+    background: rgba(8, 8, 12, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+}
+
+.step-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+}
+
+.step-card:hover .step-media img {
+    transform: scale(1.04);
+}
+
+.step-footer-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.step-action-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+}
+
+.step-action-link:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: var(--accent-gold);
+    color: var(--accent-champagne);
+    transform: translateX(3px);
+}
+
+/* ==========================================================================
+   SILHOUETTES & CUSTOMIZER SPOTLIGHT
+   ========================================================================== */
+
+.silhouettes-section {
+    padding: 5rem 2rem;
+    max-width: 1360px;
+    margin: 0 auto;
+}
+
+.silhouettes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.silhouette-card {
+    background: rgba(16, 16, 22, 0.65);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.35s ease;
+}
+
+.silhouette-card:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+}
+
+.silhouette-img-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 11;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #1c1c28 0%, #0a0a0e 100%);
+}
+
+.silhouette-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.silhouette-card:hover .silhouette-img-wrap img {
+    transform: scale(1.05);
+}
+
+.silhouette-tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(8, 8, 10, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--accent-champagne);
+    font-family: var(--font-heading);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+}
+
+.silhouette-info {
+    padding: 1.6rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.silhouette-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+}
+
+.silhouette-name {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+.silhouette-price {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+}
+
+.silhouette-desc {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+}
+
+.silhouette-pairing {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1.3rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+.silhouette-pairing strong {
+    color: var(--accent-champagne);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   PROMINENT CALL TO ACTION BANNER
+   ========================================================================== */
+
+.partner-banner-section {
+    padding: 5rem 2rem 7rem;
+    max-width: 1360px;
+    margin: 0 auto;
+}
+
+.partner-cta-banner-box {
+    background: linear-gradient(135deg, rgba(22, 22, 30, 0.92) 0%, rgba(10, 10, 14, 0.95) 100%);
+    border: 1.5px solid rgba(212, 175, 55, 0.35);
+    border-radius: 28px;
+    padding: 5rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 60px rgba(212, 175, 55, 0.12);
+}
+
+.partner-cta-banner-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.banner-kicker {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 1.2rem;
+    display: block;
+}
+
+.banner-title {
+    font-family: var(--font-editorial);
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.15;
+    margin-bottom: 1.4rem;
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.banner-copy {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 720px;
+    margin: 0 auto 2.8rem;
+    line-height: 1.7;
+}
+
+.btn-partner-cta-large {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    padding: 1.35rem 3.4rem;
+    background: linear-gradient(135deg, #ffffff 0%, var(--accent-champagne) 100%);
+    color: #08080a;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+    box-shadow: 0 15px 45px rgba(229, 201, 141, 0.35);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    z-index: 2;
+}
+
+.btn-partner-cta-large:hover {
+    background: linear-gradient(135deg, var(--accent-gold) 0%, #ffffff 100%);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 55px rgba(212, 175, 55, 0.55);
+    color: #050507;
+}
+
+.btn-partner-cta-large .cta-arrow {
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-partner-cta-large:hover .cta-arrow {
+    transform: translate(4px, -4px);
+}
+
+.banner-perks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: var(--font-heading);
+}
+
+/* ==========================================================================
+   PARTNER SHOWCASE RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .partner-hero-stage {
         grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .partner-stage-center {
+        order: 2;
+        padding: 0.5rem 0;
+    }
+    .partner-stage-card:nth-child(1) {
+        order: 1;
+    }
+    .partner-stage-card:nth-child(3) {
+        order: 3;
+    }
+    .walkthrough-grid {
+        grid-template-columns: 1fr;
+        max-width: 580px;
+        margin: 0 auto;
+    }
+    .silhouettes-grid {
+        grid-template-columns: 1fr;
+        max-width: 580px;
+        margin: 0 auto;
     }
 }
+
+@media (max-width: 768px) {
+    .partner-hero-section {
+        padding: 110px 1.25rem 4rem;
+    }
+    .partner-cta-banner-box {
+        padding: 3.5rem 1.5rem;
+    }
+    .btn-partner-cta,
+    .btn-partner-cta-large {
+        width: 100%;
+        padding: 1.1rem 1.8rem;
+        font-size: 0.82rem;
+        letter-spacing: 1.8px;
+    }
+}
+
 
 
