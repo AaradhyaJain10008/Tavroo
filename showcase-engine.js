@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['female'],
             img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597335012288_in_post.png`, 
             prompt: 'wearing an oversized graphic designer white t-shirt and denim',
-            demoResult: 'assets/images/demo/g6-blue-denim.jpg',
+            demoResult: 'assets/images/demo/female-urban-graphic-tee.jpg',
             tag: 'Urban Streetwear'
         },
         { 
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['female'],
             img: 'assets/products/blush-stripe-shirt.png', 
             prompt: 'wearing a light blush pink striped relaxed drape shirt',
-            demoResult: 'assets/images/demo/g2-black-top.jpg',
+            demoResult: 'assets/products/blush-stripe-shirt.png',
             tag: 'Resort Silk'
         },
 
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/new-arrivals/coffee-contrast-polo.png', 
             prompt: 'wearing a tailored espresso coffee brown contrast collar quarter-zip polo shirt with crest embroidery',
-            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            demoResult: 'assets/products/new-arrivals/coffee-contrast-polo.png',
             tag: 'Equestrian Zip Polo'
         },
         { 
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/new-arrivals/navy-stripe-sweatshirt.png', 
             prompt: 'wearing an oversized navy blue and white horizontal striped quarter-zip knit polo sweatshirt',
-            demoResult: 'assets/images/demo/g3-green-skirt.jpg',
+            demoResult: 'assets/images/demo/male-navy-stripe-sweatshirt.jpg',
             tag: 'Striped Quarter-Zip'
         },
         { 
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/new-arrivals/mauve-half-zip-polo.png', 
             prompt: 'wearing an oversized dusty mauve purple collar half-zip graphic streetwear polo shirt',
-            demoResult: 'assets/images/demo/g6-blue-denim.jpg',
+            demoResult: 'assets/products/new-arrivals/mauve-half-zip-polo.png',
             tag: 'Streetwear Luxury'
         },
         { 
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/new-arrivals/ivory-stripe-polo.png', 
             prompt: 'wearing a white knit polo shirt with vertical brown racing stripes and quarter-zip',
-            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            demoResult: 'assets/products/new-arrivals/ivory-stripe-polo.png',
             tag: 'Retro Racing Knit'
         },
         { 
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/new-arrivals/rust-knit-polo.png', 
             prompt: 'wearing a tailored rust terracotta textured knit open-collar resort polo shirt',
-            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            demoResult: 'assets/products/new-arrivals/rust-knit-polo.png',
             tag: 'Resort Knitwear'
         },
         { 
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/new-arrivals/midnight-satin-shirt.png', 
             prompt: 'wearing a luxurious midnight black satin button-down shirt',
-            demoResult: 'assets/images/demo/g5-red-suit.jpg',
+            demoResult: 'assets/products/new-arrivals/midnight-satin-shirt.png',
             tag: 'Evening Luxury'
         },
         { 
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/chocolate-pinstripe-shirt.png', 
             prompt: 'wearing a tailored chocolate brown pinstripe button-up shirt',
-            demoResult: 'assets/images/demo/g5-red-suit.jpg',
+            demoResult: 'assets/images/demo/male-chocolate-pinstripe-shirt.jpg',
             tag: 'Sartorial Tailoring'
         },
         { 
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/indigo-denim-shirt.png', 
             prompt: 'wearing a rugged short-sleeve indigo denim utility shirt',
-            demoResult: 'assets/images/demo/g6-blue-denim.jpg',
+            demoResult: 'assets/images/demo/male-indigo-denim-shirt.jpg',
             tag: 'Heritage Denim'
         },
         { 
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/olive-colourblock-shirt.png', 
             prompt: 'wearing an olive green and ivory colourblock camp collar shirt',
-            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            demoResult: 'assets/images/demo/male-olive-colourblock-shirt.jpg',
             tag: 'Contemporary Resort'
         },
         { 
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/new-arrivals/chicago-jersey-tee.png', 
             prompt: 'wearing a vintage heavyweight boxy graphic streetwear t-shirt',
-            demoResult: 'assets/images/demo/g6-blue-denim.jpg',
+            demoResult: 'assets/images/demo/male-chicago-jersey-tee.jpg',
             tag: 'Streetwear Heritage'
         },
         { 
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/new-arrivals/crane-embroidered-shirt.png', 
             prompt: 'wearing an artistic black button-up shirt with golden crane embroidery',
-            demoResult: 'assets/images/demo/g5-red-suit.jpg',
+            demoResult: 'assets/images/demo/male-crane-embroidered-shirt.jpg',
             tag: 'Artisanal Craft'
         },
 
@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['female'],
             img: 'assets/products/denims/washed-flare-jeans.png',
             prompt: 'wearing high-rise washed flare indigo denim trousers',
-            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            demoResult: 'assets/products/denims/washed-flare-jeans.png',
             tag: '70s High Rise'
         },
         {
@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['female'],
             img: 'assets/products/denims/cuffed-barrel-jeans.png',
             prompt: 'wearing high-rise cuffed barrel leg blue denim jeans with turn-up hems',
-            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            demoResult: 'assets/products/denims/cuffed-barrel-jeans.png',
             tag: 'Barrel Silhouette'
         },
         {
@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['female'],
             img: 'assets/products/denims/light-wash-flare-jeans.png',
             prompt: 'wearing high-rise sky blue wash flare leg denim jeans',
-            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            demoResult: 'assets/products/denims/light-wash-flare-jeans.png',
             tag: 'Retro Flare'
         },
         {
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['female'],
             img: 'assets/products/denims/cuffed-barrel-jeans.png',
             prompt: 'wearing relaxed fit cuffed barrel leg vintage blue jeans',
-            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            demoResult: 'assets/products/denims/cuffed-barrel-jeans.png',
             tag: 'Relaxed Fit'
         },
         {
@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['female'],
             img: 'assets/products/denims/classic-straight-wide-jeans.png',
             prompt: 'wearing relaxed vintage light wash wide-leg denim jeans',
-            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            demoResult: 'assets/products/denims/classic-straight-wide-jeans.png',
             tag: 'Vintage Wide-Leg'
         },
         {
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['female'],
             img: 'assets/products/denims/cross-belt-stone-trousers.png',
             prompt: 'wearing tailored high-waisted cross-over waistband stone pleat wide-leg trousers',
-            demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
+            demoResult: 'assets/products/denims/cross-belt-stone-trousers.png',
             tag: 'Tailored Suiting'
         },
 
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/denims/stone-tailored-trousers.png',
             prompt: 'wearing tailored high-waisted stone pleat wide-leg trousers',
-            demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
+            demoResult: 'assets/images/demo/male-stone-tailored-trousers.jpg',
             tag: 'Tailored Suiting'
         },
         {
@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/denims/light-wide-leg-jeans.png',
             prompt: 'wearing relaxed light wash wide-leg denim jeans',
-            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            demoResult: 'assets/images/demo/male-light-wide-leg-jeans.jpg',
             tag: 'Casual Streetwear'
         },
         {
@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/denims/olive-utility-cargos.png',
             prompt: 'wearing olive green utility cargo trousers with cinch toggles',
-            demoResult: 'assets/images/demo/b3-olive-cargos.jpg',
+            demoResult: 'assets/images/demo/male-olive-utility-cargos.jpg',
             tag: 'Utility Streetwear'
         },
         {
@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/denims/ivory-joggers.png',
             prompt: 'wearing clean ivory cream relaxed fleece joggers',
-            demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
+            demoResult: 'assets/images/demo/male-ivory-minimal-joggers.jpg',
             tag: 'Lounge Luxury'
         },
         {
@@ -356,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/denims/navy-pinstripe-trousers.png',
             prompt: 'wearing navy blue tailored trousers with fine vertical pinstripes',
-            demoResult: 'assets/images/demo/g3-green-skirt.jpg',
+            demoResult: 'assets/images/demo/male-navy-pinstripe-trousers.jpg',
             tag: 'Parisian Tailored'
         },
         {
@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/denims/charcoal-relaxed-jeans.png',
             prompt: 'wearing relaxed charcoal washed straight-leg denim jeans',
-            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            demoResult: 'assets/images/demo/male-charcoal-relaxed-jeans.jpg',
             tag: 'Relaxed Denim'
         },
         {
@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/denims/olive-utility-cargos.png',
             prompt: 'wearing olive green utility cargo trousers with tactical pockets',
-            demoResult: 'assets/images/demo/b3-olive-cargos.jpg',
+            demoResult: 'assets/images/demo/male-olive-utility-cargos.jpg',
             tag: 'Tactical Cargo'
         },
         {
@@ -383,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/denims/stone-tailored-trousers.png',
             prompt: 'wearing stone pleated tailored suiting trousers',
-            demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
+            demoResult: 'assets/images/demo/male-stone-tailored-trousers.jpg',
             tag: 'Sartorial Pleat'
         },
         {
@@ -392,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/denims/dark-straight-jeans.png',
             prompt: 'wearing dark indigo raw selvedge straight leg denim jeans',
-            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            demoResult: 'assets/images/demo/male-charcoal-relaxed-jeans.jpg',
             tag: 'Raw Selvedge'
         },
         {
@@ -401,7 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/denims/cocoa-cargo-pants.png',
             prompt: 'wearing relaxed cocoa brown cargo pants with utility pockets',
-            demoResult: 'assets/images/demo/g2-black-top.jpg',
+            demoResult: 'assets/images/demo/male-olive-utility-cargos.jpg',
             tag: 'Workwear Utility'
         },
         {
@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gender: ['male'],
             img: 'assets/products/denims/washed-black-straight-jeans.png',
             prompt: 'wearing washed black vintage denim straight leg jeans',
-            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            demoResult: 'assets/images/demo/male-charcoal-relaxed-jeans.jpg',
             tag: 'Vintage Wash'
         },
 
@@ -975,11 +975,19 @@ document.addEventListener('DOMContentLoaded', () => {
             genderBadge.textContent = labelMap[gender] || 'Female';
         }
 
-        // 2. Refresh dynamic garment and bottoms grids
+        // 2. Clear previous garment/bottom selections if they belong to a different department
+        if (selectedGarment && !selectedGarment.isFile && selectedGarment.gender && !selectedGarment.gender.includes(gender)) {
+            clearGarmentSelection();
+        }
+        if (selectedBottom && !selectedBottom.isFile && selectedBottom.gender && !selectedBottom.gender.includes(gender)) {
+            clearBottomSelection();
+        }
+
+        // 3. Refresh dynamic garment and bottoms grids
         populateGarments();
         populateBottoms();
 
-        // 3. Pre-select matching default pose figure for this gender
+        // 4. Pre-select matching default pose figure for this gender
         const defaultPose = samplePoses.find(p => p.gender === (gender === 'non-binary' ? 'unisex' : gender) && p.isDefault) 
                          || samplePoses.find(p => p.gender === (gender === 'non-binary' ? 'unisex' : gender))
                          || samplePoses[0];
@@ -1155,6 +1163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (bottomPreviewThumb) bottomPreviewThumb.innerHTML = `<img src="${bottom.img}" alt="${bottom.name}">`;
         if (bottomPreviewName) bottomPreviewName.textContent = bottom.name;
         if (bottomPreviewRow) bottomPreviewRow.style.display = 'flex';
+        updateGenerateBtn();
     }
 
     function clearBottomSelection() {
@@ -1162,10 +1171,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (bottomUpload) bottomUpload.value = '';
         if (bottomPreviewRow) bottomPreviewRow.style.display = 'none';
         document.querySelectorAll('.ai-bottom-card').forEach(c => c.classList.remove('selected'));
+        updateGenerateBtn();
+    }
+
+    function clearGarmentSelection() {
+        selectedGarment = null;
+        if (garmentUpload) garmentUpload.value = '';
+        if (garmentPreviewRow) garmentPreviewRow.style.display = 'none';
+        document.querySelectorAll('.ai-garment-card').forEach(c => c.classList.remove('selected'));
+        updateGenerateBtn();
     }
 
     function updateGenerateBtn() {
-        const canGenerate = selectedGarment !== null && !isGenerating;
+        const canGenerate = (selectedGarment !== null || selectedBottom !== null) && !isGenerating;
         if (generateBtn) generateBtn.disabled = !canGenerate;
     }
 
@@ -1184,7 +1202,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 name: file.name, 
                 isFile: true, 
                 file: file,
-                demoResult: 'assets/images/demo/custom-fallback.jpg',
+                demoResult: currentGender === 'male' ? 'assets/products/new-arrivals/coffee-contrast-polo.png' : 'assets/images/demo/g1-white-dress.jpg',
                 tag: 'Custom Upload Look'
             };
             
@@ -1210,7 +1228,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 isFile: true, 
                 file: file,
                 prompt: 'custom styled bottom trousers',
-                demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
+                demoResult: currentGender === 'male' ? 'assets/images/demo/male-stone-tailored-trousers.jpg' : 'assets/products/denims/washed-flare-jeans.png',
                 tag: 'Custom Bottom Look'
             };
             
@@ -1218,6 +1236,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (bottomPreviewThumb) bottomPreviewThumb.innerHTML = `<img src="${url}" alt="${file.name}">`;
             if (bottomPreviewName) bottomPreviewName.textContent = file.name;
             if (bottomPreviewRow) bottomPreviewRow.style.display = 'flex';
+
+            updateGenerateBtn();
         });
     }
 
@@ -1238,13 +1258,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Clear buttons
     if (clearGarmentBtn) {
-        clearGarmentBtn.addEventListener('click', () => {
-            selectedGarment = null;
-            document.querySelectorAll('.ai-garment-card').forEach(c => c.classList.remove('selected'));
-            if (garmentPreviewRow) garmentPreviewRow.style.display = 'none';
-            if (garmentUpload) garmentUpload.value = '';
-            updateGenerateBtn();
-        });
+        clearGarmentBtn.addEventListener('click', clearGarmentSelection);
     }
 
     if (clearBottomBtn) {
@@ -1341,7 +1355,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 11. REDO & CHANGE OUTFIT ACTIONS (NO REFRESH NEEDED)
     // -----------------------------------------------------------------
     function redoLook() {
-        if (!selectedGarment || isGenerating) return;
+        if ((!selectedGarment && !selectedBottom) || isGenerating) return;
 
         // Randomize seed to create a distinct variation
         const newSeed = Math.floor(Math.random() * 90000000) + 10000000;
@@ -1394,11 +1408,41 @@ document.addEventListener('DOMContentLoaded', () => {
         if (loadingDesc) loadingDesc.textContent = message;
     }
 
+    // Resolves exact garment and model image based on department gender and active selections
+    function getLookResultInfo() {
+        let demoUrl = '';
+        let tagText = 'Showcase AI Ultra-HD';
+
+        const isMale = currentGender === 'male' || (selectedGarment && selectedGarment.gender && selectedGarment.gender.includes('male'));
+        const fallbackUrl = isMale 
+            ? 'assets/products/new-arrivals/coffee-contrast-polo.png' 
+            : 'assets/images/demo/g1-white-dress.jpg';
+
+        if (selectedGarment && selectedBottom) {
+            // Ensemble: Upper + Lower styled together
+            demoUrl = selectedGarment.demoResult || selectedBottom.demoResult || fallbackUrl;
+            tagText = `${selectedGarment.name} • ${selectedBottom.name}`;
+        } else if (selectedGarment) {
+            // Top only: exact top on gender-specific model
+            demoUrl = selectedGarment.demoResult || fallbackUrl;
+            tagText = selectedGarment.tag ? `${selectedGarment.name} (${selectedGarment.tag})` : selectedGarment.name;
+        } else if (selectedBottom) {
+            // Bottom only: exact trousers/jeans on gender-specific model
+            demoUrl = selectedBottom.demoResult || fallbackUrl;
+            tagText = selectedBottom.tag ? `${selectedBottom.name} (${selectedBottom.tag})` : selectedBottom.name;
+        } else {
+            demoUrl = fallbackUrl;
+            tagText = isMale ? "Men's Studio Look" : "Women's Studio Look";
+        }
+
+        return { url: demoUrl, tag: tagText };
+    }
+
     // -----------------------------------------------------------------
     // 13. GENERATE LOOK (DEMO SIMULATION & LIVE API)
     // -----------------------------------------------------------------
     async function generateLook() {
-        if (!selectedGarment || isGenerating) return;
+        if ((!selectedGarment && !selectedBottom) || isGenerating) return;
 
         isGenerating = true;
         updateGenerateBtn();
@@ -1421,10 +1465,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const sleep = ms => new Promise(r => setTimeout(r, ms));
                 
                 await sleep(500);
-                if (selectedBottom) {
-                    updateLoadingProgress(24, `Styling outfit: ${selectedGarment.name} + ${selectedBottom.name}...`);
-                } else {
+                if (selectedGarment && selectedBottom) {
+                    updateLoadingProgress(24, `Styling ensemble: ${selectedGarment.name} + ${selectedBottom.name}...`);
+                } else if (selectedGarment) {
                     updateLoadingProgress(24, `Extracting garment contours for ${selectedGarment.name}...`);
+                } else {
+                    updateLoadingProgress(24, `Styling trousers: ${selectedBottom.name}...`);
                 }
                 
                 await sleep(800);
@@ -1448,16 +1494,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 await sleep(400);
                 updateLoadingProgress(100, 'Generation Complete!');
 
-                // Adapt preview based on chosen top and bottom
-                let demoUrl = selectedGarment.demoResult || 'assets/images/demo/custom-fallback.jpg';
-                let tagText = selectedGarment.tag || 'Showcase AI Ultra-HD';
-
-                if (selectedBottom) {
-                    if (['b1', 'b2', 'b3'].includes(selectedBottom.id)) {
-                        demoUrl = selectedBottom.demoResult;
-                    }
-                    tagText = `${selectedGarment.name} • ${selectedBottom.name}`;
-                }
+                // Adapt preview based on chosen top and bottom matching model gender and exact garment
+                const lookInfo = getLookResultInfo();
+                const demoUrl = lookInfo.url;
+                const tagText = lookInfo.tag;
 
                 resultImage.src = demoUrl;
                 if (resultTag) resultTag.textContent = tagText;
@@ -1571,14 +1611,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (statusText) setStatus('Showcase AI Studio (Instant)', '');
             
             // Execute demo look generation immediately
-            let demoUrl = selectedGarment.demoResult || 'assets/images/demo/g1-white-dress.jpg';
-            let tagText = selectedGarment.tag || 'Showcase AI Ultra-HD';
-            if (selectedBottom) {
-                if (['b1', 'b2', 'b3'].includes(selectedBottom.id)) {
-                    demoUrl = selectedBottom.demoResult;
-                }
-                tagText = `${selectedGarment.name} • ${selectedBottom.name}`;
-            }
+            const lookInfo = getLookResultInfo();
+            const demoUrl = lookInfo.url;
+            const tagText = lookInfo.tag;
 
             resultImage.src = demoUrl;
             if (resultTag) resultTag.textContent = tagText;
@@ -1705,7 +1740,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !isGenerating && selectedGarment) {
+        if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !isGenerating && (selectedGarment || selectedBottom)) {
             if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
                 return;
             }
