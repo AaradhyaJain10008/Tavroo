@@ -4,12 +4,11 @@
 
 ## 📅 Last Session Footprint
 
-- **Timestamp:** 2026-10-11 20:35 IST
-- **Active Task:** Complete Removal of 3D Runway Atelier:
-  1. **Removed `atelier.html` and `app.js`:** The entire legacy 3D Three.js Runway Atelier engine has been deleted.
-  2. **Unified Navigation Links:** Purged all `atelier.html` links from desktop and mobile drawer navigation across `index.html`, `showcase.html`, `catalog.html`, and `about.html`.
-  3. **Updated Brand & Copy References:** Homepage, OVP pillars, service cards, banners, FAQs, and collection back-links all streamlined directly into the flagship **AI Virtual Dressing Studio** (`showcase.html`).
-  4. **AI Virtual Dressing Studio (`showcase.html`):** Operates as the sole flagship digital studio powered by IMAGDressing-v1, with top-level gender selection, dynamic clothing catalog filtering, and inclusive base model pose reset figures.
+- **Timestamp:** 2026-10-11 21:18 IST
+- **Active Task:** Catalog Refinements & Denim Upgrades:
+  1. **Female Upper / Tops:** Refined to exactly the top 7 curated tops. Moved the 8th top (*Midnight Satin Drape Shirt*) into the Men's upper section.
+  2. **Female Lowers / Bottoms:** Retained the 4th option (*Washed Flare Denim*) and added the user's high-fashion denim and suiting collection (*Cuffed Barrel Leg Denim*, *Sky Wash Flare Denim*, *Relaxed Turn-Up Denim*, *Vintage Wide-Leg Denim*, *Cross-Waist Stone Trousers*).
+  3. **Male Lowers / Bottoms:** Moved previous female bottoms (*Stone Tailored Trousers*, *Light Wide-Leg Denim*, *Olive Utility Cargos*, *Ivory Minimal Joggers*, *Navy Pinstripe Trousers*) to the Men's lower section along with existing male denim/cargos.
 - Smooth clearcoat PBR skin material without noise bump maps.
 - Shoulder and neck fitting: 16° trapezius slope yokes, flush neckline collar rings (`y=1.568`, `radius=0.082`), no chest clipping.
 - Dynamic sleeve swapping/morphing without stretching graphic decal texture weaves.

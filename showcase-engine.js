@@ -79,17 +79,17 @@ document.addEventListener('DOMContentLoaded', () => {
             demoResult: 'assets/images/demo/g2-black-top.jpg',
             tag: 'Resort Silk'
         },
+
+        // --- MALE DEPARTMENT (Sartorial Shirts, Heritage Denim & Knitwear) ---
         { 
             id: 'g_f8', 
             name: 'Midnight Satin Drape Shirt', 
-            gender: ['female'],
+            gender: ['male'],
             img: 'assets/products/new-arrivals/midnight-satin-shirt.png', 
             prompt: 'wearing a luxurious midnight black satin button-down shirt',
             demoResult: 'assets/images/demo/g5-red-suit.jpg',
             tag: 'Evening Luxury'
         },
-
-        // --- MALE DEPARTMENT (Sartorial Shirts, Heritage Denim & Knitwear) ---
         { 
             id: 'g_m1', 
             name: 'Chocolate Pinstripe Shirt', 
@@ -239,34 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const sampleBottoms = [
-        // --- FEMALE BOTTOMS ---
-        {
-            id: 'b1',
-            name: 'Stone Tailored Trousers',
-            gender: ['female'],
-            img: 'assets/products/denims/stone-tailored-trousers.png',
-            prompt: 'wearing tailored high-waisted stone pleat wide-leg trousers',
-            demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
-            tag: 'Tailored Suiting'
-        },
-        {
-            id: 'b2',
-            name: 'Light Wide-Leg Denim',
-            gender: ['female'],
-            img: 'assets/products/denims/light-wide-leg-jeans.png',
-            prompt: 'wearing relaxed light wash wide-leg denim jeans',
-            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
-            tag: 'Casual Streetwear'
-        },
-        {
-            id: 'b3',
-            name: 'Olive Utility Cargos',
-            gender: ['female'],
-            img: 'assets/products/denims/olive-utility-cargos.png',
-            prompt: 'wearing olive green utility cargo trousers with cinch toggles',
-            demoResult: 'assets/images/demo/b3-olive-cargos.jpg',
-            tag: 'Utility Streetwear'
-        },
+        // --- FEMALE BOTTOMS (High-Rise Silhouettes & Editorial Denim) ---
         {
             id: 'b_f4',
             name: 'Washed Flare Denim',
@@ -277,9 +250,83 @@ document.addEventListener('DOMContentLoaded', () => {
             tag: '70s High Rise'
         },
         {
+            id: 'b_w_cuffed',
+            name: 'Cuffed Barrel Leg Denim',
+            gender: ['female'],
+            img: 'assets/products/denims/cuffed-barrel-jeans.png',
+            prompt: 'wearing high-rise cuffed barrel leg blue denim jeans with turn-up hems',
+            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            tag: 'Barrel Silhouette'
+        },
+        {
+            id: 'b_w_skyflare',
+            name: 'Sky Wash Flare Denim',
+            gender: ['female'],
+            img: 'assets/products/denims/light-wash-flare-jeans.png',
+            prompt: 'wearing high-rise sky blue wash flare leg denim jeans',
+            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            tag: 'Retro Flare'
+        },
+        {
+            id: 'b_w_barrel',
+            name: 'Relaxed Turn-Up Denim',
+            gender: ['female'],
+            img: 'assets/products/denims/cuffed-barrel-jeans.png',
+            prompt: 'wearing relaxed fit cuffed barrel leg vintage blue jeans',
+            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            tag: 'Relaxed Fit'
+        },
+        {
+            id: 'b_w_straight',
+            name: 'Vintage Wide-Leg Denim',
+            gender: ['female'],
+            img: 'assets/products/denims/classic-straight-wide-jeans.png',
+            prompt: 'wearing relaxed vintage light wash wide-leg denim jeans',
+            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            tag: 'Vintage Wide-Leg'
+        },
+        {
+            id: 'b_w_crosswaist',
+            name: 'Cross-Waist Stone Trousers',
+            gender: ['female'],
+            img: 'assets/products/denims/cross-belt-stone-trousers.png',
+            prompt: 'wearing tailored high-waisted cross-over waistband stone pleat wide-leg trousers',
+            demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
+            tag: 'Tailored Suiting'
+        },
+
+        // --- MALE BOTTOMS ---
+        {
+            id: 'b1',
+            name: 'Stone Tailored Trousers',
+            gender: ['male'],
+            img: 'assets/products/denims/stone-tailored-trousers.png',
+            prompt: 'wearing tailored high-waisted stone pleat wide-leg trousers',
+            demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
+            tag: 'Tailored Suiting'
+        },
+        {
+            id: 'b2',
+            name: 'Light Wide-Leg Denim',
+            gender: ['male'],
+            img: 'assets/products/denims/light-wide-leg-jeans.png',
+            prompt: 'wearing relaxed light wash wide-leg denim jeans',
+            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            tag: 'Casual Streetwear'
+        },
+        {
+            id: 'b3',
+            name: 'Olive Utility Cargos',
+            gender: ['male'],
+            img: 'assets/products/denims/olive-utility-cargos.png',
+            prompt: 'wearing olive green utility cargo trousers with cinch toggles',
+            demoResult: 'assets/images/demo/b3-olive-cargos.jpg',
+            tag: 'Utility Streetwear'
+        },
+        {
             id: 'b_f5',
             name: 'Ivory Minimal Joggers',
-            gender: ['female'],
+            gender: ['male'],
             img: 'assets/products/denims/ivory-joggers.png',
             prompt: 'wearing clean ivory cream relaxed fleece joggers',
             demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
@@ -288,14 +335,12 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'b5',
             name: 'Navy Pinstripe Trousers',
-            gender: ['female'],
+            gender: ['male'],
             img: 'assets/products/denims/navy-pinstripe-trousers.png',
             prompt: 'wearing navy blue tailored trousers with fine vertical pinstripes',
             demoResult: 'assets/images/demo/g3-green-skirt.jpg',
             tag: 'Parisian Tailored'
         },
-
-        // --- MALE BOTTOMS ---
         {
             id: 'b4',
             name: 'Charcoal Relaxed Denim',
@@ -839,6 +884,14 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('click', () => selectBottom(b, card));
             bottomsGrid.appendChild(card);
         });
+
+        // Clear previous selection if not available in current gender
+        if (selectedBottom && !selectedBottom.isFile) {
+            const isSelectedInList = filtered.some(item => item.id === selectedBottom.id);
+            if (!isSelectedInList) {
+                clearBottom();
+            }
+        }
     }
 
     function populateFaces() {
