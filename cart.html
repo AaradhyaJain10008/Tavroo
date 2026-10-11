@@ -181,6 +181,7 @@
                                             <div class="cart-page-item-meta">
                                                 <span class="stock-badge out-of-stock" style="font-size:0.62rem; padding:2px 7px;">Out of Stock</span>
                                                 <span>Fit: ${item.fit || 'Tailored fit'}</span>
+                                                ${item.size ? `<span class="drawer-item-size-badge" style="background:rgba(212,175,55,0.15); border:1px solid rgba(212,175,55,0.4); color:var(--accent-champagne); font-weight:700; padding:1px 6px; border-radius:4px; font-size:0.72rem;">Size: ${item.size}</span>` : ''}
                                                 <span>·</span>
                                                 <span>${item.category || 'Atelier Edit'}</span>
                                             </div>

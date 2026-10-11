@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
@@ -551,6 +551,22 @@
                     ✦ This piece is currently <strong>Out of Stock</strong>. You may still add it to your Atelier Bag to place a <strong>Cash on Delivery (COD)</strong> pre-order reservation.
                 </div>
 
+                <div class="catalog-card-size-selector" style="margin-top:1.2rem;" id="dialogSizeSelector">
+                    <div class="catalog-size-label-row">
+                        <span>Select Size <span class="size-req-dot">*required</span></span>
+                    </div>
+                    <div class="catalog-size-pills" id="dialogSizePills">
+                        <button type="button" class="catalog-size-pill" data-size="S">S</button>
+                        <button type="button" class="catalog-size-pill" data-size="M">M</button>
+                        <button type="button" class="catalog-size-pill" data-size="L">L</button>
+                        <button type="button" class="catalog-size-pill" data-size="XL">XL</button>
+                    </div>
+                    <div class="size-inline-alert" id="dialogSizeAlert" style="display:none;" role="alert">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        Please select a size first
+                    </div>
+                </div>
+
                 <div style="display:flex; gap:0.8rem; margin-top:1.4rem;">
                     <button type="button" class="btn-primary" id="dialogAddCartBtn" style="flex:1; border-radius:30px; font-size:0.84rem; letter-spacing:1.5px;">
                         Add to Bag (COD Pre-Order) →
@@ -562,6 +578,77 @@
 
     <!-- Toast Notification Container -->
     <div class="cart-toast" id="cartToast" role="status" aria-live="polite"></div>
+
+    <!-- PERSISTENT LEFT-HAND FLOATING CART WIDGET -->
+    <aside class="floating-left-cart-widget" id="floatingLeftCartWidget" aria-label="Shopping Bag Quick Access">
+        <button type="button" class="floating-left-cart-btn" id="floatingLeftCartBtn" aria-label="Open Shopping Bag Drawer">
+            <div class="floating-left-cart-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <path d="M16 10a4 4 0 0 1-8 0"/>
+                </svg>
+                <span class="floating-cart-badge-dot" id="floatingCartBadgeDot">0</span>
+            </div>
+            <span class="floating-left-cart-label">Bag <span id="floatingCartCountText">(0)</span></span>
+        </button>
+    </aside>
+
+    <!-- SLIDE-OUT CART PANEL (LEFT DRAWER) & BACKDROP -->
+    <div class="left-cart-drawer-backdrop" id="leftCartBackdrop" aria-hidden="true"></div>
+    <aside class="left-cart-drawer" id="leftCartDrawer" aria-label="Atelier Shopping Bag Drawer" aria-hidden="true">
+        <div class="left-cart-drawer-header">
+            <div class="left-cart-header-title">
+                <span>Atelier Bag</span>
+                <span class="left-cart-header-count" id="drawerHeaderCount">0 pieces</span>
+            </div>
+            <button type="button" class="left-cart-close-btn" id="leftCartCloseBtn" aria-label="Close Shopping Bag">✕</button>
+        </div>
+
+        <div class="left-cart-drawer-body" id="leftCartDrawerBody">
+            <!-- Rendered dynamically by JS: items or empty state -->
+        </div>
+
+        <div class="left-cart-drawer-footer" id="leftCartDrawerFooter">
+            <div class="drawer-summary-rows">
+                <div class="drawer-summary-row">
+                    <span>Subtotal</span>
+                    <span id="drawerSubtotalAmount">₹0</span>
+                </div>
+                <div class="drawer-summary-row">
+                    <span>Express Delivery</span>
+                    <span style="color:var(--accent-champagne); font-weight:700;">FREE</span>
+                </div>
+                <div class="drawer-summary-row total-row">
+                    <span>Total Due on Delivery</span>
+                    <span id="drawerTotalAmount">₹0</span>
+                </div>
+            </div>
+            <div class="drawer-cod-note">
+                <span style="color:var(--accent-gold); font-size:1.1rem; line-height:1;">✦</span>
+                <span><strong>Cash on Delivery (COD)</strong> · Zero upfront payment required.</span>
+            </div>
+            <button type="button" class="btn-drawer-checkout" id="drawerProceedToPaymentBtn">
+                Move Forward with Payment →
+            </button>
+        </div>
+    </aside>
+
+    <!-- CASH ON DELIVERY (COD) CHECKOUT MODAL & BACKDROP -->
+    <div class="cod-checkout-modal-backdrop" id="codCheckoutBackdrop" aria-hidden="true"></div>
+    <div class="cod-checkout-modal" id="codCheckoutModal" role="dialog" aria-modal="true" aria-labelledby="codCheckoutTitle">
+        <div class="cod-checkout-header">
+            <div class="cod-checkout-title-wrap">
+                <h2 id="codCheckoutTitle">TAVROO ATELIER CHECKOUT</h2>
+                <p>Cash on Delivery Reservation · No Online Payment Required</p>
+            </div>
+            <button type="button" class="cod-modal-close-btn" id="codModalCloseBtn" aria-label="Close Checkout Window">✕</button>
+        </div>
+        
+        <div class="cod-checkout-body" id="codCheckoutBody">
+            <!-- Rendered by JS: Active COD form or Order confirmation view -->
+        </div>
+    </div>
 
     <footer>
         <div class="footer-content">
@@ -598,7 +685,8 @@
                 try {
                     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
                 } catch (e) {}
-                updateCartUI();
+                updateCartBadges();
+                renderDrawer();
                 window.dispatchEvent(new Event('cart-updated'));
             }
 
@@ -608,9 +696,34 @@
                 return parseInt(cleaned, 10) || 0;
             }
 
+            function formatINR(num) {
+                return '\u20B9' + Number(num).toLocaleString('en-IN');
+            }
+
             // DOM Elements
             const cartCountBadge = document.getElementById('cartCountBadge');
             const bannerCartCount = document.getElementById('bannerCartCount');
+            const floatingCartBadgeDot = document.getElementById('floatingCartBadgeDot');
+            const floatingCartCountText = document.getElementById('floatingCartCountText');
+            const floatingLeftCartWidget = document.getElementById('floatingLeftCartWidget');
+            const floatingLeftCartBtn = document.getElementById('floatingLeftCartBtn');
+
+            // Drawer Elements
+            const leftCartBackdrop = document.getElementById('leftCartBackdrop');
+            const leftCartDrawer = document.getElementById('leftCartDrawer');
+            const leftCartCloseBtn = document.getElementById('leftCartCloseBtn');
+            const leftCartDrawerBody = document.getElementById('leftCartDrawerBody');
+            const leftCartDrawerFooter = document.getElementById('leftCartDrawerFooter');
+            const drawerHeaderCount = document.getElementById('drawerHeaderCount');
+            const drawerSubtotalAmount = document.getElementById('drawerSubtotalAmount');
+            const drawerTotalAmount = document.getElementById('drawerTotalAmount');
+            const drawerProceedToPaymentBtn = document.getElementById('drawerProceedToPaymentBtn');
+
+            // COD Checkout Modal Elements
+            const codCheckoutBackdrop = document.getElementById('codCheckoutBackdrop');
+            const codCheckoutModal = document.getElementById('codCheckoutModal');
+            const codModalCloseBtn = document.getElementById('codModalCloseBtn');
+            const codCheckoutBody = document.getElementById('codCheckoutBody');
 
             // Product Detail Dialog Elements
             const productDialog = document.getElementById('product-dialog');
@@ -622,7 +735,10 @@
             const dialogFit = document.getElementById('product-dialog-fit');
             const dialogSizes = document.getElementById('product-dialog-sizes');
             const dialogAddCartBtn = document.getElementById('dialogAddCartBtn');
+            const dialogSizePills = document.querySelectorAll('#dialogSizePills .catalog-size-pill');
+            const dialogSizeAlert = document.getElementById('dialogSizeAlert');
             let activeDialogProduct = null;
+            let selectedDialogSize = null;
 
             // Toast feedback
             const cartToast = document.getElementById('cartToast');
@@ -630,7 +746,7 @@
 
             function showToast(message) {
                 if (!cartToast) return;
-                cartToast.innerHTML = <span>âœ¦</span> <span></span>;
+                cartToast.innerHTML = `<span>\u2726</span> <span>${message}</span>`;
                 cartToast.classList.add('show');
                 clearTimeout(toastTimer);
                 toastTimer = setTimeout(() => {
@@ -638,50 +754,502 @@
                 }, 2600);
             }
 
-            // Add Product to Cart: Stays completely on current page without overlays
-            function addToCart(product) {
-                const existing = cart.find(item => item.name === product.name);
+            // Trigger bounce animation on left floating cart widget
+            function bounceLeftWidget() {
+                if (!floatingLeftCartWidget) return;
+                floatingLeftCartWidget.classList.remove('widget-bounce');
+                void floatingLeftCartWidget.offsetWidth; // force reflow
+                floatingLeftCartWidget.classList.add('widget-bounce');
+                setTimeout(() => {
+                    floatingLeftCartWidget.classList.remove('widget-bounce');
+                }, 750);
+            }
+
+            // Add to Bag with specific size
+            function addToBag(product, size) {
+                if (!size) return false;
+
+                const priceNum = parsePrice(product.price);
+                // Find existing product matching SAME name AND SAME size
+                const existing = cart.find(item => item.name === product.name && item.size === size);
                 if (existing) {
-                    existing.qty += 1;
+                    existing.qty = (existing.qty || 1) + 1;
                 } else {
                     cart.push({
                         name: product.name,
                         price: product.price,
-                        priceNum: parsePrice(product.price),
+                        priceNum: priceNum,
                         image: product.image,
                         category: product.category || 'Atelier',
                         material: product.material || 'Premium Studio Fabric',
                         fit: product.fit || 'Tailored fit',
+                        size: size,
                         qty: 1
                     });
                 }
+
                 saveCart();
-                showToast(Item added to cart Â· <strong></strong>);
-                
-                // Dynamic Badge Bump Animation
+                bounceLeftWidget();
+                showToast(`Added to Bag \u00B7 <strong>${product.name}</strong> (Size: ${size})`);
+
+                // Dynamic Badge Bump on header
                 if (cartCountBadge) {
                     cartCountBadge.classList.remove('bump');
                     void cartCountBadge.offsetWidth;
                     cartCountBadge.classList.add('bump');
                 }
+                return true;
             }
 
-            // Render Cart UI Badge
-            function updateCartUI() {
-                const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
+            // Update Badges Count UI
+            function updateCartBadges() {
+                const totalCount = cart.reduce((acc, item) => acc + (item.qty || 1), 0);
+                if (cartCountBadge) cartCountBadge.textContent = totalCount;
+                if (bannerCartCount) bannerCartCount.textContent = totalCount;
+                if (floatingCartBadgeDot) floatingCartBadgeDot.textContent = totalCount;
+                if (floatingCartCountText) floatingCartCountText.textContent = `(${totalCount})`;
+            }
 
-                if (cartCountBadge) {
-                    cartCountBadge.textContent = totalCount;
+            // Drawer Open / Close
+            function openDrawer() {
+                renderDrawer();
+                leftCartDrawer.classList.add('open');
+                leftCartBackdrop.classList.add('open');
+                leftCartDrawer.setAttribute('aria-hidden', 'false');
+                leftCartBackdrop.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeDrawer() {
+                leftCartDrawer.classList.remove('open');
+                leftCartBackdrop.classList.remove('open');
+                leftCartDrawer.setAttribute('aria-hidden', 'true');
+                leftCartBackdrop.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            if (floatingLeftCartBtn) {
+                floatingLeftCartBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openDrawer();
+                });
+            }
+
+            if (leftCartCloseBtn) {
+                leftCartCloseBtn.addEventListener('click', closeDrawer);
+            }
+
+            if (leftCartBackdrop) {
+                leftCartBackdrop.addEventListener('click', closeDrawer);
+            }
+
+            // Render Left Drawer Content
+            function renderDrawer() {
+                if (!leftCartDrawerBody) return;
+
+                const totalPieces = cart.reduce((acc, item) => acc + (item.qty || 1), 0);
+                const subtotal = cart.reduce((acc, item) => acc + ((item.priceNum || 0) * (item.qty || 1)), 0);
+
+                if (drawerHeaderCount) {
+                    drawerHeaderCount.textContent = `${totalPieces} ${totalPieces === 1 ? 'piece' : 'pieces'}`;
                 }
-                if (bannerCartCount) {
-                    bannerCartCount.textContent = totalCount;
+                if (drawerSubtotalAmount) drawerSubtotalAmount.textContent = formatINR(subtotal);
+                if (drawerTotalAmount) drawerTotalAmount.textContent = formatINR(subtotal);
+
+                if (cart.length === 0) {
+                    leftCartDrawerBody.innerHTML = `
+                        <div class="drawer-empty-state">
+                            <svg class="drawer-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                                <line x1="3" y1="6" x2="21" y2="6"/>
+                                <path d="M16 10a4 4 0 0 1-8 0"/>
+                            </svg>
+                            <h3>Your Atelier Bag is Empty</h3>
+                            <p>Select your preferred sizes and add pieces to your bag to reserve them via Cash on Delivery.</p>
+                            <button type="button" class="btn-secondary" id="drawerContinueShoppingBtn" style="border-radius:24px; padding:0.6rem 1.4rem; font-size:0.78rem;">
+                                Browse Collection
+                            </button>
+                        </div>
+                    `;
+                    if (leftCartDrawerFooter) leftCartDrawerFooter.style.display = 'none';
+                    const continueBtn = document.getElementById('drawerContinueShoppingBtn');
+                    if (continueBtn) {
+                        continueBtn.addEventListener('click', closeDrawer);
+                    }
+                    return;
+                }
+
+                if (leftCartDrawerFooter) leftCartDrawerFooter.style.display = 'flex';
+
+                leftCartDrawerBody.innerHTML = cart.map((item, index) => `
+                    <div class="drawer-item-card" data-index="${index}">
+                        <div class="drawer-item-img">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="drawer-item-info">
+                            <h4 class="drawer-item-title">${item.name}</h4>
+                            <div class="drawer-item-meta">
+                                <span class="drawer-item-size-badge">Size: ${item.size}</span>
+                                <span>\u00B7</span>
+                                <span>${item.category || 'Atelier'}</span>
+                            </div>
+                            <div class="drawer-item-price">${formatINR(item.priceNum || 0)}</div>
+                        </div>
+                        <div class="drawer-item-actions">
+                            <button type="button" class="drawer-remove-btn" data-index="${index}" aria-label="Remove ${item.name} size ${item.size}">\u2715</button>
+                            <div class="drawer-qty-stepper">
+                                <button type="button" class="drawer-qty-btn qty-dec" data-index="${index}" aria-label="Decrease quantity">\u2212</button>
+                                <span class="drawer-qty-val">${item.qty || 1}</span>
+                                <button type="button" class="drawer-qty-btn qty-inc" data-index="${index}" aria-label="Increase quantity">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Wire stepper and remove buttons
+                leftCartDrawerBody.querySelectorAll('.qty-dec').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const idx = parseInt(btn.dataset.index, 10);
+                        if (cart[idx].qty > 1) {
+                            cart[idx].qty -= 1;
+                        } else {
+                            cart.splice(idx, 1);
+                        }
+                        saveCart();
+                    });
+                });
+
+                leftCartDrawerBody.querySelectorAll('.qty-inc').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const idx = parseInt(btn.dataset.index, 10);
+                        cart[idx].qty = (cart[idx].qty || 1) + 1;
+                        saveCart();
+                    });
+                });
+
+                leftCartDrawerBody.querySelectorAll('.drawer-remove-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const idx = parseInt(btn.dataset.index, 10);
+                        const removedItem = cart[idx];
+                        cart.splice(idx, 1);
+                        saveCart();
+                        if (removedItem) {
+                            showToast(`Removed <strong>${removedItem.name}</strong> (${removedItem.size})`);
+                        }
+                    });
+                });
+            }
+
+            // Checkout Modal Open / Close
+            function openCheckout() {
+                closeDrawer();
+                renderCheckoutForm();
+                codCheckoutModal.classList.add('open');
+                codCheckoutBackdrop.classList.add('open');
+                codCheckoutModal.setAttribute('aria-hidden', 'false');
+                codCheckoutBackdrop.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeCheckout() {
+                codCheckoutModal.classList.remove('open');
+                codCheckoutBackdrop.classList.remove('open');
+                codCheckoutModal.setAttribute('aria-hidden', 'true');
+                codCheckoutBackdrop.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            if (drawerProceedToPaymentBtn) {
+                drawerProceedToPaymentBtn.addEventListener('click', () => {
+                    if (cart.length === 0) {
+                        showToast('Your bag is currently empty.');
+                        return;
+                    }
+                    openCheckout();
+                });
+            }
+
+            if (codModalCloseBtn) {
+                codModalCloseBtn.addEventListener('click', closeCheckout);
+            }
+
+            if (codCheckoutBackdrop) {
+                codCheckoutBackdrop.addEventListener('click', closeCheckout);
+            }
+
+            // Render Checkout Form & Order Summary inside COD Modal
+            function renderCheckoutForm() {
+                if (!codCheckoutBody) return;
+
+                const totalPieces = cart.reduce((acc, item) => acc + (item.qty || 1), 0);
+                const subtotal = cart.reduce((acc, item) => acc + ((item.priceNum || 0) * (item.qty || 1)), 0);
+
+                codCheckoutBody.innerHTML = `
+                    <div class="cod-checkout-grid">
+                        <!-- Left: Shipping & Cash on Delivery Form -->
+                        <div>
+                            <form id="modalCodForm" novalidate>
+                                <h3 class="cod-form-section-title">1. Shipping & Contact Details</h3>
+                                <div class="cod-form-row">
+                                    <div class="cod-form-group full-width">
+                                        <label for="mCodFullName">Full Name *</label>
+                                        <input type="text" id="mCodFullName" class="cod-form-input" placeholder="e.g. Aarav Sharma" required autocomplete="name">
+                                        <span class="cod-field-error" id="mCodFullNameErr">Please enter your full name.</span>
+                                    </div>
+                                </div>
+
+                                <div class="cod-form-row">
+                                    <div class="cod-form-group">
+                                        <label for="mCodPhone">Phone Number *</label>
+                                        <input type="tel" id="mCodPhone" class="cod-form-input" placeholder="10-digit mobile number" maxlength="10" required autocomplete="tel">
+                                        <span class="cod-field-error" id="mCodPhoneErr">Enter a valid 10-digit mobile number.</span>
+                                    </div>
+                                    <div class="cod-form-group">
+                                        <label for="mCodEmail">Email Address *</label>
+                                        <input type="email" id="mCodEmail" class="cod-form-input" placeholder="aarav@example.com" required autocomplete="email">
+                                        <span class="cod-field-error" id="mCodEmailErr">Enter a valid email address.</span>
+                                    </div>
+                                </div>
+
+                                <div class="cod-form-group">
+                                    <label for="mCodStreet">Street Address (Building / House / Landmark) *</label>
+                                    <input type="text" id="mCodStreet" class="cod-form-input" placeholder="Flat 402, Signature Residency, Indiranagar" required autocomplete="street-address">
+                                    <span class="cod-field-error" id="mCodStreetErr">Please provide your complete delivery street address.</span>
+                                </div>
+
+                                <div class="cod-form-row">
+                                    <div class="cod-form-group">
+                                        <label for="mCodCity">City *</label>
+                                        <input type="text" id="mCodCity" class="cod-form-input" placeholder="e.g. Bengaluru" required autocomplete="address-level2">
+                                        <span class="cod-field-error" id="mCodCityErr">City is required.</span>
+                                    </div>
+                                    <div class="cod-form-group">
+                                        <label for="mCodState">State *</label>
+                                        <input type="text" id="mCodState" class="cod-form-input" placeholder="e.g. Karnataka" required autocomplete="address-level1">
+                                        <span class="cod-field-error" id="mCodStateErr">State is required.</span>
+                                    </div>
+                                </div>
+
+                                <div class="cod-form-row">
+                                    <div class="cod-form-group">
+                                        <label for="mCodPin">PIN / Postal Code *</label>
+                                        <input type="text" id="mCodPin" class="cod-form-input" placeholder="6-digit PIN code" maxlength="6" required autocomplete="postal-code">
+                                        <span class="cod-field-error" id="mCodPinErr">Enter a valid 6-digit postal PIN code.</span>
+                                    </div>
+                                </div>
+
+                                <h3 class="cod-form-section-title" style="margin-top:1.5rem;">2. Payment Method</h3>
+                                
+                                <!-- LOCKED CASH ON DELIVERY EXCLUSIVE CARD -->
+                                <div class="cod-payment-card">
+                                    <div class="cod-payment-badge-row">
+                                        <span class="method-name">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2.2">
+                                                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                                                <line x1="2" y1="10" x2="22" y2="10"/>
+                                            </svg>
+                                            Cash on Delivery (COD)
+                                        </span>
+                                        <span class="cod-sole-tag">Sole Payment Option</span>
+                                    </div>
+                                    <p class="cod-exact-quote">"Pay with cash upon delivery of your order."</p>
+                                    <p class="cod-sub-info">Zero upfront payment required. Online cards, net banking, and UPI gateways are excluded. Simply hand over cash to our delivery executive when your package reaches your doorstep.</p>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Right: Order Summary Breakdown & Action -->
+                        <div>
+                            <div class="cod-order-summary-box">
+                                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.75rem;">
+                                    <h4 style="margin:0; font-family:var(--font-heading); font-size:0.86rem; color:#ffffff; letter-spacing:1px; text-transform:uppercase;">Bag Summary</h4>
+                                    <span style="font-size:0.75rem; color:var(--accent-gold); font-weight:700;">${totalPieces} pieces</span>
+                                </div>
+
+                                <div class="cod-summary-items-list">
+                                    ${cart.map(item => `
+                                        <div class="cod-summary-item">
+                                            <img src="${item.image}" alt="${item.name}">
+                                            <div class="cod-summary-item-info">
+                                                <h4>${item.name}</h4>
+                                                <div class="item-meta-line">
+                                                    <span style="color:var(--accent-champagne); font-weight:700;">Size: ${item.size}</span>
+                                                    <span> \u00B7 Qty: ${item.qty || 1}</span>
+                                                </div>
+                                            </div>
+                                            <div style="font-weight:700; color:#ffffff; font-size:0.82rem;">
+                                                ${formatINR((item.priceNum || 0) * (item.qty || 1))}
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+
+                                <div style="display:flex; flex-direction:column; gap:0.45rem; padding-top:0.75rem; border-top:1px solid rgba(255,255,255,0.08); font-size:0.8rem; color:var(--text-muted);">
+                                    <div style="display:flex; justify-content:space-between;">
+                                        <span>Bag Subtotal</span>
+                                        <span style="color:#ffffff;">${formatINR(subtotal)}</span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between;">
+                                        <span>Express Studio Delivery</span>
+                                        <span style="color:var(--accent-champagne); font-weight:700;">FREE</span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; font-size:1.05rem; font-weight:700; color:#ffffff; padding-top:0.5rem; border-top:1px solid rgba(255,255,255,0.08);">
+                                        <span>Cash Due on Delivery</span>
+                                        <span style="color:var(--accent-champagne);">${formatINR(subtotal)}</span>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn-confirm-order" id="btnConfirmCodOrder">
+                                    Confirm Order (COD) \u2192
+                                </button>
+
+                                <div style="text-align:center; font-size:0.72rem; color:var(--text-dim); display:flex; align-items:center; justify-content:center; gap:0.4rem;">
+                                    <span>\uD83D\uDD12</span> Verified Cash on Delivery Reservation \u00B7 No Pre-Charge
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Wire Confirm Order Button
+                const confirmBtn = document.getElementById('btnConfirmCodOrder');
+                if (confirmBtn) {
+                    confirmBtn.addEventListener('click', handleCodOrderSubmission);
                 }
             }
 
-            // Initial Cart Render
-            updateCartUI();
+            // COD Checkout Form Validation & Order Confirmation
+            function handleCodOrderSubmission(e) {
+                if (e) e.preventDefault();
 
-            // Setup Product Cards: Mark Out of Stock + Inject Add to Cart Buttons
+                const nameInput = document.getElementById('mCodFullName');
+                const phoneInput = document.getElementById('mCodPhone');
+                const emailInput = document.getElementById('mCodEmail');
+                const streetInput = document.getElementById('mCodStreet');
+                const cityInput = document.getElementById('mCodCity');
+                const stateInput = document.getElementById('mCodState');
+                const pinInput = document.getElementById('mCodPin');
+
+                let isValid = true;
+                let firstInvalidInput = null;
+
+                function validateField(input, errId, condition) {
+                    const errEl = document.getElementById(errId);
+                    if (!input || !condition) {
+                        if (input) input.classList.add('error');
+                        if (errEl) errEl.style.display = 'block';
+                        if (!firstInvalidInput && input) firstInvalidInput = input;
+                        isValid = false;
+                    } else {
+                        input.classList.remove('error');
+                        if (errEl) errEl.style.display = 'none';
+                    }
+                }
+
+                validateField(nameInput, 'mCodFullNameErr', nameInput && nameInput.value.trim().length >= 2);
+                const phoneVal = phoneInput ? phoneInput.value.trim().replace(/\D/g, '') : '';
+                validateField(phoneInput, 'mCodPhoneErr', phoneVal.length === 10);
+                const emailVal = emailInput ? emailInput.value.trim() : '';
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                validateField(emailInput, 'mCodEmailErr', emailRegex.test(emailVal));
+                validateField(streetInput, 'mCodStreetErr', streetInput && streetInput.value.trim().length >= 5);
+                validateField(cityInput, 'mCodCityErr', cityInput && cityInput.value.trim().length >= 2);
+                validateField(stateInput, 'mCodStateErr', stateInput && stateInput.value.trim().length >= 2);
+                const pinVal = pinInput ? pinInput.value.trim().replace(/\D/g, '') : '';
+                validateField(pinInput, 'mCodPinErr', pinVal.length === 6);
+
+                if (!isValid) {
+                    if (firstInvalidInput) firstInvalidInput.focus();
+                    return;
+                }
+
+                // Generate Order Details
+                const orderId = `TAVROO-COD-${Math.floor(100000 + Math.random() * 900000)}`;
+                const customerName = nameInput.value.trim();
+                const customerPhone = phoneVal;
+                const customerEmail = emailVal;
+                const customerAddress = `${streetInput.value.trim()}, ${cityInput.value.trim()}, ${stateInput.value.trim()} - ${pinVal}`;
+                const orderedItems = [...cart];
+                const totalAmount = orderedItems.reduce((acc, it) => acc + ((it.priceNum || 0) * (it.qty || 1)), 0);
+
+                // Clear Cart
+                cart = [];
+                saveCart();
+
+                // Render Confirmation View
+                codCheckoutBody.innerHTML = `
+                    <div class="cod-confirmation-view">
+                        <div class="cod-confirmed-icon">\u2713</div>
+                        <h3 class="cod-confirmed-title">Order Confirmed!</h3>
+                        <p style="color:var(--text-muted); font-size:0.88rem; margin:0; max-width:480px;">
+                            Thank you, <strong>${customerName}</strong>. Your Cash on Delivery reservation has been registered with our atelier studio.
+                        </p>
+
+                        <div class="cod-order-id-badge">Order ID: ${orderId}</div>
+
+                        <div class="drawer-cod-note" style="max-width:520px; width:100%; justify-content:center; padding:0.8rem 1.2rem; font-size:0.84rem;">
+                            \u2726 <strong>"Pay with cash upon delivery of your order."</strong>
+                        </div>
+
+                        <div class="cod-confirmation-details-card">
+                            <div style="font-weight:700; color:#ffffff; font-size:0.88rem; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.5rem; display:flex; justify-content:space-between;">
+                                <span>Delivery Destination</span>
+                                <span style="color:var(--accent-gold); font-size:0.75rem; text-transform:uppercase;">Cash on Delivery</span>
+                            </div>
+                            <div style="line-height:1.5; color:var(--text-dim);">
+                                <div><strong>Recipient:</strong> ${customerName} (${customerPhone})</div>
+                                <div><strong>Email:</strong> ${customerEmail}</div>
+                                <div><strong>Shipping Address:</strong> ${customerAddress}</div>
+                            </div>
+
+                            <div style="font-weight:700; color:#ffffff; font-size:0.88rem; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.5rem; margin-top:0.6rem;">
+                                Ordered Garments Breakdown
+                            </div>
+                            <div style="display:flex; flex-direction:column; gap:0.6rem;">
+                                ${orderedItems.map(it => `
+                                    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); padding:0.45rem 0.6rem; border-radius:6px;">
+                                        <div style="display:flex; align-items:center; gap:0.6rem;">
+                                            <img src="${it.image}" alt="${it.name}" style="width:34px; height:42px; object-fit:cover; border-radius:4px;">
+                                            <div>
+                                                <div style="color:#ffffff; font-weight:600;">${it.name}</div>
+                                                <div style="font-size:0.72rem; color:var(--accent-champagne);">Size: ${it.size} \u00B7 Qty: ${it.qty || 1}</div>
+                                            </div>
+                                        </div>
+                                        <div style="font-weight:700; color:#ffffff;">
+                                            ${formatINR((it.priceNum || 0) * (it.qty || 1))}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                            <div style="display:flex; justify-content:space-between; align-items:center; padding-top:0.8rem; border-top:1px solid rgba(255,255,255,0.08); font-size:1.05rem; font-weight:700; color:#ffffff;">
+                                <span>Total Cash Amount Payable:</span>
+                                <span style="color:var(--accent-champagne); font-size:1.15rem;">${formatINR(totalAmount)}</span>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn-primary" id="btnContinueShoppingAfterOrder" style="padding:1rem 2.5rem; border-radius:30px; font-size:0.85rem; letter-spacing:1.5px; margin-top:0.8rem;">
+                            Continue Browsing Lookbook \u2192
+                        </button>
+                    </div>
+                `;
+
+                const returnBtn = document.getElementById('btnContinueShoppingAfterOrder');
+                if (returnBtn) {
+                    returnBtn.addEventListener('click', closeCheckout);
+                }
+            }
+
+            // Escape Key to close modals
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeDrawer();
+                    closeCheckout();
+                    if (productDialog && productDialog.open) productDialog.close();
+                }
+            });
+
+            // Setup Product Cards: Mark Out of Stock + Inject Size Selector + Add to Bag Button
             const cards = document.querySelectorAll('.catalog-card');
             cards.forEach(card => {
                 // 1. Ensure visible Out of Stock badge exists
@@ -706,11 +1274,67 @@
                     }
                 }
 
-                // 2. Ensure Add to Cart button exists in footer
+                // 2. Inject Size Selector if not already present
+                let sizeSelector = card.querySelector('.catalog-card-size-selector');
+                if (!sizeSelector) {
+                    sizeSelector = document.createElement('div');
+                    sizeSelector.className = 'catalog-card-size-selector';
+                    sizeSelector.innerHTML = `
+                        <div class="catalog-size-label-row">
+                            <span>Select Size <span class="size-req-dot">*required</span></span>
+                            <span class="selected-size-label" style="display:none; color:var(--accent-champagne); font-weight:700;"></span>
+                        </div>
+                        <div class="catalog-size-pills">
+                            <button type="button" class="catalog-size-pill" data-size="S" aria-label="Size S">S</button>
+                            <button type="button" class="catalog-size-pill" data-size="M" aria-label="Size M">M</button>
+                            <button type="button" class="catalog-size-pill" data-size="L" aria-label="Size L">L</button>
+                            <button type="button" class="catalog-size-pill" data-size="XL" aria-label="Size XL">XL</button>
+                        </div>
+                        <div class="size-inline-alert" style="display:none;" role="alert">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                            Please select a size first
+                        </div>
+                    `;
+
+                    const footer = card.querySelector('.catalog-card-footer');
+                    if (footer) {
+                        card.insertBefore(sizeSelector, footer);
+                    } else {
+                        card.appendChild(sizeSelector);
+                    }
+                }
+
+                // Wire size pills for this card
+                const pills = sizeSelector.querySelectorAll('.catalog-size-pill');
+                const alertBox = sizeSelector.querySelector('.size-inline-alert');
+                const selectedSizeLabel = sizeSelector.querySelector('.selected-size-label');
+
+                pills.forEach(pill => {
+                    pill.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const size = pill.dataset.size;
+                        
+                        pills.forEach(p => p.classList.remove('selected'));
+                        pill.classList.add('selected');
+                        card.dataset.selectedSize = size;
+
+                        if (selectedSizeLabel) {
+                            selectedSizeLabel.textContent = `(${size})`;
+                            selectedSizeLabel.style.display = 'inline';
+                        }
+
+                        // Hide alert if visible
+                        if (alertBox) {
+                            alertBox.style.display = 'none';
+                            alertBox.classList.remove('shake-alert');
+                        }
+                    });
+                });
+
+                // 3. Inject / Update "Add to Bag" button in footer
                 const footer = card.querySelector('.catalog-card-footer');
-                if (footer && !footer.querySelector('.catalog-add-cart-btn')) {
+                if (footer) {
                     const detailsBtn = footer.querySelector('.catalog-details-btn');
-                    
                     let actionsWrap = footer.querySelector('.catalog-card-actions');
                     if (!actionsWrap) {
                         actionsWrap = document.createElement('div');
@@ -723,36 +1347,75 @@
                         }
                     }
 
-                    const addBtn = document.createElement('button');
-                    addBtn.type = 'button';
-                    addBtn.className = 'catalog-add-cart-btn';
-                    addBtn.innerHTML = 'Add to Cart';
-                    addBtn.setAttribute('aria-label', Add  to Cart);
-                    actionsWrap.appendChild(addBtn);
+                    // Remove any legacy add-to-cart button if present
+                    const oldAddBtn = actionsWrap.querySelector('.catalog-add-cart-btn');
+                    if (oldAddBtn) oldAddBtn.remove();
 
-                    addBtn.addEventListener('click', (e) => {
+                    let addBagBtn = actionsWrap.querySelector('.catalog-add-bag-btn');
+                    if (!addBagBtn) {
+                        addBagBtn = document.createElement('button');
+                        addBagBtn.type = 'button';
+                        addBagBtn.className = 'catalog-add-bag-btn';
+                        addBagBtn.innerHTML = 'Add to Bag';
+                        addBagBtn.setAttribute('aria-label', `Add ${card.dataset.name} to Bag`);
+                        actionsWrap.appendChild(addBagBtn);
+                    }
+
+                    addBagBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        addToCart(card.dataset);
+                        const chosenSize = card.dataset.selectedSize;
 
-                        // Subtle direct feedback on the button
-                        const origText = addBtn.innerHTML;
-                        addBtn.classList.add('added-state');
-                        addBtn.innerHTML = 'Added âœ“';
+                        if (!chosenSize) {
+                            // Show inline alert: "Please select a size first"
+                            if (alertBox) {
+                                alertBox.style.display = 'inline-flex';
+                                alertBox.classList.remove('shake-alert');
+                                void alertBox.offsetWidth; // reflow
+                                alertBox.classList.add('shake-alert');
+
+                                // Clear after 3 seconds
+                                if (card._alertTimer) clearTimeout(card._alertTimer);
+                                card._alertTimer = setTimeout(() => {
+                                    alertBox.style.display = 'none';
+                                    alertBox.classList.remove('shake-alert');
+                                }, 3000);
+                            }
+                            return;
+                        }
+
+                        // Add to bag with chosen size
+                        addToBag(card.dataset, chosenSize);
+
+                        // Immediate button feedback: "Added \u2713"
+                        const origText = 'Add to Bag';
+                        addBagBtn.classList.add('added-state');
+                        addBagBtn.innerHTML = 'Added \u2713';
+
+                        // Reset size selection back to default state
+                        pills.forEach(p => p.classList.remove('selected'));
+                        delete card.dataset.selectedSize;
+                        if (selectedSizeLabel) {
+                            selectedSizeLabel.textContent = '';
+                            selectedSizeLabel.style.display = 'none';
+                        }
+                        if (alertBox) alertBox.style.display = 'none';
+
                         setTimeout(() => {
-                            addBtn.classList.remove('added-state');
-                            addBtn.innerHTML = origText;
-                        }, 1200);
+                            addBagBtn.classList.remove('added-state');
+                            addBagBtn.innerHTML = origText;
+                        }, 1300);
                     });
                 }
             });
 
-            // Product Details Modal Logic
+            // Product Details Modal Dialog Logic
             const detailButtons = document.querySelectorAll('.catalog-details-btn');
             detailButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const productCard = button.closest('.catalog-card');
                     const product = productCard.dataset;
                     activeDialogProduct = product;
+                    selectedDialogSize = null;
 
                     dialogImage.src = product.image;
                     dialogImage.alt = product.alt || product.name;
@@ -762,6 +1425,14 @@
                     dialogFit.textContent = product.fit || 'Tailored Studio Fit';
                     dialogSizes.textContent = product.sizes || 'XS, S, M, L, XL';
                     productDialog.classList.toggle('product-dialog-bottoms', productCard.classList.contains('product-bottoms'));
+
+                    // Reset dialog size selector
+                    dialogSizePills.forEach(p => p.classList.remove('selected'));
+                    if (dialogSizeAlert) {
+                        dialogSizeAlert.style.display = 'none';
+                        dialogSizeAlert.classList.remove('shake-alert');
+                    }
+
                     productDialog.showModal();
                 });
             });
@@ -773,17 +1444,57 @@
                 });
             }
 
+            dialogSizePills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    dialogSizePills.forEach(p => p.classList.remove('selected'));
+                    pill.classList.add('selected');
+                    selectedDialogSize = pill.dataset.size;
+                    if (dialogSizeAlert) {
+                        dialogSizeAlert.style.display = 'none';
+                        dialogSizeAlert.classList.remove('shake-alert');
+                    }
+                });
+            });
+
             if (dialogAddCartBtn) {
                 dialogAddCartBtn.addEventListener('click', () => {
-                    if (activeDialogProduct) {
-                        addToCart(activeDialogProduct);
-                        const orig = dialogAddCartBtn.innerHTML;
-                        dialogAddCartBtn.innerHTML = 'Added âœ“';
-                        setTimeout(() => {
-                            dialogAddCartBtn.innerHTML = orig;
-                            productDialog.close();
-                        }, 600);
+                    if (!activeDialogProduct) return;
+
+                    if (!selectedDialogSize) {
+                        if (dialogSizeAlert) {
+                            dialogSizeAlert.style.display = 'inline-flex';
+                            dialogSizeAlert.classList.remove('shake-alert');
+                            void dialogSizeAlert.offsetWidth;
+                            dialogSizeAlert.classList.add('shake-alert');
+                        }
+                        return;
                     }
+
+                    addToBag(activeDialogProduct, selectedDialogSize);
+                    const orig = dialogAddCartBtn.innerHTML;
+                    dialogAddCartBtn.innerHTML = 'Added \u2713';
+                    setTimeout(() => {
+                        dialogAddCartBtn.innerHTML = orig;
+                        productDialog.close();
+                    }, 650);
+                });
+            }
+
+            // Banner "View Bag" Button
+            const openBagFromBannerBtn = document.getElementById('openBagFromBannerBtn');
+            if (openBagFromBannerBtn) {
+                openBagFromBannerBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openDrawer();
+                });
+            }
+
+            // Top-right Nav Bag link in catalog.html - open drawer instead of page redirect
+            const navBagLink = document.querySelector('.nav-cart-btn');
+            if (navBagLink) {
+                navBagLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openDrawer();
                 });
             }
 
@@ -805,6 +1516,10 @@
                     });
                 });
             });
+
+            // Initial Badge and Drawer sync
+            updateCartBadges();
+            renderDrawer();
         });
     </script>
 </body>

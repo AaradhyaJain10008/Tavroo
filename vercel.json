@@ -1,6 +1,8 @@
 {
   "cleanUrls": true,
   "rewrites": [
+    { "source": "/look-book-catalog", "destination": "/catalog.html" },
+    { "source": "/catalog", "destination": "/catalog.html" },
     { "source": "/cart", "destination": "/cart.html" },
     { "source": "/checkout", "destination": "/checkout.html" },
     { "source": "/pair-your-look", "destination": "/pair-your-look.html" },
