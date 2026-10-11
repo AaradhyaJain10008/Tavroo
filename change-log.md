@@ -4,8 +4,34 @@
 
 ## 📅 Last Session Footprint
 
-- **Timestamp:** 2026-10-12 01:15 IST
-- **Active Task:** Lookbook Catalog Shopping Cart Drawer, Cash on Delivery (COD) Checkout Flow, & "Out of Stock" Inventory Badges:
+- **Timestamp:** 2026-10-12 02:30 IST
+- **Active Task:** Fix "Add to Cart" glitch, prevent premature page redirects, and build dedicated Cart (`/cart`) & Checkout (`/checkout`) page flow:
+  1. **"Add to Cart" Glitch Fix (Stay on Current Page):**
+     - Completely removed intrusive slide-out drawer backdrops, dialog popups, and screen-blurring modals that hid catalog products or caused screen freezes/glitches.
+     - Cleaned up corrupted legacy git merge conflict markers (`=======`, `>>>>>>> Stashed changes`) inside `catalog.html` that broke HTML parsing.
+     - Users remain strictly and smoothly on the catalog page when clicking "Add to Cart".
+     - Enhanced direct button micro-feedback (`Added ✓` state with gold checkmark for 1.2s) and floating non-blocking toast notification (`Item added to cart · [Product Name]`).
+  2. **Top-Right Cart Icon & Dynamic Live Badge:**
+     - Integrated persistent shopping bag icon (`<a href="cart.html" class="nav-cart-btn">`) in the top-right header across all pages (`index.html`, `showcase.html`, `catalog.html`, `about.html`, `torso-collection.html`, `legs-collection.html`, `headwear-collection.html`, `footwear-collection.html`).
+     - Added global `cart-nav.js` script to synchronously update the badge count across tabs, page loads, and additions.
+     - Navigation trigger: The user ONLY leaves the catalog page when explicitly clicking this top-right bag button.
+  3. **Dedicated Cart Page (`/cart` & `cart.html`):**
+     - Created standalone editorial luxury Cart page.
+     - Two-column responsive layout displaying all selected items with thumbnail preview, title, tailored fit, unit price, quantity steppers (`−`, `+`), and delete (`✕`) button.
+     - Sticky order breakdown card calculating real-time subtotal, free courier shipping, and total amount.
+     - Primary CTA button: *"Proceed to Checkout →"* routing to `/checkout` (`checkout.html`).
+     - Includes empty cart state with direct link to Lookbook Catalog.
+  4. **Dedicated Payment & Checkout Flow (`/checkout` & `checkout.html`):**
+     - Customer details collection: Full Name, Email Address, Phone Number (10 digits), and Complete Delivery Address (Street Address, City, State, 6-digit PIN code).
+     - Standardized Cash on Delivery (COD) interface featuring the exact required guideline: *"Pay with cash upon delivery of your order."* with zero upfront charges.
+     - Real-time client-side form validation preventing submission if any required field is empty or malformed.
+     - Verified Order Confirmation screen generating a unique Order ID (`TAVROO-COD-XXXXXX`), summary of customer delivery address, payment method notice, and reserved line items.
+  5. **Routing & Clean URLs (`vercel.json`):**
+     - Configured URL rewrites for `/cart` -> `/cart.html` and `/checkout` -> `/checkout.html`.
+  6. **Boundary Constraint Maintained:**
+     - Excluded `pair-your-look.html` from any edits or alterations.
+
+- **Previous Session Footprint (2026-10-12 01:15 IST):**
   1. **Out of Stock Inventory Badges across All Catalog Items:**
      - Marked every product card across the entire 40+ Lookbook catalog with a prominent, styled `.stock-badge.out-of-stock` pill ("Out of Stock").
      - Added an editorial inventory status notification banner below the Lookbook catalog header explaining all pieces are Out of Stock and can be reserved via Cash on Delivery.

@@ -1,6 +1,8 @@
 {
   "cleanUrls": true,
   "rewrites": [
+    { "source": "/cart", "destination": "/cart.html" },
+    { "source": "/checkout", "destination": "/checkout.html" },
     { "source": "/pair-your-look", "destination": "/pair-your-look.html" },
     { "source": "/shoe-partner", "destination": "/pair-your-look.html" }
   ]
