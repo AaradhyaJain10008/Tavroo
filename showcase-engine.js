@@ -82,6 +82,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- MALE DEPARTMENT (Sartorial Shirts, Heritage Denim & Knitwear) ---
         { 
+            id: 'g_m5', 
+            name: 'Coffee Contrast Zip Polo', 
+            gender: ['male'],
+            img: 'assets/products/new-arrivals/coffee-contrast-polo.png', 
+            prompt: 'wearing a tailored espresso coffee brown contrast collar quarter-zip polo shirt with crest embroidery',
+            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            tag: 'Equestrian Zip Polo'
+        },
+        { 
+            id: 'g_m6', 
+            name: 'Navy Stripe Polo Sweatshirt', 
+            gender: ['male'],
+            img: 'assets/products/new-arrivals/navy-stripe-sweatshirt.png', 
+            prompt: 'wearing an oversized navy blue and white horizontal striped quarter-zip knit polo sweatshirt',
+            demoResult: 'assets/images/demo/g3-green-skirt.jpg',
+            tag: 'Striped Quarter-Zip'
+        },
+        { 
+            id: 'g_m9', 
+            name: 'Mauve Half-Zip Street Polo', 
+            gender: ['male'],
+            img: 'assets/products/new-arrivals/mauve-half-zip-polo.png', 
+            prompt: 'wearing an oversized dusty mauve purple collar half-zip graphic streetwear polo shirt',
+            demoResult: 'assets/images/demo/g6-blue-denim.jpg',
+            tag: 'Streetwear Luxury'
+        },
+        { 
+            id: 'g_m10', 
+            name: 'Ivory Racing Stripe Polo', 
+            gender: ['male'],
+            img: 'assets/products/new-arrivals/ivory-stripe-polo.png', 
+            prompt: 'wearing a white knit polo shirt with vertical brown racing stripes and quarter-zip',
+            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            tag: 'Retro Racing Knit'
+        },
+        { 
+            id: 'g_m8', 
+            name: 'Rust Open-Collar Resort Polo', 
+            gender: ['male'],
+            img: 'assets/products/new-arrivals/rust-knit-polo.png', 
+            prompt: 'wearing a tailored rust terracotta textured knit open-collar resort polo shirt',
+            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            tag: 'Resort Knitwear'
+        },
+        { 
             id: 'g_f8', 
             name: 'Midnight Satin Drape Shirt', 
             gender: ['male'],
@@ -127,24 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
             tag: 'Streetwear Heritage'
         },
         { 
-            id: 'g_m5', 
-            name: 'Coffee Contrast Knit Polo', 
-            gender: ['male'],
-            img: 'assets/products/new-arrivals/coffee-contrast-polo.png', 
-            prompt: 'wearing a textured espresso coffee contrast collar knit polo',
-            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
-            tag: 'Atelier Knitwear'
-        },
-        { 
-            id: 'g_m6', 
-            name: 'Navy Stripe Sweatshirt', 
-            gender: ['male'],
-            img: 'assets/products/new-arrivals/navy-stripe-sweatshirt.png', 
-            prompt: 'wearing an architectural navy and cream striped crewneck sweater',
-            demoResult: 'assets/images/demo/g3-green-skirt.jpg',
-            tag: 'Luxury Casual'
-        },
-        { 
             id: 'g_m7', 
             name: 'Crane Embroidered Shirt', 
             gender: ['male'],
@@ -152,15 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
             prompt: 'wearing an artistic black button-up shirt with golden crane embroidery',
             demoResult: 'assets/images/demo/g5-red-suit.jpg',
             tag: 'Artisanal Craft'
-        },
-        { 
-            id: 'g_m8', 
-            name: 'Rust Fine-Gauge Polo', 
-            gender: ['male'],
-            img: 'assets/products/new-arrivals/rust-knit-polo.png', 
-            prompt: 'wearing a tailored rust terracotta knit polo shirt',
-            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
-            tag: 'Fine Gauge Knit'
         },
 
         // --- NON-BINARY DEPARTMENT (Architectural, Fluid & Oversized) ---
@@ -844,7 +862,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.add('selected');
             }
             card.innerHTML = `
-                <img class="ai-garment-img" src="${g.img}" alt="${g.name}" loading="lazy" crossorigin="anonymous"
+                <img class="ai-garment-img" src="${g.img}" alt="${g.name}" loading="lazy"
                      onerror="this.style.display='none'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML = '<span class=\\'ai-garment-label\\'>${g.name}</span>';">
                 <span class="ai-garment-label">${g.name}</span>
             `;
@@ -1074,7 +1092,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.ai-garment-card').forEach(c => c.classList.remove('selected'));
         if (cardEl) cardEl.classList.add('selected');
 
-        garmentPreviewThumb.innerHTML = `<img src="${garment.img}" alt="${garment.name}" crossorigin="anonymous">`;
+        garmentPreviewThumb.innerHTML = `<img src="${garment.img}" alt="${garment.name}">`;
         garmentPreviewName.textContent = garment.name;
         garmentPreviewRow.style.display = 'flex';
         
