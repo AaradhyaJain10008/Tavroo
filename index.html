@@ -14,10 +14,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- SEO On-Page Optimization: Title & Meta Description -->
-    <title>TAVROO | Contemporary Luxury Fashion, Custom Streetwear & AI Virtual Dressing Studio</title>
-    <meta name="description" content="Experience TAVROO — contemporary luxury fashion and digital-first garment engineering. Explore our AI Virtual Dressing Studio, architectural denim, and made-to-order streetwear crafted in Bangalore.">
-    <meta name="keywords" content="contemporary luxury fashion India, custom streetwear Bangalore, AI virtual dressing studio, bespoke tailored denim, made to order clothing, custom graphic tees, sustainable streetwear brand, TAVROO studio">
+    <!-- SEO On-Page Optimization: Title, Meta Description & Keywords -->
+    <title>TAVROO | Custom Clothing Online, Unisex Streetwear & Build Your Own Outfit</title>
+    <meta name="description" content="Shop bespoke custom clothing online with TAVROO. Discover luxury unisex streetwear, oversized t shirts, custom graphic tees, and build your own outfit with our AI dressing studio. Ethical made-to-order fashion.">
+    <meta name="keywords" content="custom clothing online, unisex streetwear, build your own outfit, custom t shirts, custom graphic tees, personalized clothing, design your own shirt, oversized t shirt, gender neutral clothing, baggy jeans styling, aesthetic casual outfits, outfit builder online, mix and match clothing sets, t shirt and jeans combo">
     <meta name="author" content="TAVROO Studio">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://tavroo.vercel.app/">
@@ -25,35 +25,42 @@
     <!-- Open Graph / Facebook / LinkedIn -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tavroo.vercel.app/">
-    <meta property="og:title" content="TAVROO | Contemporary Luxury Fashion & AI Virtual Dressing Studio">
-    <meta property="og:description" content="Wear Your Point of View. Architectural tailoring meets AI virtual dressing and made-to-order sustainable luxury.">
+    <meta property="og:site_name" content="TAVROO Contemporary Fashion">
+    <meta property="og:title" content="TAVROO | Custom Clothing Online, Unisex Streetwear & Build Your Own Outfit">
+    <meta property="og:description" content="Discover premium custom clothing online and unisex streetwear. Build your own outfit with our AI dressing studio and explore aesthetic casual outfits tailored to order.">
     <meta property="og:image" content="https://tavroo.vercel.app/logo.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="TAVROO | Contemporary Luxury Fashion & 3D Atelier">
-    <meta name="twitter:description" content="Custom fashion engineering for distinct minds. Build your avatar, layer dynamic apparel, and shape your own aesthetic code.">
+    <meta name="twitter:site" content="@tavroostudio">
+    <meta name="twitter:title" content="TAVROO | Custom Clothing Online, Unisex Streetwear & Build Your Own Outfit">
+    <meta name="twitter:description" content="Bespoke custom clothing online, unisex streetwear, and AI virtual dressing studio. Build your own outfit and shop aesthetic casual outfits crafted in Bangalore.">
     <meta name="twitter:image" content="https://tavroo.vercel.app/logo.png">
 
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Schema.org JSON-LD Structured Data for On-Page SEO -->
+    <!-- Schema.org JSON-LD Structured Data: Organization, WebSite, & Product Catalog -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "ClothingStore",
-          "@id": "https://tavroo.vercel.app/#store",
+          "@type": "Organization",
+          "@id": "https://tavroo.vercel.app/#organization",
           "name": "TAVROO Studio",
+          "alternateName": ["TAVROO", "TAVROO Contemporary Fashion"],
           "url": "https://tavroo.vercel.app/",
-          "logo": "https://tavroo.vercel.app/logo.png",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://tavroo.vercel.app/logo.png",
+            "caption": "TAVROO Logo Mark"
+          },
           "image": "https://tavroo.vercel.app/assets/images/custom-design-studio-tee.png",
-          "description": "Contemporary luxury fashion and interactive 3D garment customization atelier based in Bangalore, India.",
+          "description": "Leading atelier for bespoke custom clothing online, unisex streetwear, custom graphic tees, oversized t shirts, and gender neutral clothing. Interactive 3D garment customization studio based in Bangalore, India.",
           "telephone": "+91-80-4900-8287",
           "email": "concierge@tavro.studio",
-          "priceRange": "Accessible Studio Luxury",
+          "priceRange": "₹799 - ₹2,000",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "Level 3, Design Pavilion, 100 Feet Road, Indiranagar",
@@ -80,8 +87,103 @@
           "@type": "WebSite",
           "@id": "https://tavroo.vercel.app/#website",
           "url": "https://tavroo.vercel.app/",
-          "name": "TAVROO - Wear Your Point of View",
-          "publisher": { "@id": "https://tavroo.vercel.app/#store" }
+          "name": "TAVROO | Custom Clothing Online & Unisex Streetwear",
+          "description": "Bespoke custom clothing online, unisex streetwear, outfit builder online, and made-to-order couture.",
+          "publisher": { "@id": "https://tavroo.vercel.app/#organization" },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://tavroo.vercel.app/catalog.html?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://tavroo.vercel.app/#featured-products",
+          "name": "Featured Custom Clothing & Unisex Streetwear Drops",
+          "description": "Curated oversized t shirts, custom graphic tees, and baggy jeans styling essentials.",
+          "numberOfItems": 4,
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@type": "Product",
+                "name": "TAVROO Custom Studio Graphic Tee",
+                "image": "https://tavroo.vercel.app/assets/images/custom-design-studio-tee.png",
+                "description": "Personalized custom graphic tees in 280 GSM combed organic cotton. Design your own shirt with interactive typography Decal placement.",
+                "brand": { "@type": "Brand", "name": "TAVROO" },
+                "category": "Custom Graphic Tees",
+                "offers": {
+                  "@type": "Offer",
+                  "priceCurrency": "INR",
+                  "price": "799",
+                  "availability": "https://schema.org/PreOrder",
+                  "itemCondition": "https://schema.org/NewCondition",
+                  "url": "https://tavroo.vercel.app/catalog.html"
+                }
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@type": "Product",
+                "name": "Chicago 23 Oversized Jersey Tee",
+                "image": "https://tavroo.vercel.app/assets/images/chicago-23-jersey-tee.png",
+                "description": "Athletic unisex streetwear oversized t shirt crafted with breathable aeromesh and collegiate typographic panels.",
+                "brand": { "@type": "Brand", "name": "TAVROO" },
+                "category": "Oversized T Shirt",
+                "offers": {
+                  "@type": "Offer",
+                  "priceCurrency": "INR",
+                  "price": "999",
+                  "availability": "https://schema.org/PreOrder",
+                  "itemCondition": "https://schema.org/NewCondition",
+                  "url": "https://tavroo.vercel.app/catalog.html"
+                }
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "item": {
+                "@type": "Product",
+                "name": "Washed Black Straight Jeans - Baggy Jeans Styling",
+                "image": "https://tavroo.vercel.app/assets/products/denims/washed-black-straight-jeans.png",
+                "description": "13.5 oz raw slub denim jeans designed for relaxed baggy jeans styling and effortless t shirt and jeans combo outfits.",
+                "brand": { "@type": "Brand", "name": "TAVROO" },
+                "category": "Baggy Jeans Styling",
+                "offers": {
+                  "@type": "Offer",
+                  "priceCurrency": "INR",
+                  "price": "1699",
+                  "availability": "https://schema.org/PreOrder",
+                  "itemCondition": "https://schema.org/NewCondition",
+                  "url": "https://tavroo.vercel.app/catalog.html"
+                }
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "item": {
+                "@type": "Product",
+                "name": "Vegan Leather Blazer & Parachute Cargo Trousers",
+                "image": "https://tavroo.vercel.app/assets/images/parachute-cargo-leather-blazer.png",
+                "description": "Architectural unisex streetwear set pairing an oversized vegan leather jacket with wide-leg teal parachute cargo pants.",
+                "brand": { "@type": "Brand", "name": "TAVROO" },
+                "category": "Mix and Match Clothing Sets",
+                "offers": {
+                  "@type": "Offer",
+                  "priceCurrency": "INR",
+                  "price": "1899",
+                  "availability": "https://schema.org/PreOrder",
+                  "itemCondition": "https://schema.org/NewCondition",
+                  "url": "https://tavroo.vercel.app/catalog.html"
+                }
+              }
+            }
+          ]
         },
         {
           "@type": "FAQPage",
@@ -89,26 +191,34 @@
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "How does the TAVROO AI Virtual Dressing Studio work?",
+              "name": "How does the TAVROO AI Outfit Builder & Virtual Dressing Studio work?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Our AI Virtual Dressing Studio allows you to select upper and lower garments, choose inclusive base model poses, and generate photorealistic virtual try-on looks powered by IMAGDressing-v1 before your made-to-order piece is tailored."
+                "text": "Our AI outfit builder online allows you to mix and match clothing sets, select oversized t shirts and baggy jeans, and generate photorealistic virtual try-on looks before your custom clothing is stitched."
               }
             },
             {
               "@type": "Question",
-              "name": "What is the price range for TAVROO garments?",
+              "name": "Can I design my own shirt and personalized clothing on TAVROO?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "All TAVROO garments are strictly priced between ₹799 and ₹2,000, delivering luxury atelier quality, heavyweight organic cottons, and architectural denim without middleman markups."
+                "text": "Yes, TAVROO offers custom graphic tees and personalized clothing options. You can customize graphics, choose unisex streetwear silhouettes, and build your own outfit online."
               }
             },
             {
               "@type": "Question",
-              "name": "How does TAVROO practice sustainable fashion?",
+              "name": "What is the price range for TAVROO custom clothing online?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "TAVROO operates on an ethical made-to-order production model in Bangalore. By utilizing real-time 3D prototyping, we cut and sew only what is ordered, generating zero unsold deadstock."
+                "text": "All TAVROO garments are priced between ₹799 and ₹2,000, delivering luxury atelier quality, heavyweight organic cottons, and architectural denim without middleman markups."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does TAVROO practice sustainable, gender neutral fashion?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "TAVROO designs gender neutral clothing and unisex streetwear on an ethical made-to-order production model in Bangalore, generating zero unsold deadstock waste."
               }
             }
           ]
@@ -217,8 +327,8 @@
             <div class="hero-content">
                 <span class="hero-eyebrow">Autumn / Winter 2026 Atelier Collection · Bangalore</span>
                 <!-- Primary H1 Heading Tag (SEO Optimized) -->
-                <h1 class="hero-title">WEAR YOUR <em>POINT OF VIEW</em></h1>
-                <p class="subtitle">Where contemporary luxury fashion meets digital-first garment engineering. Experience neural AI virtual try-on, sculptural denim, and made-to-order couture tailored to your individual aesthetic code.</p>
+                <h1 class="hero-title">WEAR YOUR <em>POINT OF VIEW</em><span style="display:block; font-size:clamp(0.95rem, 1.8vw, 1.35rem); font-family:var(--font-body); font-weight:400; color:var(--accent-champagne); letter-spacing:3px; text-transform:uppercase; margin-top:0.8rem;">Custom Clothing Online · Unisex Streetwear · Build Your Own Outfit</span></h1>
+                <p class="subtitle">Where luxury custom clothing online meets digital garment engineering. Build your own outfit with AI virtual try-on, explore custom graphic tees, oversized t shirts, and baggy jeans styling tailored to order in Bangalore.</p>
 
                 <!-- Dual Call-to-Action (CTA) -->
                 <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
@@ -251,16 +361,16 @@
         <section class="homepage-section" id="ovp" aria-labelledby="ovp-title">
             <div class="section-header">
                 <span class="section-eyebrow">Why TAVROO · Our Distinct Identity</span>
-                <h2 class="section-title" id="ovp-title">ONLINE VALUE <em>PROPOSITION</em></h2>
-                <p class="section-desc">We challenge traditional fashion excess. By pairing browser-based 3D simulation with artisanal Bangalore atelier tailoring, TAVROO delivers made-to-measure personal luxury without retail markups.</p>
+                <h2 class="section-title" id="ovp-title">CUSTOM CLOTHING ONLINE & <em>UNISEX STREETWEAR</em></h2>
+                <p class="section-desc">We challenge traditional fashion excess. By pairing browser-based 3D simulation with artisanal Bangalore atelier tailoring, TAVROO delivers custom clothing online and personalized clothing without retail markups.</p>
             </div>
 
             <div class="ovp-grid">
                 <!-- Pillar 1 -->
                 <article class="ovp-card">
                     <span class="ovp-num">PILLAR 01</span>
-                    <h3>AI Virtual Dressing & Fitting</h3>
-                    <p>Select tailored tops and bottoms, choose inclusive model poses, and generate photorealistic virtual try-on looks before a single stitch is sewn. Zero guesswork sizing.</p>
+                    <h3>Build Your Own Outfit with AI Virtual Try-On</h3>
+                    <p>Select tailored tops and bottoms, choose inclusive model poses, and mix and match clothing sets with photorealistic virtual try-ons before sewing. Zero guesswork sizing.</p>
                     <div class="ovp-badge">
                         <span>✦ Powered by IMAGDressing AI</span>
                     </div>
@@ -269,8 +379,8 @@
                 <!-- Pillar 2 -->
                 <article class="ovp-card">
                     <span class="ovp-num">PILLAR 02</span>
-                    <h3>Accessible Studio Luxury</h3>
-                    <p>Haute-couture aesthetics democratized. Direct-to-consumer digital fabrication removes showroom markups, offering heavyweight 280 GSM cottons and Japanese denim with accessible studio pricing.</p>
+                    <h3>Personalized Clothing & Accessible Studio Luxury</h3>
+                    <p>Design your own shirt and personalize wardrobe essentials. Direct-to-consumer digital fabrication removes showroom markups, offering heavyweight 280 GSM custom t shirts and Japanese denim with accessible studio pricing.</p>
                     <div class="ovp-badge">
                         <span>✦ Transparent Atelier Pricing</span>
                     </div>
@@ -279,8 +389,8 @@
                 <!-- Pillar 3 -->
                 <article class="ovp-card">
                     <span class="ovp-num">PILLAR 03</span>
-                    <h3>Zero-Waste Made-To-Order</h3>
-                    <p>Fast fashion landfills 92 million tonnes of unsold textiles each year. TAVROO manufactures only what our community designs and orders. Every garment has an intended owner from day one.</p>
+                    <h3>Zero-Waste Made-To-Order & Gender Neutral Clothing</h3>
+                    <p>Fast fashion landfills millions of tonnes of unsold textiles each year. TAVROO crafts gender neutral clothing manufactured only when you design and order. Every garment has an intended owner from day one.</p>
                     <div class="ovp-badge">
                         <span>✦ Ethical Bangalore Craftsmanship</span>
                     </div>
@@ -289,8 +399,8 @@
                 <!-- Pillar 4 -->
                 <article class="ovp-card">
                     <span class="ovp-num">PILLAR 04</span>
-                    <h3>Architectural Contemporary Tailoring</h3>
-                    <p>Designed for distinct minds. Sharp dropped shoulders, wide-leg fluid silhouettes, custom garment dye washes, and brutalist metal hardware designed to remain in your wardrobe for decades.</p>
+                    <h3>Aesthetic Casual Outfits & Baggy Jeans Styling</h3>
+                    <p>Designed for distinct minds. Sharp dropped-shoulder oversized t shirts, fluid baggy jeans styling, and brutalist metal hardware engineered for aesthetic casual outfits that endure.</p>
                     <div class="ovp-badge">
                         <span>✦ Timeless Silhouette Codes</span>
                     </div>
@@ -306,8 +416,8 @@
         <section class="homepage-section" id="products" aria-labelledby="products-title">
             <div class="section-header">
                 <span class="section-eyebrow">Curated AW26 Drops</span>
-                <h2 class="section-title" id="products-title">ATELIER COLLECTIONS & <em>SERVICES</em></h2>
-                <p class="section-desc">Explore our signature garments photographed on real models. Each piece is available for immediate order or interactive 3D tailoring.</p>
+                <h2 class="section-title" id="products-title">UNISEX STREETWEAR & <em>CUSTOM GRAPHIC TEES</em></h2>
+                <p class="section-desc">Explore our signature oversized t shirts, custom graphic tees, and baggy jeans styling photographed on real models. Build your own outfit or customize in 3D.</p>
             </div>
 
             <!-- Category Filter Tabs -->
@@ -325,7 +435,7 @@
                     <span class="catalog-card-tag">Made-To-Order</span>
                     <span class="catalog-badge-pill">Best Seller</span>
                     <div class="catalog-card-img">
-                        <img src="assets/images/custom-design-studio-tee.png" alt="TAVROO Custom Studio Graphic Tee in heavyweight organic cotton" loading="lazy">
+                        <img src="assets/images/custom-design-studio-tee.png" alt="TAVROO Custom Studio Graphic Tee in heavyweight organic cotton - custom graphic tees and personalized clothing" loading="lazy">
                     </div>
                     <div class="catalog-info">
                         <div class="product-rating" aria-label="5 out of 5 stars">
@@ -345,7 +455,7 @@
                     <span class="catalog-card-tag">Atelier Set</span>
                     <span class="catalog-badge-pill">Editorial Drop</span>
                     <div class="catalog-card-img">
-                        <img src="assets/images/parachute-cargo-leather-blazer.png" alt="Model wearing vegan leather blazer and parachute cargo trousers by TAVROO" loading="lazy">
+                        <img src="assets/images/parachute-cargo-leather-blazer.png" alt="Model wearing vegan leather blazer and parachute cargo trousers - unisex streetwear mix and match clothing sets" loading="lazy">
                     </div>
                     <div class="catalog-info">
                         <div class="product-rating" aria-label="5 out of 5 stars">
@@ -364,7 +474,7 @@
                 <article class="catalog-card" data-category="tops">
                     <span class="catalog-card-tag">Streetwear</span>
                     <div class="catalog-card-img">
-                        <img src="assets/images/chicago-23-jersey-tee.png" alt="Model wearing Chicago 23 oversized athletic jersey tee with breathable mesh" loading="lazy">
+                        <img src="assets/images/chicago-23-jersey-tee.png" alt="Model wearing Chicago 23 oversized athletic jersey tee - unisex streetwear and oversized t shirt" loading="lazy">
                     </div>
                     <div class="catalog-info">
                         <div class="product-rating" aria-label="5 out of 5 stars">
@@ -376,14 +486,13 @@
                             <div class="catalog-price">₹999 <span>₹1,699</span></div>
                             <a href="torso-collection.html" class="btn-secondary" style="padding: 0.6rem 1.2rem; font-size: 0.74rem;">View Tops →</a>
                         </div>
-                    </div>
                 </article>
 
                 <!-- Product 4: Chocolate Pinstripe Tailored Shirt -->
                 <article class="catalog-card" data-category="tops">
                     <span class="catalog-card-tag">Contemporary</span>
                     <div class="catalog-card-img">
-                        <img src="assets/products/chocolate-pinstripe-shirt.png" alt="Model wearing chocolate brown pinstripe tailored shirt" loading="lazy">
+                        <img src="assets/products/chocolate-pinstripe-shirt.png" alt="Model wearing chocolate brown pinstripe tailored shirt - aesthetic casual outfits and unisex streetwear" loading="lazy">
                     </div>
                     <div class="catalog-info">
                         <div class="product-rating" aria-label="5 out of 5 stars">
@@ -402,7 +511,7 @@
                 <article class="catalog-card" data-category="bottoms">
                     <span class="catalog-card-tag">Denim Studio</span>
                     <div class="catalog-card-img">
-                        <img src="assets/products/denims/washed-black-straight-jeans.png" alt="Model wearing washed black straight fit denim trousers by TAVROO" loading="lazy">
+                        <img src="assets/products/denims/washed-black-straight-jeans.png" alt="Model wearing washed black straight fit denim trousers - baggy jeans styling and t shirt and jeans combo" loading="lazy">
                     </div>
                     <div class="catalog-info">
                         <div class="product-rating" aria-label="5 out of 5 stars">
@@ -431,8 +540,8 @@
                         <div class="product-rating">
                             ★★★★★ <span>(5.0 · Included Free)</span>
                         </div>
-                        <h3 class="catalog-item-title">AI Virtual Dressing & Fitting Service</h3>
-                        <p class="catalog-desc">Photorealistic virtual try-on, gender department filtering, inclusive base model poses, and instant styling previews.</p>
+                        <h3 class="catalog-item-title">AI Outfit Builder Online & Virtual Dressing</h3>
+                        <p class="catalog-desc">Photorealistic virtual try-on, gender neutral clothing filtering, mix and match clothing sets, and instant styling previews.</p>
                         <div class="catalog-footer-row">
                             <div class="catalog-price">FREE <span>Complimentary</span></div>
                             <a href="showcase.html" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.74rem;">Launch AI Studio ✦</a>
@@ -450,12 +559,12 @@
         <section class="homepage-section" aria-label="AI Virtual Dressing Experience Banner">
             <div class="atelier-feature-banner">
                 <div>
-                    <span class="section-eyebrow">Proprietary Technology</span>
+                    <span class="section-eyebrow">Outfit Builder Online</span>
                     <h2 style="font-family: var(--font-editorial); font-size: clamp(2.2rem, 3.5vw, 3.4rem); color: #fff; line-height: 1.15; margin-bottom: 1.2rem;">
-                        EXPERIENCE COUTURE IN <em>VIRTUAL AI STUDIO</em>
+                        BUILD YOUR OWN OUTFIT IN <em>VIRTUAL AI STUDIO</em>
                     </h2>
                     <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem;">
-                        Step into our AI Dressing Studio powered by IMAGDressing-v1. Select upper tops and bottoms, choose inclusive runway model poses, and generate photorealistic virtual try-ons prior to atelier sewing.
+                        Step into our AI outfit builder online powered by IMAGDressing-v1. Mix and match clothing sets, design your own shirt, and style the ultimate t shirt and jeans combo with photorealistic virtual try-ons prior to atelier sewing.
                     </p>
                     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                         <a href="showcase.html" class="btn-primary">Launch AI Dressing Studio ✦</a>

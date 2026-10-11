@@ -4,7 +4,28 @@
 
 ## 📅 Last Session Footprint
 
-- **Timestamp:** 2026-10-12 02:30 IST
+- **Timestamp:** 2026-10-12 03:00 IST
+- **Active Task:** Sitewide On-Page SEO, Metadata, and Schema.org Structured Data Optimization for Google Search Visibility:
+  1. **Primary Target Keywords Integration:**
+     - Natural, editorial-grade embedding of high-volume search keywords: `custom t shirts`, `custom clothing online`, `custom graphic tees`, `personalized clothing`, `design your own shirt`, `oversized t shirt`, `unisex streetwear`, `gender neutral clothing`, `baggy jeans styling`, `aesthetic casual outfits`, `outfit builder online`, `mix and match clothing sets`, `build your own outfit`, `t shirt and jeans combo`.
+  2. **Sitewide Meta Titles, Descriptions & Canonical Tags:**
+     - **Homepage (`index.html`):** Title: *"TAVROO | Custom Clothing Online, Unisex Streetwear & Build Your Own Outfit"*. Description targeting custom clothing online, unisex streetwear, and virtual AI try-on. Self-referencing canonical `https://tavroo.vercel.app/`.
+     - **Lookbook Catalog (`catalog.html`):** Title: *"Oversized T Shirt, Custom Graphic Tees & Baggy Jeans Styling | TAVROO Lookbook"*. Description targeting oversized t shirts, custom graphic tees, baggy jeans styling, and aesthetic casual outfits. Self-referencing canonical `https://tavroo.vercel.app/catalog.html`.
+     - **Outfit Builder (`showcase.html`):** Title: *"Outfit Builder Online: Mix and Match Clothing Sets & Design Your Own Shirt | TAVROO"*. Description targeting outfit builder online, mix and match clothing sets, design your own shirt, and t shirt and jeans combo. Self-referencing canonical `https://tavroo.vercel.app/showcase.html`.
+     - **Category Collections & Flows:** Self-referencing canonicals, social meta tags, and optimized keywords implemented across `torso-collection.html`, `legs-collection.html`, `headwear-collection.html`, `footwear-collection.html`, `about.html`, `cart.html`, and `checkout.html`.
+  3. **Heading Tags & Content Placement:**
+     - Seamlessly integrated primary keywords into `<h1>`, `<h2>`, and section subheadings across homepage, catalog, outfit builder studio, and collections without keyword stuffing.
+     - Updated 68+ product card image alt-texts and `data-alt` attributes throughout the Lookbook catalog and homepage grid with descriptive search terms (e.g., `oversized t shirt`, `custom graphic tees`, `baggy jeans styling`, `t shirt and jeans combo`).
+  4. **Structured Data (Schema.org JSON-LD Graph):**
+     - Injected comprehensive JSON-LD schemas across site headers:
+       - `Organization`: Brand identity, logo, address, contact, priceRange (`₹799 - ₹2,000`), social profile links (`sameAs`).
+       - `WebSite`: Publisher reference and `SearchAction` targeting catalog search.
+       - `CollectionPage` & `ItemList` with detailed `Product` schema entries (name, category, priceCurrency, availability pre-orders).
+       - `WebApplication`: Complete schema for the interactive Outfit Builder Online.
+  5. **Social Metadata (OpenGraph & Twitter Cards):**
+     - Validated complete `og:site_name`, `og:type`, `og:title`, `og:description`, `og:image`, `og:url` and Twitter Card metadata (`summary_large_image`) across all pages.
+
+- **Previous Session Footprint (2026-10-12 02:30 IST):**
 - **Active Task:** Fix "Add to Cart" glitch, prevent premature page redirects, and build dedicated Cart (`/cart`) & Checkout (`/checkout`) page flow:
   1. **"Add to Cart" Glitch Fix (Stay on Current Page):**
      - Completely removed intrusive slide-out drawer backdrops, dialog popups, and screen-blurring modals that hid catalog products or caused screen freezes/glitches.

@@ -12,8 +12,74 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Virtual Dressing Studio - TAVROO Contemporary Fashion</title>
-    <meta name="description" content="TAVROO AI Virtual Dressing Studio powered by IMAGDressing. Upload garments, choose poses, and generate photorealistic virtual try-on images with AI.">
+    <title>Outfit Builder Online: Mix and Match Clothing Sets & Design Your Own Shirt | TAVROO</title>
+    <meta name="description" content="Build your own outfit with TAVROO's AI outfit builder online. Mix and match clothing sets, design your own shirt, and style the ultimate t shirt and jeans combo with photorealistic virtual try-on.">
+    <meta name="keywords" content="outfit builder online, mix and match clothing sets, design your own shirt, t shirt and jeans combo, build your own outfit, custom t shirts, custom clothing online, unisex streetwear, personalized clothing, oversized t shirt, gender neutral clothing, aesthetic casual outfits">
+    <meta name="author" content="TAVROO Studio">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tavroo.vercel.app/showcase.html">
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tavroo.vercel.app/showcase.html">
+    <meta property="og:site_name" content="TAVROO Contemporary Fashion">
+    <meta property="og:title" content="Outfit Builder Online: Mix and Match Clothing Sets & Design Your Own Shirt | TAVROO">
+    <meta property="og:description" content="Build your own outfit with TAVROO's AI outfit builder online. Mix and match clothing sets, design your own shirt, and style the ultimate t shirt and jeans combo.">
+    <meta property="og:image" content="https://tavroo.vercel.app/logo.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@tavroostudio">
+    <meta name="twitter:title" content="Outfit Builder Online: Mix and Match Clothing Sets & Design Your Own Shirt | TAVROO">
+    <meta name="twitter:description" content="Mix and match clothing sets, design your own shirt, and build your own outfit with TAVROO AI Virtual Studio.">
+    <meta name="twitter:image" content="https://tavroo.vercel.app/logo.png">
+
+    <!-- Schema.org JSON-LD Structured Data: WebApplication, WebSite, & Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://tavroo.vercel.app/#organization",
+          "name": "TAVROO Studio",
+          "alternateName": ["TAVROO", "TAVROO Contemporary Fashion"],
+          "url": "https://tavroo.vercel.app/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://tavroo.vercel.app/logo.png",
+            "caption": "TAVROO Logo Mark"
+          },
+          "description": "Bespoke custom clothing online, unisex streetwear, outfit builder online, and 3D made-to-order couture.",
+          "priceRange": "₹799 - ₹2,000"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://tavroo.vercel.app/#website",
+          "url": "https://tavroo.vercel.app/",
+          "name": "TAVROO | Custom Clothing Online & Unisex Streetwear",
+          "publisher": { "@id": "https://tavroo.vercel.app/#organization" }
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://tavroo.vercel.app/showcase.html#app",
+          "name": "TAVROO AI Outfit Builder Online & Virtual Dressing Studio",
+          "url": "https://tavroo.vercel.app/showcase.html",
+          "applicationCategory": "DesignApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas.",
+          "description": "Interactive outfit builder online enabling users to mix and match clothing sets, design your own shirt, and test t shirt and jeans combos with AI virtual dressing.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock"
+          },
+          "creator": { "@id": "https://tavroo.vercel.app/#organization" }
+        }
+      ]
+    }
+    </script>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="showcase-ai.css">
@@ -61,8 +127,8 @@
         <!-- Left Column — Input Controls -->
         <aside class="ai-panel ai-left-panel glass-panel">
             <div class="ai-panel-header">
-                <div class="ai-badge"><span class="pulse-dot"></span> AI DRESSING STUDIO</div>
-                <p class="ai-subtitle">Powered by IMAGDressing-v1 · AAAI 2025</p>
+                <h1 class="ai-badge" style="font-size: 0.72rem; font-weight: 700; margin: 0; letter-spacing: 0.1em; display: inline-flex; align-items: center;"><span class="pulse-dot"></span> OUTFIT BUILDER ONLINE ✦ AI STUDIO</h1>
+                <p class="ai-subtitle">Mix and match clothing sets, design your own shirt, and style the ultimate t shirt and jeans combo with photorealistic AI fitting.</p>
             </div>
 
             <!-- Top-Level Gender Selection & Department Filter -->
@@ -92,8 +158,8 @@
 
             <!-- Step 1: Upper Garment Selection -->
             <div class="ai-step-section">
-                <div class="ai-step-label"><span class="ai-step-num">01</span> Select Top / Upper</div>
-                <p class="ai-step-desc">Choose a top or dress from our collection or upload your own clothing image.</p>
+                <div class="ai-step-label"><span class="ai-step-num">01</span> Select Top · Design Your Own Shirt</div>
+                <p class="ai-step-desc">Pick custom graphic tees or an oversized t shirt from our unisex collection, or design your own shirt via custom upload.</p>
                 
                 <div class="ai-garment-grid" id="ai-garment-grid">
                     <!-- Populated by JS -->
@@ -118,8 +184,8 @@
 
             <!-- Step 2: Bottoms & Lowers Selection -->
             <div class="ai-step-section">
-                <div class="ai-step-label"><span class="ai-step-num">02</span> Select Bottom / Lower <span class="ai-optional-badge">Pair Outfit</span></div>
-                <p class="ai-step-desc">Pick trousers, denim, or cargos from Tavroo's collection or upload your own.</p>
+                <div class="ai-step-label"><span class="ai-step-num">02</span> Select Bottom · T Shirt and Jeans Combo <span class="ai-optional-badge">Pair Outfit</span></div>
+                <p class="ai-step-desc">Pick baggy jeans styling, tailored trousers, or cargos to mix and match clothing sets with your top.</p>
                 
                 <div class="ai-bottoms-grid" id="ai-bottoms-grid">
                     <!-- Populated by JS -->
