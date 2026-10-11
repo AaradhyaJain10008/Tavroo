@@ -2,8 +2,6 @@
 // Integrates with IMAGDressing-v1 via HuggingFace Gradio Space API
 // =================================================================
 
-import { client } from "https://cdn.jsdelivr.net/npm/@gradio/client@0.1.4/dist/index.js";
-
 document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------------------------------
     // 1. CONFIGURATION & HF SPACE URL
@@ -14,12 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const EXAMPLE_BASE = 'https://huggingface.co/spaces/feishen29/IMAGDressing-v1/resolve/main';
 
     // -----------------------------------------------------------------
-    // 2. SAMPLE DATA — Garments, Faces, Poses
+    // 2. SAMPLE DATA — Category-Specific Garments by Gender
     // -----------------------------------------------------------------
     const sampleGarments = [
+        // --- FEMALE DEPARTMENT (Haute Couture, Drape & Tailoring) ---
         { 
             id: 'g1', 
-            name: 'White Dress', 
+            name: 'White Lace Dress', 
+            gender: ['female'],
             img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597315917349_in_post.png`, 
             prompt: 'wearing a luxury white floral embroidered designer dress',
             demoResult: 'assets/images/demo/g1-white-dress.jpg',
@@ -27,7 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         { 
             id: 'g2', 
-            name: 'Black Top', 
+            name: 'Boho Peasant Blouse', 
+            gender: ['female'],
             img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597325621176_in_post.png`, 
             prompt: 'wearing a bohemian floral print peasant blouse top with billowy sleeves',
             demoResult: 'assets/images/demo/g2-black-top.jpg',
@@ -35,7 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         { 
             id: 'g3', 
-            name: 'Green Skirt', 
+            name: 'Parisian Striped Knit', 
+            gender: ['female'],
             img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597325684024_in_post.png`, 
             prompt: 'wearing a navy and white striped breton long sleeve knit top',
             demoResult: 'assets/images/demo/g3-green-skirt.jpg',
@@ -43,7 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         { 
             id: 'g4', 
-            name: 'Patterned Blouse', 
+            name: 'Minimal Ribbed Shirt', 
+            gender: ['female'],
             img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597326026201_in_post.png`, 
             prompt: 'wearing a black ribbed long sleeve shirt, clean minimal studio portrait',
             demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
@@ -51,7 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         { 
             id: 'g5', 
-            name: 'Red Suit', 
+            name: 'Avant-Garde Blazer Suit', 
+            gender: ['female'],
             img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597326873307_in_post.png`, 
             prompt: 'wearing an avant-garde black and white graphic pattern structured blazer suit',
             demoResult: 'assets/images/demo/g5-red-suit.jpg',
@@ -59,18 +63,187 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         { 
             id: 'g6', 
-            name: 'Blue Denim', 
+            name: 'Urban Graphic Tee', 
+            gender: ['female'],
             img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597335012288_in_post.png`, 
             prompt: 'wearing an oversized graphic designer white t-shirt and denim',
             demoResult: 'assets/images/demo/g6-blue-denim.jpg',
             tag: 'Urban Streetwear'
         },
+        { 
+            id: 'g_f7', 
+            name: 'Blush Stripe Relaxed Shirt', 
+            gender: ['female'],
+            img: 'assets/products/blush-stripe-shirt.png', 
+            prompt: 'wearing a light blush pink striped relaxed drape shirt',
+            demoResult: 'assets/images/demo/g2-black-top.jpg',
+            tag: 'Resort Silk'
+        },
+        { 
+            id: 'g_f8', 
+            name: 'Midnight Satin Drape Shirt', 
+            gender: ['female'],
+            img: 'assets/products/new-arrivals/midnight-satin-shirt.png', 
+            prompt: 'wearing a luxurious midnight black satin button-down shirt',
+            demoResult: 'assets/images/demo/g5-red-suit.jpg',
+            tag: 'Evening Luxury'
+        },
+
+        // --- MALE DEPARTMENT (Sartorial Shirts, Heritage Denim & Knitwear) ---
+        { 
+            id: 'g_m1', 
+            name: 'Chocolate Pinstripe Shirt', 
+            gender: ['male'],
+            img: 'assets/products/chocolate-pinstripe-shirt.png', 
+            prompt: 'wearing a tailored chocolate brown pinstripe button-up shirt',
+            demoResult: 'assets/images/demo/g5-red-suit.jpg',
+            tag: 'Sartorial Tailoring'
+        },
+        { 
+            id: 'g_m2', 
+            name: 'Indigo Utility Denim Shirt', 
+            gender: ['male'],
+            img: 'assets/products/indigo-denim-shirt.png', 
+            prompt: 'wearing a rugged short-sleeve indigo denim utility shirt',
+            demoResult: 'assets/images/demo/g6-blue-denim.jpg',
+            tag: 'Heritage Denim'
+        },
+        { 
+            id: 'g_m3', 
+            name: 'Olive Colourblock Shirt', 
+            gender: ['male'],
+            img: 'assets/products/olive-colourblock-shirt.png', 
+            prompt: 'wearing an olive green and ivory colourblock camp collar shirt',
+            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            tag: 'Contemporary Resort'
+        },
+        { 
+            id: 'g_m4', 
+            name: 'Chicago 23 Heavyweight Tee', 
+            gender: ['male'],
+            img: 'assets/products/new-arrivals/chicago-jersey-tee.png', 
+            prompt: 'wearing a vintage heavyweight boxy graphic streetwear t-shirt',
+            demoResult: 'assets/images/demo/g6-blue-denim.jpg',
+            tag: 'Streetwear Heritage'
+        },
+        { 
+            id: 'g_m5', 
+            name: 'Coffee Contrast Knit Polo', 
+            gender: ['male'],
+            img: 'assets/products/new-arrivals/coffee-contrast-polo.png', 
+            prompt: 'wearing a textured espresso coffee contrast collar knit polo',
+            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            tag: 'Atelier Knitwear'
+        },
+        { 
+            id: 'g_m6', 
+            name: 'Navy Stripe Sweatshirt', 
+            gender: ['male'],
+            img: 'assets/products/new-arrivals/navy-stripe-sweatshirt.png', 
+            prompt: 'wearing an architectural navy and cream striped crewneck sweater',
+            demoResult: 'assets/images/demo/g3-green-skirt.jpg',
+            tag: 'Luxury Casual'
+        },
+        { 
+            id: 'g_m7', 
+            name: 'Crane Embroidered Shirt', 
+            gender: ['male'],
+            img: 'assets/products/new-arrivals/crane-embroidered-shirt.png', 
+            prompt: 'wearing an artistic black button-up shirt with golden crane embroidery',
+            demoResult: 'assets/images/demo/g5-red-suit.jpg',
+            tag: 'Artisanal Craft'
+        },
+        { 
+            id: 'g_m8', 
+            name: 'Rust Fine-Gauge Polo', 
+            gender: ['male'],
+            img: 'assets/products/new-arrivals/rust-knit-polo.png', 
+            prompt: 'wearing a tailored rust terracotta knit polo shirt',
+            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            tag: 'Fine Gauge Knit'
+        },
+
+        // --- NON-BINARY DEPARTMENT (Architectural, Fluid & Oversized) ---
+        { 
+            id: 'g_nb1', 
+            name: 'Deconstructed Graphic Tee', 
+            gender: ['non-binary'],
+            img: 'assets/images/custom-design-studio-tee.png', 
+            prompt: 'wearing an oversized deconstructed graphic t-shirt, fluid unisex silhouette',
+            demoResult: 'assets/images/demo/g6-blue-denim.jpg',
+            tag: 'Fluid Streetwear'
+        },
+        { 
+            id: 'g_nb2', 
+            name: 'Parachute Leather Blazer', 
+            gender: ['non-binary'],
+            img: 'assets/images/parachute-cargo-leather-blazer.png', 
+            prompt: 'wearing an architectural oversized vegan leather blazer, gender-neutral tailoring',
+            demoResult: 'assets/images/demo/g5-red-suit.jpg',
+            tag: 'Architectural Tailoring'
+        },
+        { 
+            id: 'g_nb3', 
+            name: 'Geometric Runway Jacket', 
+            gender: ['non-binary'],
+            img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597326873307_in_post.png`, 
+            prompt: 'wearing an avant-garde black and white geometric structured suit jacket',
+            demoResult: 'assets/images/demo/g5-red-suit.jpg',
+            tag: 'Runway Sculptural'
+        },
+        { 
+            id: 'g_nb4', 
+            name: 'Forest Relaxed Studio Tee', 
+            gender: ['non-binary'],
+            img: 'assets/products/new-arrivals/forest-relaxed-tee.png', 
+            prompt: 'wearing a heavy draped forest green oversized drop-shoulder t-shirt',
+            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            tag: 'Oversized Minimal'
+        },
+        { 
+            id: 'g_nb5', 
+            name: 'Ivory Boxy Embroidered Shirt', 
+            gender: ['non-binary'],
+            img: 'assets/products/new-arrivals/ivory-embroidered-shirt.png', 
+            prompt: 'wearing a clean ivory boxy cut shirt with subtle tonal embroidery',
+            demoResult: 'assets/images/demo/g1-white-dress.jpg',
+            tag: 'Clean Minimal'
+        },
+        { 
+            id: 'g_nb6', 
+            name: 'Breton Fluid Knit Top', 
+            gender: ['non-binary'],
+            img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597325684024_in_post.png`, 
+            prompt: 'wearing a fluid unisex nautical breton stripe long sleeve top',
+            demoResult: 'assets/images/demo/g3-green-skirt.jpg',
+            tag: 'Timeless Breton'
+        },
+        { 
+            id: 'g_nb7', 
+            name: 'Minimal Black Ribbed Knit', 
+            gender: ['non-binary'],
+            img: `${EXAMPLE_BASE}/example/cloth/NAP_1647597326026201_in_post.png`, 
+            prompt: 'wearing a minimal unisex black ribbed crewneck long sleeve shirt',
+            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            tag: 'Monochrome Minimal'
+        },
+        { 
+            id: 'g_nb8', 
+            name: 'Vintage Studio Graphic Tee', 
+            gender: ['non-binary'],
+            img: 'assets/products/new-arrivals/vintage-classic-tee.png', 
+            prompt: 'wearing an earthy vintage-washed heavyweight relaxed fit t-shirt',
+            demoResult: 'assets/images/demo/g6-blue-denim.jpg',
+            tag: 'Heritage Casual'
+        }
     ];
 
     const sampleBottoms = [
+        // --- FEMALE BOTTOMS ---
         {
             id: 'b1',
-            name: 'Stone Trousers',
+            name: 'Stone Tailored Trousers',
+            gender: ['female'],
             img: 'assets/products/denims/stone-tailored-trousers.png',
             prompt: 'wearing tailored high-waisted stone pleat wide-leg trousers',
             demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
@@ -78,7 +251,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'b2',
-            name: 'Wide-Leg Denim',
+            name: 'Light Wide-Leg Denim',
+            gender: ['female'],
             img: 'assets/products/denims/light-wide-leg-jeans.png',
             prompt: 'wearing relaxed light wash wide-leg denim jeans',
             demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
@@ -86,35 +260,151 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'b3',
-            name: 'Olive Cargos',
+            name: 'Olive Utility Cargos',
+            gender: ['female'],
             img: 'assets/products/denims/olive-utility-cargos.png',
             prompt: 'wearing olive green utility cargo trousers with cinch toggles',
             demoResult: 'assets/images/demo/b3-olive-cargos.jpg',
             tag: 'Utility Streetwear'
         },
         {
-            id: 'b4',
-            name: 'Charcoal Jeans',
-            img: 'assets/products/denims/charcoal-relaxed-jeans.png',
-            prompt: 'wearing charcoal relaxed straight denim pants',
-            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
-            tag: 'Monochrome Denim'
+            id: 'b_f4',
+            name: 'Washed Flare Denim',
+            gender: ['female'],
+            img: 'assets/products/denims/washed-flare-jeans.png',
+            prompt: 'wearing high-rise washed flare indigo denim trousers',
+            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            tag: '70s High Rise'
+        },
+        {
+            id: 'b_f5',
+            name: 'Ivory Minimal Joggers',
+            gender: ['female'],
+            img: 'assets/products/denims/ivory-joggers.png',
+            prompt: 'wearing clean ivory cream relaxed fleece joggers',
+            demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
+            tag: 'Lounge Luxury'
         },
         {
             id: 'b5',
-            name: 'Navy Pinstripe',
+            name: 'Navy Pinstripe Trousers',
+            gender: ['female'],
             img: 'assets/products/denims/navy-pinstripe-trousers.png',
             prompt: 'wearing navy blue tailored trousers with fine vertical pinstripes',
             demoResult: 'assets/images/demo/g3-green-skirt.jpg',
             tag: 'Parisian Tailored'
         },
+
+        // --- MALE BOTTOMS ---
+        {
+            id: 'b4',
+            name: 'Charcoal Relaxed Denim',
+            gender: ['male'],
+            img: 'assets/products/denims/charcoal-relaxed-jeans.png',
+            prompt: 'wearing relaxed charcoal washed straight-leg denim jeans',
+            demoResult: 'assets/images/demo/g4-patterned-blouse.jpg',
+            tag: 'Relaxed Denim'
+        },
+        {
+            id: 'b_m2',
+            name: 'Olive Tactical Cargos',
+            gender: ['male'],
+            img: 'assets/products/denims/olive-utility-cargos.png',
+            prompt: 'wearing olive green utility cargo trousers with tactical pockets',
+            demoResult: 'assets/images/demo/b3-olive-cargos.jpg',
+            tag: 'Tactical Cargo'
+        },
+        {
+            id: 'b_m3',
+            name: 'Stone Pleated Trousers',
+            gender: ['male'],
+            img: 'assets/products/denims/stone-tailored-trousers.png',
+            prompt: 'wearing stone pleated tailored suiting trousers',
+            demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
+            tag: 'Sartorial Pleat'
+        },
+        {
+            id: 'b_m4',
+            name: 'Dark Raw Straight Denim',
+            gender: ['male'],
+            img: 'assets/products/denims/dark-straight-jeans.png',
+            prompt: 'wearing dark indigo raw selvedge straight leg denim jeans',
+            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            tag: 'Raw Selvedge'
+        },
         {
             id: 'b6',
-            name: 'Cocoa Cargos',
+            name: 'Cocoa Workwear Cargos',
+            gender: ['male'],
             img: 'assets/products/denims/cocoa-cargo-pants.png',
             prompt: 'wearing relaxed cocoa brown cargo pants with utility pockets',
             demoResult: 'assets/images/demo/g2-black-top.jpg',
-            tag: 'Earth Tone Streetwear'
+            tag: 'Workwear Utility'
+        },
+        {
+            id: 'b_m6',
+            name: 'Washed Black Straight Denim',
+            gender: ['male'],
+            img: 'assets/products/denims/washed-black-straight-jeans.png',
+            prompt: 'wearing washed black vintage denim straight leg jeans',
+            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            tag: 'Vintage Wash'
+        },
+
+        // --- NON-BINARY BOTTOMS ---
+        {
+            id: 'b_nb1',
+            name: 'Stone Fluid Wide-Leg',
+            gender: ['non-binary'],
+            img: 'assets/products/denims/stone-tailored-trousers.png',
+            prompt: 'wearing fluid stone high-rise wide-leg pleat trousers',
+            demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
+            tag: 'Fluid Drape'
+        },
+        {
+            id: 'b_nb2',
+            name: 'Olive Parachute Cargos',
+            gender: ['non-binary'],
+            img: 'assets/products/denims/olive-utility-cargos.png',
+            prompt: 'wearing relaxed olive green utility parachute trousers',
+            demoResult: 'assets/images/demo/b3-olive-cargos.jpg',
+            tag: 'Parachute Utility'
+        },
+        {
+            id: 'b_nb3',
+            name: 'Charcoal Universal Denim',
+            gender: ['non-binary'],
+            img: 'assets/products/denims/charcoal-relaxed-jeans.png',
+            prompt: 'wearing charcoal relaxed wide straight-leg denim pants',
+            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            tag: 'Universal Denim'
+        },
+        {
+            id: 'b_nb4',
+            name: 'Slate Architectural Trousers',
+            gender: ['non-binary'],
+            img: 'assets/products/denims/slate-tailored-trousers.png',
+            prompt: 'wearing slate grey architectural tailored wide trousers',
+            demoResult: 'assets/images/demo/b1-stone-trousers.jpg',
+            tag: 'Architectural Suiting'
+        },
+        {
+            id: 'b_nb5',
+            name: 'Wide-Leg Street Jeans',
+            gender: ['non-binary'],
+            img: 'assets/products/denims/wide-leg-street-jeans.png',
+            prompt: 'wearing vintage mid-blue wide-leg streetwear denim jeans',
+            demoResult: 'assets/images/demo/b2-wide-jeans.jpg',
+            tag: 'Streetwear Denim'
+        },
+        {
+            id: 'b_nb6',
+            name: 'Espresso Modular Cargos',
+            gender: ['non-binary'],
+            img: 'assets/products/denims/espresso-cargo-pants.png',
+            prompt: 'wearing deep espresso brown relaxed cargo trousers with modular pockets',
+            demoResult: 'assets/images/demo/b3-olive-cargos.jpg',
+            tag: 'Modular Cargo'
         }
     ];
 
@@ -124,15 +414,153 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'f3', img: `${EXAMPLE_BASE}/example/face/3333.jpg`, name: 'Face 3' }
     ];
 
+    // -----------------------------------------------------------------
+    // INCLUSIVE BASE MODELS & POSE SKELETON FIGURES
+    // -----------------------------------------------------------------
     const samplePoses = [
-        { id: 'p1', name: 'Pose 1', img: `${EXAMPLE_BASE}/example/pose/00034_00.jpg` },
-        { id: 'p2', name: 'Pose 2', img: `${EXAMPLE_BASE}/example/pose/00121_00.jpg` },
-        { id: 'p3', name: 'Pose 3', img: `${EXAMPLE_BASE}/example/pose/01992_00.jpg` }
+        // --- FEMALE BASE FIGURES ---
+        { 
+            id: 'p_f1', 
+            name: 'Runway Frontal', 
+            gender: 'female',
+            categoryLabel: 'Female Base',
+            img: `${EXAMPLE_BASE}/example/pose/00034_00.jpg`,
+            promptModifier: 'high fashion runway model standing centered frontal pose',
+            isDefault: true,
+            poseType: 'frontal'
+        },
+        { 
+            id: 'p_f2', 
+            name: '3/4 Editorial Turn', 
+            gender: 'female',
+            categoryLabel: 'Female Base',
+            img: `${EXAMPLE_BASE}/example/pose/00121_00.jpg`,
+            promptModifier: 'editorial three-quarter angled modeling posture',
+            poseType: 'turn'
+        },
+        { 
+            id: 'p_f3', 
+            name: 'Relaxed Studio Poise', 
+            gender: 'female',
+            categoryLabel: 'Female Base',
+            img: `${EXAMPLE_BASE}/example/pose/01992_00.jpg`,
+            promptModifier: 'relaxed natural standing posture in fashion studio',
+            poseType: 'relaxed'
+        },
+        { 
+            id: 'p_f4', 
+            name: 'Couture Hands on Hips', 
+            gender: 'female',
+            categoryLabel: 'Female Base',
+            img: `${EXAMPLE_BASE}/example/pose/00034_00.jpg`,
+            promptModifier: 'sculpted couture stance with hands on waist',
+            poseType: 'hands_on_hips'
+        },
+        { 
+            id: 'p_f5', 
+            name: 'Catwalk Stride Walk', 
+            gender: 'female',
+            categoryLabel: 'Female Base',
+            img: `${EXAMPLE_BASE}/example/pose/00121_00.jpg`,
+            promptModifier: 'dynamic catwalk walking stride runway pose',
+            poseType: 'stride'
+        },
+
+        // --- MALE BASE FIGURES ---
+        { 
+            id: 'p_m1', 
+            name: 'Athletic Stance', 
+            gender: 'male',
+            categoryLabel: 'Male Base',
+            img: `${EXAMPLE_BASE}/example/pose/00034_00.jpg`,
+            promptModifier: 'confident male model athletic centered upright posture',
+            isDefault: true,
+            poseType: 'athletic'
+        },
+        { 
+            id: 'p_m2', 
+            name: '3/4 Sartorial Turn', 
+            gender: 'male',
+            categoryLabel: 'Male Base',
+            img: `${EXAMPLE_BASE}/example/pose/00121_00.jpg`,
+            promptModifier: 'male fashion model in three-quarter standing silhouette',
+            poseType: 'turn'
+        },
+        { 
+            id: 'p_m3', 
+            name: 'Hands in Pockets', 
+            gender: 'male',
+            categoryLabel: 'Male Base',
+            img: `${EXAMPLE_BASE}/example/pose/01992_00.jpg`,
+            promptModifier: 'casual relaxed male stance with hands tucked in pockets',
+            poseType: 'pockets'
+        },
+        { 
+            id: 'p_m4', 
+            name: 'Runway Stride Walk', 
+            gender: 'male',
+            categoryLabel: 'Male Base',
+            img: `${EXAMPLE_BASE}/example/pose/00121_00.jpg`,
+            promptModifier: 'dynamic male fashion catwalk walking stride',
+            poseType: 'stride'
+        },
+        { 
+            id: 'p_m5', 
+            name: 'Tailored Side Profile', 
+            gender: 'male',
+            categoryLabel: 'Male Base',
+            img: `${EXAMPLE_BASE}/example/pose/00034_00.jpg`,
+            promptModifier: 'sartorial male modeling pose, clean side profile',
+            poseType: 'profile'
+        },
+
+        // --- UNISEX / NON-BINARY BASE FIGURES ---
+        { 
+            id: 'p_u1', 
+            name: 'Neutral Symmetry', 
+            gender: 'unisex',
+            categoryLabel: 'Unisex Base',
+            img: `${EXAMPLE_BASE}/example/pose/00034_00.jpg`,
+            promptModifier: 'architectural gender-neutral symmetrical modeling stance',
+            isDefault: true,
+            poseType: 'frontal'
+        },
+        { 
+            id: 'p_u2', 
+            name: 'Fluid High-Fashion Angle', 
+            gender: 'unisex',
+            categoryLabel: 'Unisex Base',
+            img: `${EXAMPLE_BASE}/example/pose/00121_00.jpg`,
+            promptModifier: 'fluid contemporary avant-garde posture',
+            poseType: 'turn'
+        },
+        { 
+            id: 'p_u3', 
+            name: 'Streetwear Upright', 
+            gender: 'unisex',
+            categoryLabel: 'Unisex Base',
+            img: `${EXAMPLE_BASE}/example/pose/01992_00.jpg`,
+            promptModifier: 'contemporary street fashion upright relaxed pose',
+            poseType: 'relaxed'
+        },
+        { 
+            id: 'p_u4', 
+            name: 'Editorial Motion Flow', 
+            gender: 'unisex',
+            categoryLabel: 'Unisex Base',
+            img: `${EXAMPLE_BASE}/example/pose/00121_00.jpg`,
+            promptModifier: 'fluid high-fashion editorial pose with natural movement',
+            poseType: 'stride'
+        }
     ];
 
     // -----------------------------------------------------------------
     // 3. DOM REFERENCES
     // -----------------------------------------------------------------
+    // Top-Level Gender Controls
+    const genderBtns = document.querySelectorAll('.ai-gender-btn');
+    const genderBadge = document.getElementById('ai-gender-badge');
+
     // Upper Garment Controls
     const garmentGrid = document.getElementById('ai-garment-grid');
     const garmentUpload = document.getElementById('garment-upload');
@@ -158,9 +586,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const facePreviewName = document.getElementById('face-preview-name');
     const clearFaceBtn = document.getElementById('clear-face');
 
+    // Pose & Base Model Controls
     const togglePose = document.getElementById('toggle-pose');
     const poseControls = document.getElementById('pose-controls');
     const poseGrid = document.getElementById('ai-pose-grid');
+    const poseResetBtn = document.getElementById('pose-reset-btn');
+    const poseFilterTabs = document.querySelectorAll('.ai-pose-filter-tab');
+    const toastContainer = document.getElementById('ai-toast-container');
 
     const promptInput = document.getElementById('ai-prompt');
     const generateBtn = document.getElementById('ai-generate-btn');
@@ -213,24 +645,159 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------------------------------
     // 4. STATE
     // -----------------------------------------------------------------
-    let engineMode = 'demo';       // 'demo' | 'live'
-    let selectedGarment = null;   // { id, img, name, isFile, file, prompt, demoResult, tag }
-    let selectedBottom = null;    // { id, img, name, isFile, file, prompt, demoResult, tag }
-    let selectedFace = null;      // { id, img, name, isFile, file }
-    let selectedPose = null;      // { id, img, name, isFile, file }
+    let engineMode = 'demo';              // 'demo' | 'live'
+    let currentGender = 'female';         // 'female' | 'male' | 'non-binary'
+    let currentPoseFilter = 'all';        // 'all' | 'female' | 'male' | 'unisex'
+    let selectedGarment = null;          // { id, img, name, isFile, file, prompt, demoResult, tag }
+    let selectedBottom = null;           // { id, img, name, isFile, file, prompt, demoResult, tag }
+    let selectedFace = null;             // { id, img, name, isFile, file }
+    let selectedPose = null;             // { id, img, name, isFile, file, promptModifier }
     let generationHistory = [];
     let isGenerating = false;
 
+    // Toast feedback notification helper
+    function showToast(message, icon = '✦') {
+        if (!toastContainer) return;
+        const toast = document.createElement('div');
+        toast.className = 'ai-toast';
+        toast.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>${message}</span>
+        `;
+        toastContainer.appendChild(toast);
+        setTimeout(() => {
+            toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(10px)';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    // Dynamic vector skeleton SVG generator for OpenPose visual guidance
+    function getPoseSkeletonSvg(poseType) {
+        if (poseType === 'frontal') {
+            return `
+                <svg class="ai-pose-skeleton-svg" viewBox="0 0 60 90">
+                    <circle cx="30" cy="12" r="6" stroke-width="2" />
+                    <line x1="30" y1="18" x2="30" y2="46" stroke-width="2.4" />
+                    <line x1="18" y1="26" x2="42" y2="26" stroke-width="2.2" />
+                    <line x1="18" y1="26" x2="14" y2="44" stroke-width="2" />
+                    <line x1="14" y1="44" x2="12" y2="58" stroke-width="1.8" />
+                    <line x1="42" y1="26" x2="46" y2="44" stroke-width="2" />
+                    <line x1="46" y1="44" x2="48" y2="58" stroke-width="1.8" />
+                    <line x1="22" y1="46" x2="38" y2="46" stroke-width="2.2" />
+                    <line x1="24" y1="46" x2="23" y2="68" stroke-width="2" />
+                    <line x1="23" y1="68" x2="22" y2="86" stroke-width="1.8" />
+                    <line x1="36" y1="46" x2="37" y2="68" stroke-width="2" />
+                    <line x1="37" y1="68" x2="38" y2="86" stroke-width="1.8" />
+                </svg>
+            `;
+        } else if (poseType === 'turn') {
+            return `
+                <svg class="ai-pose-skeleton-svg" viewBox="0 0 60 90">
+                    <circle cx="28" cy="12" r="6" stroke-width="2" />
+                    <line x1="28" y1="18" x2="30" y2="46" stroke-width="2.4" />
+                    <line x1="20" y1="26" x2="40" y2="24" stroke-width="2.2" />
+                    <line x1="20" y1="26" x2="16" y2="42" stroke-width="2" />
+                    <line x1="16" y1="42" x2="20" y2="56" stroke-width="1.8" />
+                    <line x1="40" y1="24" x2="43" y2="42" stroke-width="2" />
+                    <line x1="43" y1="42" x2="41" y2="56" stroke-width="1.8" />
+                    <line x1="24" y1="46" x2="37" y2="45" stroke-width="2.2" />
+                    <line x1="25" y1="46" x2="22" y2="66" stroke-width="2" />
+                    <line x1="22" y1="66" x2="20" y2="86" stroke-width="1.8" />
+                    <line x1="36" y1="45" x2="37" y2="67" stroke-width="2" />
+                    <line x1="37" y1="67" x2="38" y2="86" stroke-width="1.8" />
+                </svg>
+            `;
+        } else if (poseType === 'hands_on_hips') {
+            return `
+                <svg class="ai-pose-skeleton-svg" viewBox="0 0 60 90">
+                    <circle cx="30" cy="12" r="6" stroke-width="2" />
+                    <line x1="30" y1="18" x2="30" y2="46" stroke-width="2.4" />
+                    <line x1="18" y1="25" x2="42" y2="25" stroke-width="2.2" />
+                    <line x1="18" y1="25" x2="11" y2="38" stroke-width="2" />
+                    <line x1="11" y1="38" x2="20" y2="47" stroke-width="1.8" />
+                    <line x1="42" y1="25" x2="49" y2="38" stroke-width="2" />
+                    <line x1="49" y1="38" x2="40" y2="47" stroke-width="1.8" />
+                    <line x1="22" y1="46" x2="38" y2="46" stroke-width="2.2" />
+                    <line x1="24" y1="46" x2="21" y2="67" stroke-width="2" />
+                    <line x1="21" y1="67" x2="19" y2="86" stroke-width="1.8" />
+                    <line x1="36" y1="46" x2="39" y2="67" stroke-width="2" />
+                    <line x1="39" y1="67" x2="41" y2="86" stroke-width="1.8" />
+                </svg>
+            `;
+        } else if (poseType === 'stride') {
+            return `
+                <svg class="ai-pose-skeleton-svg" viewBox="0 0 60 90">
+                    <circle cx="30" cy="12" r="6" stroke-width="2" />
+                    <line x1="30" y1="18" x2="29" y2="45" stroke-width="2.4" />
+                    <line x1="18" y1="25" x2="42" y2="25" stroke-width="2.2" />
+                    <line x1="18" y1="25" x2="14" y2="40" stroke-width="2" />
+                    <line x1="14" y1="40" x2="10" y2="54" stroke-width="1.8" />
+                    <line x1="42" y1="25" x2="45" y2="40" stroke-width="2" />
+                    <line x1="45" y1="40" x2="46" y2="54" stroke-width="1.8" />
+                    <line x1="22" y1="45" x2="38" y2="45" stroke-width="2.2" />
+                    <line x1="24" y1="45" x2="19" y2="65" stroke-width="2" />
+                    <line x1="19" y1="65" x2="15" y2="86" stroke-width="1.8" />
+                    <line x1="36" y1="45" x2="41" y2="66" stroke-width="2" />
+                    <line x1="41" y1="66" x2="44" y2="86" stroke-width="1.8" />
+                </svg>
+            `;
+        } else if (poseType === 'pockets') {
+            return `
+                <svg class="ai-pose-skeleton-svg" viewBox="0 0 60 90">
+                    <circle cx="30" cy="12" r="6" stroke-width="2" />
+                    <line x1="30" y1="18" x2="30" y2="46" stroke-width="2.4" />
+                    <line x1="16" y1="24" x2="44" y2="24" stroke-width="2.4" />
+                    <line x1="16" y1="24" x2="18" y2="40" stroke-width="2" />
+                    <line x1="18" y1="40" x2="22" y2="50" stroke-width="1.8" />
+                    <line x1="44" y1="24" x2="42" y2="40" stroke-width="2" />
+                    <line x1="42" y1="40" x2="38" y2="50" stroke-width="1.8" />
+                    <line x1="22" y1="46" x2="38" y2="46" stroke-width="2.2" />
+                    <line x1="24" y1="46" x2="23" y2="67" stroke-width="2" />
+                    <line x1="23" y1="67" x2="22" y2="86" stroke-width="1.8" />
+                    <line x1="36" y1="46" x2="37" y2="67" stroke-width="2" />
+                    <line x1="37" y1="67" x2="38" y2="86" stroke-width="1.8" />
+                </svg>
+            `;
+        } else {
+            return `
+                <svg class="ai-pose-skeleton-svg" viewBox="0 0 60 90">
+                    <circle cx="30" cy="12" r="6" stroke-width="2" />
+                    <line x1="30" y1="18" x2="30" y2="46" stroke-width="2.4" />
+                    <line x1="17" y1="25" x2="43" y2="25" stroke-width="2.2" />
+                    <line x1="17" y1="25" x2="13" y2="42" stroke-width="2" />
+                    <line x1="13" y1="42" x2="12" y2="56" stroke-width="1.8" />
+                    <line x1="43" y1="25" x2="47" y2="42" stroke-width="2" />
+                    <line x1="47" y1="42" x2="48" y2="56" stroke-width="1.8" />
+                    <line x1="22" y1="46" x2="38" y2="46" stroke-width="2.2" />
+                    <line x1="24" y1="46" x2="23" y2="67" stroke-width="2" />
+                    <line x1="23" y1="67" x2="22" y2="86" stroke-width="1.8" />
+                    <line x1="36" y1="46" x2="37" y2="67" stroke-width="2" />
+                    <line x1="37" y1="67" x2="38" y2="86" stroke-width="1.8" />
+                </svg>
+            `;
+        }
+    }
+
     // -----------------------------------------------------------------
-    // 5. POPULATE UI GRIDS
+    // 5. POPULATE UI GRIDS (REACTIVE TO GENDER & INCLUSIVE POSES)
     // -----------------------------------------------------------------
     function populateGarments() {
         if (!garmentGrid) return;
         garmentGrid.innerHTML = '';
-        sampleGarments.forEach(g => {
+
+        const filtered = sampleGarments.filter(g => 
+            !g.gender || g.gender.includes(currentGender)
+        );
+
+        filtered.forEach(g => {
             const card = document.createElement('div');
             card.className = 'ai-garment-card';
             card.dataset.id = g.id;
+            if (selectedGarment && selectedGarment.id === g.id) {
+                card.classList.add('selected');
+            }
             card.innerHTML = `
                 <img class="ai-garment-img" src="${g.img}" alt="${g.name}" loading="lazy" crossorigin="anonymous"
                      onerror="this.style.display='none'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML = '<span class=\\'ai-garment-label\\'>${g.name}</span>';">
@@ -239,15 +806,31 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('click', () => selectGarment(g, card));
             garmentGrid.appendChild(card);
         });
+
+        // Ensure a selected garment is active for the current gender
+        if (filtered.length > 0) {
+            const isSelectedInList = selectedGarment && filtered.some(item => item.id === selectedGarment.id);
+            if (!isSelectedInList) {
+                selectGarment(filtered[0], garmentGrid.children[0]);
+            }
+        }
     }
 
     function populateBottoms() {
         if (!bottomsGrid) return;
         bottomsGrid.innerHTML = '';
-        sampleBottoms.forEach(b => {
+
+        const filtered = sampleBottoms.filter(b => 
+            !b.gender || b.gender.includes(currentGender)
+        );
+
+        filtered.forEach(b => {
             const card = document.createElement('div');
             card.className = 'ai-bottom-card';
             card.dataset.id = b.id;
+            if (selectedBottom && selectedBottom.id === b.id) {
+                card.classList.add('selected');
+            }
             card.innerHTML = `
                 <img class="ai-bottom-img" src="${b.img}" alt="${b.name}" loading="lazy"
                      onerror="this.style.display='none'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML = '<span class=\\'ai-bottom-label\\'>${b.name}</span>';">
@@ -259,6 +842,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function populateFaces() {
+        if (!faceExamplesRow) return;
         faceExamplesRow.innerHTML = '';
         sampleFaces.forEach(f => {
             const thumb = document.createElement('div');
@@ -272,15 +856,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function populatePoses() {
+        if (!poseGrid) return;
         poseGrid.innerHTML = '';
-        samplePoses.forEach(p => {
+
+        const filteredPoses = samplePoses.filter(p => {
+            if (currentPoseFilter === 'all') return true;
+            return p.gender === currentPoseFilter;
+        });
+
+        filteredPoses.forEach(p => {
             const card = document.createElement('div');
             card.className = 'ai-pose-card';
             card.dataset.id = p.id;
+            if (selectedPose && selectedPose.id === p.id) {
+                card.classList.add('selected');
+            }
+
+            const genderBadgeClass = p.gender;
             card.innerHTML = `
-                <img class="ai-pose-img" src="${p.img}" alt="${p.name}" loading="lazy" crossorigin="anonymous"
-                     onerror="this.style.display='none'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.innerHTML = '<span class=\\'ai-pose-label\\'>${p.name}</span>';">
-                <span class="ai-pose-label">${p.name}</span>
+                <div class="ai-pose-card-inner">
+                    <span class="ai-pose-gender-tag ${genderBadgeClass}">${p.categoryLabel || p.gender}</span>
+                    ${getPoseSkeletonSvg(p.poseType || 'frontal')}
+                    <span class="ai-pose-label">${p.name}</span>
+                </div>
             `;
             card.addEventListener('click', () => selectPose(p, card));
             poseGrid.appendChild(card);
@@ -288,7 +886,125 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -----------------------------------------------------------------
-    // 6. SELECTION LOGIC
+    // 6. GENDER SELECTION & DYNAMIC FILTERING LOGIC
+    // -----------------------------------------------------------------
+    function setGender(gender) {
+        if (currentGender === gender) return;
+        currentGender = gender;
+
+        // 1. Update UI buttons and badges
+        genderBtns.forEach(btn => {
+            const isMatch = btn.getAttribute('data-gender') === gender;
+            btn.classList.toggle('active', isMatch);
+            btn.setAttribute('aria-checked', isMatch ? 'true' : 'false');
+        });
+
+        const labelMap = { 'female': 'Female', 'male': 'Male', 'non-binary': 'Non-Binary' };
+        if (genderBadge) {
+            genderBadge.textContent = labelMap[gender] || 'Female';
+        }
+
+        // 2. Refresh dynamic garment and bottoms grids
+        populateGarments();
+        populateBottoms();
+
+        // 3. Pre-select matching default pose figure for this gender
+        const defaultPose = samplePoses.find(p => p.gender === (gender === 'non-binary' ? 'unisex' : gender) && p.isDefault) 
+                         || samplePoses.find(p => p.gender === (gender === 'non-binary' ? 'unisex' : gender))
+                         || samplePoses[0];
+
+        if (defaultPose) {
+            selectedPose = {
+                id: defaultPose.id,
+                name: defaultPose.name,
+                img: defaultPose.img,
+                gender: defaultPose.gender,
+                promptModifier: defaultPose.promptModifier
+            };
+        }
+        populatePoses();
+
+        // 4. Update default prompt to match gender tone if unchanged
+        if (promptInput) {
+            const defaultFemalePrompt = 'A beautiful female model standing in a fashion studio, professional photography';
+            const defaultMalePrompt = 'A handsome male model standing in a fashion studio, professional photography';
+            const defaultNonBinaryPrompt = 'A stylish contemporary model standing in a fashion studio, professional photography';
+
+            if (promptInput.value === defaultFemalePrompt || promptInput.value === defaultMalePrompt || promptInput.value === defaultNonBinaryPrompt || promptInput.value === 'A beautiful model standing in a fashion studio, professional photography') {
+                if (gender === 'female') {
+                    promptInput.value = defaultFemalePrompt;
+                } else if (gender === 'male') {
+                    promptInput.value = defaultMalePrompt;
+                } else {
+                    promptInput.value = defaultNonBinaryPrompt;
+                }
+            }
+        }
+
+        showToast(`${labelMap[gender]} Department & Base Figures Loaded`);
+    }
+
+    genderBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetGender = btn.getAttribute('data-gender');
+            if (targetGender) setGender(targetGender);
+        });
+    });
+
+    // -----------------------------------------------------------------
+    // POSE FILTER TABS & RESET HANDLERS
+    // -----------------------------------------------------------------
+    function setPoseFilter(filter) {
+        currentPoseFilter = filter;
+        poseFilterTabs.forEach(tab => {
+            tab.classList.toggle('active', tab.getAttribute('data-pose-filter') === filter);
+        });
+        populatePoses();
+    }
+
+    poseFilterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const filter = tab.getAttribute('data-pose-filter');
+            if (filter) setPoseFilter(filter);
+        });
+    });
+
+    function resetPose() {
+        // Reset to default base model matching the active gender
+        const targetGenderKey = (currentGender === 'non-binary') ? 'unisex' : currentGender;
+        const defaultPose = samplePoses.find(p => p.gender === targetGenderKey && p.isDefault)
+                         || samplePoses.find(p => p.gender === targetGenderKey)
+                         || samplePoses[0];
+
+        if (defaultPose) {
+            selectedPose = {
+                id: defaultPose.id,
+                name: defaultPose.name,
+                img: defaultPose.img,
+                gender: defaultPose.gender,
+                promptModifier: defaultPose.promptModifier
+            };
+        } else {
+            selectedPose = null;
+        }
+
+        // Re-enable posture control toggle
+        if (togglePose) {
+            togglePose.checked = true;
+            if (poseControls) poseControls.style.display = 'block';
+        }
+
+        populatePoses();
+        const genderLabel = currentGender.charAt(0).toUpperCase() + currentGender.slice(1);
+        showToast(`Pose Reset: Default ${genderLabel} Base Model Restored`);
+    }
+
+    if (poseResetBtn) {
+        poseResetBtn.addEventListener('click', resetPose);
+    }
+
+    // -----------------------------------------------------------------
+    // 7. SELECTION LOGIC
     // -----------------------------------------------------------------
     function selectGarment(garment, cardEl) {
         selectedGarment = { 
@@ -324,16 +1040,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function selectPose(pose, cardEl) {
-        // Toggle selection
+        // Toggle selection or select
         if (selectedPose && selectedPose.id === pose.id) {
             selectedPose = null;
             document.querySelectorAll('.ai-pose-card').forEach(c => c.classList.remove('selected'));
             return;
         }
 
-        selectedPose = { img: pose.img, name: pose.name, id: pose.id, isFile: false };
+        selectedPose = { 
+            img: pose.img, 
+            name: pose.name, 
+            id: pose.id, 
+            gender: pose.gender,
+            promptModifier: pose.promptModifier,
+            isFile: false 
+        };
+
         document.querySelectorAll('.ai-pose-card').forEach(c => c.classList.remove('selected'));
         if (cardEl) cardEl.classList.add('selected');
+
+        showToast(`Base Pose Selected: ${pose.name} (${pose.categoryLabel})`);
     }
 
     function selectBottom(bottom, cardEl) {
@@ -701,6 +1427,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (selectedBottom && selectedBottom.prompt) {
                 prompt = prompt + ', paired with ' + selectedBottom.prompt;
             }
+            if (usePose && selectedPose && selectedPose.promptModifier) {
+                prompt = prompt + ', ' + selectedPose.promptModifier;
+            }
 
             const clothGuidance = parseFloat(document.getElementById('cloth-guidance').value);
             const promptGuidance = parseFloat(document.getElementById('prompt-guidance').value);
@@ -712,6 +1441,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             updateLoadingProgress(12, 'Connecting to HuggingFace ZeroGPU Space...');
 
+            const { client } = await import("https://cdn.jsdelivr.net/npm/@gradio/client@0.1.4/dist/index.js");
             const app = await Promise.race([
                 client(HF_SPACE_ID),
                 new Promise((_, reject) => 
@@ -921,6 +1651,18 @@ document.addEventListener('DOMContentLoaded', () => {
     populateGarments();
     populateBottoms();
     populateFaces();
+
+    // Initialize default base pose for female department
+    const initialDefaultPose = samplePoses.find(p => p.gender === 'female' && p.isDefault) || samplePoses[0];
+    if (initialDefaultPose) {
+        selectedPose = {
+            id: initialDefaultPose.id,
+            name: initialDefaultPose.name,
+            img: initialDefaultPose.img,
+            gender: initialDefaultPose.gender,
+            promptModifier: initialDefaultPose.promptModifier
+        };
+    }
     populatePoses();
     setEngineMode('demo');
 
@@ -929,5 +1671,5 @@ document.addEventListener('DOMContentLoaded', () => {
         selectGarment(sampleGarments[0], garmentGrid.children[0]);
     }
 
-    console.log('🧥 TAVROO AI Dressing Studio initialized with Bottoms & Redo controls');
+    console.log('🧥 TAVROO AI Dressing Studio initialized with Top-Level Gender Selection & Inclusive Pose Reset figures');
 });

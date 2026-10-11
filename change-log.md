@@ -4,23 +4,22 @@
 
 ## 📅 Last Session Footprint
 
-- **Timestamp:** 2026-10-09 16:30 IST
-- **Active Task:** Solidified `showcase.html` Solely as AI Virtual Dressing Studio & Synced Upstream Navigation:
-  1. **showcase.html Primary AI Dressing Studio:**
-     - `showcase.html` is the primary AI Virtual Dressing Studio powered by IMAGDressing-v1 (`showcase-engine.js` and `showcase-ai.css`).
-     - Includes Step 2 Bottoms / Lowers selection, live pairing with upper garments, and custom garment upload zones.
-     - Includes non-refresh `Redo Look` (seed randomization) and `Change Outfit` (reset stage) actions.
-     - Features 100% zoom viewport fit (`calc(100vh - 75px)`, `object-fit: contain` with flexbox containment, zero overflow or cutoff).
-     - Fully redesigned buttons with human-crafted luxury atelier styling (ivory bone primary button, obsidian glass secondary buttons, clean SVG vector glyphs, zero emojis).
-  2. **Backward-Compatible Routing:**
-     - `ai-dressing.html` includes zero-delay auto-redirect to `showcase.html` to prevent any broken links.
-     - Site-wide navigation updated across `index.html`, `catalog.html`, `about.html`, and collection pages pointing to `showcase.html` (AI Dressing Studio).
-- **Git State:** On `main`, tracking GitHub repository `AaradhyaJain10008/Tavroo` through `origin`.
-- **Hosting Engine:** Continuous cloud deployment automated via GitHub Pages & Vercel.
-
-## 📍 Last Edited Points & Core Logic
-
-### 1. 3D Runway Atelier Engine (`app.js` & `showcase.html`)
+- **Timestamp:** 2026-10-11 19:55 IST
+- **Active Task:** Top-Level Gender Filter, Dynamic Catalog Filtering, and Inclusive Pose Reset Figures:
+  1. **Top-Level Gender Selection (`showcase.html` & `showcase-engine.js`):**
+     - Prominent Department & Silhouette selector at the very top of the left-hand sidebar with dedicated Male, Female, and Non-Binary selectors.
+     - Styled with obsidian glass, champagne gold badges, ivory active states, and clean SVG glyphs.
+  2. **Dynamic Clothing Catalog Filtering:**
+     - Clothing grid reacts instantly to the chosen gender department.
+     - Category-specific catalog datasets for Male (Sartorial Pinstripe shirts, denim shirts, colourblock shirts, vintage heavy tees, knit polos, raw denim, tactical cargos, tailored pleat trousers), Female (Couture dresses, boho blouses, breton knits, ribbed minimal shirts, satin drape shirts, stone pleat trousers, wide-leg denim, utility cargos), and Non-Binary (Deconstructed tees, vegan leather blazers, geometric runway jackets, fluid wide-leg linen trousers, universal cargos).
+  3. **Inclusive Pose Reset Figures & Diverse Base Models:**
+     - Base figures library expanded to 14 inclusive postures across Female (Runway Frontal, 3/4 Editorial, Relaxed Studio, Hands on Hips Couture, Catwalk Stride), Male (Athletic Frontal, 3/4 Sartorial Turn, Hands in Pockets, Runway Walk, Tailored Profile), and Unisex (Neutral Symmetry, Fluid Angle, Studio Upright, Editorial Motion).
+     - Integrated OpenPose vector skeleton illustrations and gender tags on each pose card.
+     - Dedicated **"Reset Pose"** action restores the natural base model for the active gender with instant toast notification.
+  4. **Dual Studio Architecture Preserved:**
+     - `showcase.html` operates as the flagship AI Virtual Dressing Studio with IMAGDressing-v1.
+     - `atelier.html` preserves the interactive 3D WebGL Runway Atelier engine with Three.js (`app.js`).
+     - Unified navigation links across all pages (`index.html`, `showcase.html`, `atelier.html`, `catalog.html`, `about.html`).
 - Restored clean, sorted classic mannequin figure geometry with elegant facial features and naturally posed runway hands.
 - Smooth clearcoat PBR skin material without noise bump maps.
 - Shoulder and neck fitting: 16° trapezius slope yokes, flush neckline collar rings (`y=1.568`, `radius=0.082`), no chest clipping.

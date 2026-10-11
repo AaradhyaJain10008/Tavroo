@@ -38,7 +38,8 @@
         <div class="persistent-brand">WEAR YOUR POINT OF VIEW</div>
         <div class="links">
             <a href="index.html">Home</a>
-            <a href="showcase.html" class="active">AI Dressing Studio</a>
+            <a href="showcase.html" class="active">AI Dressing Studio ✦</a>
+            <a href="atelier.html">3D Runway Atelier ⚡</a>
             <a href="catalog.html">Lookbook Catalog</a>
             <a href="about.html">About & Contact</a>
         </div>
@@ -50,6 +51,31 @@
             <div class="ai-panel-header">
                 <div class="ai-badge"><span class="pulse-dot"></span> AI DRESSING STUDIO</div>
                 <p class="ai-subtitle">Powered by IMAGDressing-v1 · AAAI 2025</p>
+            </div>
+
+            <!-- Top-Level Gender Selection & Department Filter -->
+            <div class="ai-gender-section" id="ai-gender-section">
+                <div class="ai-gender-header">
+                    <div class="ai-gender-title-wrap">
+                        <span class="ai-gender-kicker">Department & Silhouette</span>
+                        <h2 class="ai-gender-title">Curated Collection</h2>
+                    </div>
+                    <span class="ai-gender-badge" id="ai-gender-badge">Female</span>
+                </div>
+                <div class="ai-gender-tabs" id="ai-gender-tabs" role="radiogroup" aria-label="Gender Department Filter">
+                    <button type="button" class="ai-gender-btn" data-gender="male" role="radio" aria-checked="false" id="gender-btn-male">
+                        <svg class="ai-gender-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="14" r="5"/><line x1="19" y1="5" x2="13.6" y2="10.4"/><polyline points="15 5 19 5 19 9"/></svg>
+                        <span>Male</span>
+                    </button>
+                    <button type="button" class="ai-gender-btn active" data-gender="female" role="radio" aria-checked="true" id="gender-btn-female">
+                        <svg class="ai-gender-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><line x1="12" y1="14" x2="12" y2="21"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
+                        <span>Female</span>
+                    </button>
+                    <button type="button" class="ai-gender-btn" data-gender="non-binary" role="radio" aria-checked="false" id="gender-btn-non-binary">
+                        <svg class="ai-gender-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="2" x2="12" y2="7"/><polyline points="9 4 12 2 15 4"/></svg>
+                        <span>Non-Binary</span>
+                    </button>
+                </div>
             </div>
 
             <!-- Step 1: Upper Garment Selection -->
@@ -143,13 +169,27 @@
                 </div>
             </div>
 
-            <!-- Step 4: Pose Selection -->
-            <div class="ai-step-section">
-                <div class="ai-step-label"><span class="ai-step-num">04</span> Pose Preset <span class="ai-optional-badge">Optional</span></div>
-                <p class="ai-step-desc">Choose a body pose for the generated image.</p>
+            <!-- Step 4: Pose Selection & Base Model Reset -->
+            <div class="ai-step-section" id="pose-section">
+                <div class="ai-step-label-row">
+                    <div class="ai-step-label"><span class="ai-step-num">04</span> Base Model & Pose Figure <span class="ai-optional-badge">Pose Skeleton</span></div>
+                    <button type="button" class="ai-pose-reset-btn" id="pose-reset-btn" title="Reset to natural runway stance">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+                        <span>Reset Pose</span>
+                    </button>
+                </div>
+                <p class="ai-step-desc">Select an inclusive runway base figure (female, male, or unisex) with posture skeleton guidance.</p>
+
+                <!-- Inclusive Pose Filter Tabs -->
+                <div class="ai-pose-filter-tabs" id="ai-pose-filter-tabs">
+                    <button type="button" class="ai-pose-filter-tab active" data-pose-filter="all">All Base Figures</button>
+                    <button type="button" class="ai-pose-filter-tab" data-pose-filter="female">Female Figures</button>
+                    <button type="button" class="ai-pose-filter-tab" data-pose-filter="male">Male Figures</button>
+                    <button type="button" class="ai-pose-filter-tab" data-pose-filter="unisex">Unisex Figures</button>
+                </div>
 
                 <div class="ai-toggle-row">
-                    <span>Apply posture control</span>
+                    <span>Apply posture skeleton control</span>
                     <label class="switch">
                         <input type="checkbox" id="toggle-pose" checked>
                         <span class="slider round"></span>
@@ -380,6 +420,9 @@
         <img id="ai-lightbox-img" class="ai-lightbox-image" alt="Enlarged AI Generation">
     </div>
 
-    <script type="module" src="showcase-engine.js"></script>
+    <!-- Feedback Toast Container -->
+    <div class="ai-toast-container" id="ai-toast-container"></div>
+
+    <script src="showcase-engine.js"></script>
 </body>
 </html>
