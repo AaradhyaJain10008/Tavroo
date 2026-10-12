@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -48,18 +48,104 @@
                 <a href="pair-your-look.html">Pair Your Look</a>
                 <a href="about.html">About Us</a>
             </div>
-            <!-- Persistent Top-Right Cart Icon & Live Badge -->
-            <a href="cart.html" class="nav-cart-btn" id="navCartBtn" aria-label="View Shopping Bag">
-                <svg class="cart-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-                    <line x1="3" y1="6" x2="21" y2="6"/>
-                    <path d="M16 10a4 4 0 0 1-8 0"/>
-                </svg>
-                <span class="cart-btn-label">Bag</span>
-                <span class="cart-count-badge" id="cartCountBadge">0</span>
-            </a>
+            <div class="nav-actions-wrap">
+                <!-- Persistent Top-Right Cart Icon & Live Badge -->
+                <a href="cart.html" class="nav-cart-btn" id="navCartBtn" aria-label="View Shopping Bag">
+                    <svg class="cart-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <path d="M16 10a4 4 0 0 1-8 0"/>
+                    </svg>
+                    <span class="cart-btn-label">Bag</span>
+                    <span class="cart-count-badge" id="cartCountBadge">0</span>
+                </a>
+                <!-- Top-Right Menu Toggle Button (All Devices) -->
+                <button type="button" class="nav-menu-btn" id="navMenuBtn" aria-label="Open Navigation Menu" aria-expanded="false" aria-controls="globalNavDrawer">
+                    <span class="nav-menu-bars">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                    <span class="nav-menu-label">Menu</span>
+                </button>
+            </div>
         </div>
     </nav>
+<!-- SLIDE-OUT NAVIGATION DRAWER & BACKDROP -->
+    <div class="nav-drawer-backdrop" id="navDrawerBackdrop" aria-hidden="true"></div>
+    <aside class="nav-slide-drawer" id="globalNavDrawer" aria-label="Site Navigation Menu" aria-hidden="true">
+        <div class="nav-drawer-header">
+            <div class="nav-drawer-brand">
+                <span class="nav-drawer-kicker">&#10022; TAVROO ATELIER</span>
+                <span class="nav-drawer-tagline">WEAR YOUR POINT OF VIEW</span>
+            </div>
+            <button type="button" class="nav-drawer-close-btn" id="navDrawerCloseBtn" aria-label="Close Navigation Menu">&times;</button>
+        </div>
+
+        <div class="nav-drawer-body">
+            <div class="nav-drawer-section-label">All Website Pages</div>
+            <nav class="nav-drawer-links" aria-label="Drawer Links">
+                <a href="index.html" class="nav-drawer-link">
+                    <span class="drawer-link-num">01</span>
+                    <span class="drawer-link-title">Home</span>
+                    <span class="drawer-link-arrow">&rarr;</span>
+                </a>
+                <a href="catalog.html" class="nav-drawer-link">
+                    <span class="drawer-link-num">02</span>
+                    <span class="drawer-link-title">Look Book Catalog</span>
+                    <span class="drawer-link-arrow">&rarr;</span>
+                </a>
+                <a href="pair-your-look.html" class="nav-drawer-link">
+                    <span class="drawer-link-num">03</span>
+                    <span class="drawer-link-title">Pair Your Look / Partner Shoes</span>
+                    <span class="drawer-link-arrow">&rarr;</span>
+                </a>
+                <a href="showcase.html" class="nav-drawer-link">
+                    <span class="drawer-link-num">04</span>
+                    <span class="drawer-link-title">AI Dressing Studio &#10022;</span>
+                    <span class="drawer-link-arrow">&rarr;</span>
+                </a>
+                <a href="index.html#community" class="nav-drawer-link">
+                    <span class="drawer-link-num">05</span>
+                    <span class="drawer-link-title">Styled By You (UGC Gallery)</span>
+                    <span class="drawer-link-arrow">&rarr;</span>
+                </a>
+                <a href="catalog.html#community-reviews" class="nav-drawer-link">
+                    <span class="drawer-link-num">06</span>
+                    <span class="drawer-link-title">Reviews / Feedback</span>
+                    <span class="drawer-link-arrow">&rarr;</span>
+                </a>
+                <a href="about.html" class="nav-drawer-link">
+                    <span class="drawer-link-num">07</span>
+                    <span class="drawer-link-title">About Us</span>
+                    <span class="drawer-link-arrow">&rarr;</span>
+                </a>
+                <a href="about.html#contact" class="nav-drawer-link">
+                    <span class="drawer-link-num">08</span>
+                    <span class="drawer-link-title">Contact / Support</span>
+                    <span class="drawer-link-arrow">&rarr;</span>
+                </a>
+            </nav>
+
+            <div class="nav-drawer-section-label" style="margin-top: 1.5rem;">Curated Departments</div>
+            <div class="nav-drawer-sublinks">
+                <a href="torso-collection.html">Tops & Graphic Tees</a>
+                <a href="legs-collection.html">Denim & Baggy Pants</a>
+                <a href="headwear-collection.html">Headwear & Caps</a>
+                <a href="footwear-collection.html">Footwear & Sneakers</a>
+                <a href="cart.html">Shopping Bag</a>
+            </div>
+        </div>
+
+        <div class="nav-drawer-footer">
+            <div class="drawer-atelier-info">
+                <p><strong>TAVROO Atelier HQ &middot; Bangalore</strong></p>
+                <p>Direct Concierge: <a href="tel:+918049008287">+91 80 4900 8287</a></p>
+                <p>Cash on Delivery across all Indian Metros</p>
+            </div>
+            <a href="catalog.html" class="btn-primary drawer-cta-btn">Explore Full Collection &rarr;</a>
+        </div>
+    </aside>
 
     <!-- DEDICATED CHECKOUT PAGE -->
     <main class="checkout-page-wrapper">
@@ -416,5 +502,6 @@
             renderCheckout();
         });
     </script>
+    <script src="global-nav.js"></script>
 </body>
 </html>
